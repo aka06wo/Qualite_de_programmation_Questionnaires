@@ -1,0 +1,26 @@
+# Fichiers binaires / objets
+*.o
+*.obj
+*.so
+*.dll
+*.exe
+*.out
+
+# Fichiers de build
+/build/
+/bin/
+/lib/
+/CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Fichiers d'environnement
+.vscode/
+.idea/
+*.swp
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+
