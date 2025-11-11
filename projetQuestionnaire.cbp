@@ -32,6 +32,16 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="Question.cpp" />
+		<Unit filename="Question.h" />
+		<Unit filename="QuestionChoixMultiple.cpp" />
+		<Unit filename="QuestionChoixMultiple.h" />
+		<Unit filename="QuestionNumerique.cpp" />
+		<Unit filename="QuestionNumerique.h" />
+		<Unit filename="QuestionTexte.cpp" />
+		<Unit filename="QuestionTexte.h" />
+		<Unit filename="Questionnaire.cpp" />
+		<Unit filename="Questionnaire.h" />
 		<Unit filename="main.cpp" />
 		<Extensions />
 	</Project>
