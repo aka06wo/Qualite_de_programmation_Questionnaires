@@ -4,9 +4,10 @@
 Questionnaire::Questionnaire(const string &titre, const vector<std::unique_ptr<Question>>& Questions):
     d_titre{titre}, d_nbQuestions{0}
 {
-    d_Questions.reserve(Questions.size()) ; // juste pour optimiser
+    // on peut mouver un tableau entier ou pas ?? je suis plus sûr de ce que je dis 
 
-    d_Questions.reserve(Questions.size());
+    d_Questions.reserve(Questions.size()) ; // juste pour optimiser
+    // on doit faire std::move(q->clone()) ou pas ? en a t'on besoin de clone ?
     for (const auto &q : Questions) {
         d_Questions.push_back(q->clone()); // copie polymorphe
         d_nbQuestions++;
@@ -46,7 +47,7 @@ void Questionnaire::apprentissage() const
         for (const auto &q : d_Questions)
         {
             q->afficherQuestion() ;
-            cout<<'\n' ;
+            std::cout<<'\n' ;
             q->afficherReponse() ;
         }
 }

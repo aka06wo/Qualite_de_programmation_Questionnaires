@@ -8,7 +8,7 @@
         "type": "choixMultiples",
         "question": "Quels langages de programmation est le mieux connu entre ceux là",
         "reponsesPossibles": ["Python", "Java", "C++"],
-        "reponseCorrecte": "Python"
+        "numReponseCorrecte": 1
       },
       {
         "type": "numerique",
@@ -31,7 +31,7 @@
         "type": "choixMultiples",
         "question": "Combien de Coupes du Monde est-ce que Cristiano Ronaldo a remporté ?",
         "reponsesPossibles": [0, 2, 4],
-        "reponseCorrecte": 0
+        "numReponseCorrecte": 1
       },
       {
         "type": "numerique",

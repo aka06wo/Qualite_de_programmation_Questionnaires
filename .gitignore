@@ -18,13 +18,6 @@ bin/
 obj/
 build/
 
-# --- CLion / CMake ---
-cmake-build-*/
-CMakeFiles/
-CMakeCache.txt
-Makefile
-cmake_install.cmake
-CMakeLists.txt
 
 # --- Environnements ---
 .vscode/

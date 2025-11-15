@@ -1,5 +1,7 @@
 #include "QuestionnaireJSON.h"
+#include "QuestionChoixMultiple.h"
 #include <fstream>
+#include <memory>
 
 QuestionnaireJSON::QuestionnaireJSON(const string &nomQuestionnaire) :
     d_nomQuestionnaire(nomQuestionnaire), d_monFichier{json::array()}
@@ -21,7 +23,8 @@ void QuestionnaireJSON::chargerQuestionnaire(Questionnaire &questionnaire) {
         {
             if (q.value("type","Indefini")=="choixMultiples")
             {
-                // make unique et on modifie le questionnaire
+                questionnaire.ajouterQuestion(std::make_unique<QuestionChoixMultiple>
+                            (q["question"],q["reponsesPossibles"],q["numReponseCorrecte"])) ;
             }
             else if (q.value("type","Indefini")=="numerique")
             {
@@ -40,9 +43,9 @@ void QuestionnaireJSON::chargerQuestionnaire(Questionnaire &questionnaire) {
 }
 
 void QuestionnaireJSON::ajouterQuestion(const std::unique_ptr<Question> &q) const {
-
+    // il faut que je sache le type de la question pour ajouter
 }
 
 void QuestionnaireJSON::sauvegarderQuestionnaire(const Questionnaire &questionnaire) const {
-
+    // je remets le json dans le fichier
 }
