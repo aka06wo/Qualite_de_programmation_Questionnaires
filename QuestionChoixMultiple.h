@@ -8,14 +8,14 @@
 class QuestionChoixMultiple : public Question
 {
     public:
-    QuestionChoixMultiple(const string &question, 
+    QuestionChoixMultiple(const string &question,
                 const std::vector<string> &reponsesPossibles, int numReponse);
     string reponse() const override ;
     void afficherReponse() const override ;
 
     bool verificationReponse(string reponse) const override ;
     // Problème de modélisation dans la classe abstraite
-    bool verificationReponse(int reponse) const ;
+    //bool verificationReponse(int reponse) const override ; aisse
 
     std::unique_ptr<Question> clone() const override ;
 

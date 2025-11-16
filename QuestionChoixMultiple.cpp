@@ -1,6 +1,6 @@
 #include "QuestionChoixMultiple.h"
 
-QuestionChoixMultiple::QuestionChoixMultiple(const string &question, 
+QuestionChoixMultiple::QuestionChoixMultiple(const string &question,
                     const std::vector<string> &reponsesPossibles, int numReponse) :
     Question{question}, d_reponsesPossibles{reponsesPossibles}, d_numReponse{numReponse}
 {
@@ -15,8 +15,8 @@ void QuestionChoixMultiple::afficherReponse() const {
 }
 
 // revoir la modélisation bool QuestionChoixMultiple::verificationReponse(STRING reponse) const
-bool QuestionChoixMultiple::verificationReponse(int reponse) const {
-    return reponse==d_numReponse ;
+bool QuestionChoixMultiple::verificationReponse(string reponse) const {
+    return std::stoi(reponse)==d_numReponse +1 ;
 }
 
 std::unique_ptr<Question> QuestionChoixMultiple::clone() const {

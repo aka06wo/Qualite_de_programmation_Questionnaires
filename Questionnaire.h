@@ -6,7 +6,7 @@
 #include <vector>
 #include <memory>
 
-#include "QuestionnaireJSON.h"
+//#include "QuestionnaireJSON.h"
 
 class Question ;
 
@@ -30,7 +30,7 @@ public :
     void apprentissage() const ;
 
     void sauvegarder(ostream& os) const ;
-    void charger(istream& ist) ; // � faire une fois que toutes les classes deriv�s de 
+    void charger(istream& ist) ; // � faire une fois que toutes les classes deriv�s de
     //la classe seront fonctionnelle
 
 private :
