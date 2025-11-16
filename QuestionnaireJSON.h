@@ -3,12 +3,15 @@
 
 #include "json.hpp"
 #include "Questionnaire.h"
+#include "Question.h"
+
+
 
 using nlohmann::json ;
 
 class QuestionnaireJSON {
     public:
-    QuestionnaireJSON (const string &nomQuestionnaire) ;
+    QuestionnaireJSON (const std::string &nomQuestionnaire) ;
     std::string nomQuestionnaire() const;
     void chargerQuestionnaire(Questionnaire &questionnaire) ;
     void ajouterQuestion(const std::unique_ptr<Question> &q) const ;
