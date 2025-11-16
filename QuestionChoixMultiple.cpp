@@ -7,7 +7,18 @@ QuestionChoixMultiple::QuestionChoixMultiple(const string &question,
 }
 
 string QuestionChoixMultiple::reponse() const {
-    return d_reponsesPossibles[d_numReponse];
+    return choixNumero(d_numReponse);
+}
+
+int QuestionChoixMultiple::nombreDeChoix() const 
+{
+    return d_reponsesPossibles.size() ;
+}
+
+// tester si i ne depasse pas les élements du tableau
+string QuestionChoixMultiple::choixNumero(int i) const 
+{
+    return d_reponsesPossibles[i-1] ;
 }
 
 void QuestionChoixMultiple::afficherReponse() const {
