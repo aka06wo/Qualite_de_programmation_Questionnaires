@@ -1,0 +1,23 @@
+# depslib dependency file v1.0
+1762862091 source:c:\users\dell\projetpoo\projetquestionnaire\main.cpp
+	<iostream>
+
+1762862001 source:c:\users\dell\projetpoo\projetquestionnaire\question.cpp
+	<string>
+	<iostream>
+	"Question.h"
+
+1763234221 c:\users\dell\projetpoo\projetquestionnaire\question.h
+	<string>
+	<iostream>
+
+1762862001 source:c:\users\dell\projetpoo\projetquestionnaire\questionchoixmultiple.cpp
+	"QuestionChoixMultiple.h"
+
+1762862001 c:\users\dell\projetpoo\projetquestionnaire\questionchoixmultiple.h
+
+1762862001 source:c:\users\dell\projetpoo\projetquestionnaire\questionnumerique.cpp
+	"QuestionNumerique.h"
+
+1762862001 c:\users\dell\projetpoo\projetquestionnaire\questionnumerique.h
+
