@@ -1,0 +1,31 @@
+# --- Code::Blocks ---
+*.cbp
+*.depend
+*.layout
+
+# --- Visual Studio ---
+*.obj
+*.exe
+
+# --- Fichiers binaires / objets ---
+*.o
+*.so
+*.dll
+*.out
+
+# --- Dossiers de build ---
+bin/
+obj/
+build/
+
+# --- CLION ---
+
+
+
+# --- Environnements ---
+.vscode/
+.idea/
+
+# --- Système ---
+.DS_Store
+Thumbs.db
