@@ -1,26 +1,28 @@
-# Fichiers binaires / objets
-*.o
+# --- Code::Blocks ---
+*.cbp
+*.depend
+*.layout
+
+# --- Visual Studio ---
 *.obj
+*.exe
+
+# --- Fichiers binaires / objets ---
+*.o
 *.so
 *.dll
-*.exe
 *.out
 
-# Fichiers de build
-/build/
-/bin/
-/lib/
-/CMakeFiles/
-CMakeCache.txt
-cmake_install.cmake
-Makefile
+# --- Dossiers de build ---
+bin/
+obj/
+build/
 
-# Fichiers d'environnement
+
+# --- Environnements ---
 .vscode/
 .idea/
-*.swp
 
-# Fichiers système
+# --- Système ---
 .DS_Store
 Thumbs.db
-
