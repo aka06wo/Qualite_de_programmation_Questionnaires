@@ -18,6 +18,9 @@ bin/
 obj/
 build/
 
+# --- CLION ---
+
+
 
 # --- Environnements ---
 .vscode/

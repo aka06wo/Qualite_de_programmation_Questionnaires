@@ -12,10 +12,10 @@ using nlohmann::json ;
 class QuestionnaireJSON {
     public:
     QuestionnaireJSON (const std::string &nomQuestionnaire) ;
-    std::string nomQuestionnaire() const;
+    std::string nomQuestionnaire() const ;
     void chargerQuestionnaire(Questionnaire &questionnaire) ;
-    void ajouterQuestion(const std::unique_ptr<Question> &q) const ;
 
+    json conversionJSON(const Questionnaire &q) const ;
     // Pour respecter le questionnaire, son format
     // on doit ajouter la methode type question ?? pour savoir le type de la question
     void sauvegarderQuestionnaire(const Questionnaire &questionnaire) const ;

@@ -13,18 +13,13 @@ class QuestionChoixMultiple : public Question
     string reponse() const override ;
     int nombreDeChoix() const ;
     string choixNumero(int i) const ;
-    // mettre dans la classe de base, reponseUtilisateur (une methode qui renvoie le string du cin utilisateur)
     void afficherReponse() const override ;
-
-    bool verificationReponse(string reponse) const override ;
-    // Problème de modélisation dans la classe abstraite
-    //bool verificationReponse(int reponse) const override ; aisse
-
+    bool verificationReponse(const string &reponse) const override ;
     std::unique_ptr<Question> clone() const override ;
 
     private:
     std::vector<string> d_reponsesPossibles ;
-    int d_numReponse ;
+    int d_indiceReponse ;
 };
 
 
