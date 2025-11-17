@@ -4,7 +4,7 @@
 #include <memory>
 
 QuestionnaireJSON::QuestionnaireJSON(const string &nomQuestionnaire) :
-    d_nomQuestionnaire(nomQuestionnaire), d_monFichier{json::array()}
+    d_nomQuestionnaire(nomQuestionnaire), d_monFichier{json::object()}
 {
 }
 
@@ -13,9 +13,10 @@ std::string QuestionnaireJSON::nomQuestionnaire() const {
 }
 
 void QuestionnaireJSON::chargerQuestionnaire(Questionnaire &questionnaire) {
-    if (questionnaire.nombreDeQuestions()!=0)
+    if (questionnaire.nombreDeQuestions()==0)
     {
-        std::ifstream monFichier("Ficher_Questionnaire.json");
+        // faire un try catch sur le fichier, s'il est pas ouvert
+        std::ifstream monFichier("Fichier_Questionnaire.json");
         monFichier >> d_monFichier ;
 
         json d_monQuestionnaire = d_monFichier[d_nomQuestionnaire];
@@ -42,8 +43,11 @@ void QuestionnaireJSON::chargerQuestionnaire(Questionnaire &questionnaire) {
     }
 }
 
-json QuestionnaireJSON::conversionJSON(const Questionnaire &q) const {
 
+// A reecrire
+json QuestionnaireJSON::conversionJSON(const Questionnaire &q) const {
+    json test ;
+    return test;
 }
 
 void QuestionnaireJSON::sauvegarderQuestionnaire(const Questionnaire &questionnaire) const {

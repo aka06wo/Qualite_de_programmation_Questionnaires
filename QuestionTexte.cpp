@@ -11,7 +11,7 @@ using std::endl;
 
  void QuestionTexte::afficherReponse() const
  {
-     cout<<"La réponse correcte est: "<<d_reponseCorrecte<<endl;
+     cout<<"La reponse correcte est: "<<d_reponseCorrecte<<endl;
  }
 
  string QuestionTexte::reponse() const
@@ -38,4 +38,10 @@ using std::endl;
          }
           return true;
      }
+ }
+
+
+//désolé je devais le faire pour tester
+std::unique_ptr<Question> QuestionTexte::clone() const {
+     return std::make_unique<QuestionTexte>(*this);
  }

@@ -45,3 +45,9 @@ bool QuestionNumerique::verificationReponse(const string &reponse) const
 
    return true;
 }
+
+
+//désolé je devais le faire pour tester
+std::unique_ptr<Question> QuestionNumerique::clone() const {
+    return std::make_unique<QuestionNumerique>(*this);
+}
