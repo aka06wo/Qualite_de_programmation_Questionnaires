@@ -3,7 +3,7 @@
 
 int main()
 {
-    std::cout<<"test avec sidy";
+    std::cout<<"";
 
     return 0;
 }

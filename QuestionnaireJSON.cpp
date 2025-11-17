@@ -42,10 +42,25 @@ void QuestionnaireJSON::chargerQuestionnaire(Questionnaire &questionnaire) {
     }
 }
 
-void QuestionnaireJSON::ajouterQuestion(const std::unique_ptr<Question> &q) const {
-    // il faut que je sache le type de la question pour ajouter
+json QuestionnaireJSON::conversionJSON(const Questionnaire &q) const {
+
 }
 
 void QuestionnaireJSON::sauvegarderQuestionnaire(const Questionnaire &questionnaire) const {
-    // je remets le json dans le fichier
+    json tousLesQuestionnaires;
+    std::ifstream monFichier("Fichier_Questionnaire.json");
+    monFichier >> tousLesQuestionnaires;
+    monFichier.close();
+
+    for (auto &q : tousLesQuestionnaires)
+    {
+        if (q["titre"] == questionnaire.nomQuestionnaire()) {
+            q= conversionJSON(questionnaire); // ton questionnaire converti en json
+            break;
+        }
+    }
+    // écrire tout le tableau
+    std::ofstream fichier_out("Fichier_Questionnaire.json");
+    fichier_out << tousLesQuestionnaires.dump(4);
+    fichier_out.close();
 }
