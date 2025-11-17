@@ -19,7 +19,7 @@ public :
     virtual void afficherReponse() const = 0;
     virtual string reponse() const = 0;
     //virtual string Type_Question() const = 0;
-    virtual std::unique_ptr<Question> clone() const ;
+    virtual std::unique_ptr<Question> clone() const=0 ;
 
 private :
     string d_intitule ;

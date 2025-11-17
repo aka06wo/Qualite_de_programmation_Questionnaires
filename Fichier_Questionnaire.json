@@ -1,6 +1,5 @@
-[
-  {
-    "titre": "Questionnaire sur la programmation",
+{
+  "Questionnaire sur la programmation": {
     "description": "Description du questionnaire sur la programmation",
     "nombreDeQuestions": 3,
     "questions": [
@@ -22,8 +21,7 @@
       }
     ]
   },
-  {
-    "titre": "Questionnaire sur le football",
+  "Questionnaire sur le football": {
     "description": "Description du questionnaire sur le football",
     "nombreDeQuestions": 3,
     "questions": [
@@ -45,4 +43,4 @@
       }
     ]
   }
-]
+}

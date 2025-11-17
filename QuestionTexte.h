@@ -13,6 +13,7 @@ class QuestionTexte:public Question {
     bool verificationReponse(const string &reponse) const override;
     void afficherReponse() const override;
     string reponse() const override;
+    std::unique_ptr<Question> clone() const override ;
     private:
     string d_reponseCorrecte;
 

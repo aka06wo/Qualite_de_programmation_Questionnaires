@@ -2,7 +2,7 @@
 #include "Question.h"
 
 
-Questionnaire::Questionnaire() : d_titre{"Questionnaire Vide"}, d_nbQuestions{0}
+Questionnaire::Questionnaire() : d_nom{"Questionnaire Vide"},d_description{"Ceci est un questionnaire vide"}, d_nbQuestions{0}
 {
 }
 
@@ -34,7 +34,7 @@ void Questionnaire::ajouterQuestion(std::unique_ptr<Question> q)
 
 void Questionnaire::apprentissage() const
 {
-    std::cout << " Apprentissage : " << d_titre << " \n";
+    std::cout << " Apprentissage : " << d_nom << " \n";
         for (const auto &q : d_Questions)
         {
             q->afficherQuestion() ;

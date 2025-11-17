@@ -14,6 +14,7 @@ class QuestionNumerique : public Question
     void afficherReponse() const override ;
     bool estUnEntier(const string& reponse) const;
     bool verificationReponse(const string &reponse) const override ;
+    std::unique_ptr<Question> clone() const override ;
 
 
     private:
