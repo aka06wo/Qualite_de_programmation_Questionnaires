@@ -19,7 +19,8 @@ obj/
 build/
 
 # --- CLION ---
-
+CMakeLists.txt
+cmake-build-debug
 
 
 # --- Environnements ---
