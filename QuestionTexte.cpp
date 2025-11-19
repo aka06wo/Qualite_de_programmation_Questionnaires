@@ -5,8 +5,13 @@ using std::cout;
 using std::cin;
 using std::endl;
 
+
  QuestionTexte::QuestionTexte(const string &intitule,const string &reponse): Question{intitule},d_reponseCorrecte{reponse}
  {
+ }
+
+void QuestionTexte::afficherQuestion() const {
+     cout<<intitule()<<endl ;
  }
 
  void QuestionTexte::afficherReponse() const
@@ -40,8 +45,16 @@ using std::endl;
      }
  }
 
-
 //désolé je devais le faire pour tester
 std::unique_ptr<Question> QuestionTexte::clone() const {
      return std::make_unique<QuestionTexte>(*this);
+ }
+
+
+json QuestionTexte::conversionJSON() const {
+     return json{
+         {"type", "texte"},
+         {"question", intitule()},
+         {"reponseCorrecte", reponse()}
+     };
  }

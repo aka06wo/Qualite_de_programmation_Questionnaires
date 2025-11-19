@@ -7,7 +7,7 @@ include_directories(.)
 
 add_executable(Code_Questionnaire
         doctest.h
-        Fichier_Questionnaire.json
+        cmake-build-debug/Fichier_Questionnaire.json
         json.hpp
         main.cpp
         Question.cpp

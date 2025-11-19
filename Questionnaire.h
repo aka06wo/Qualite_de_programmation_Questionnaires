@@ -5,9 +5,11 @@
 #include<iostream>
 #include <vector>
 #include <memory>
+#include "json.hpp"
 
 class Question ;
 
+using nlohmann::json ;
 using std::string ;
 using std::ostream;
 using std::istream;
@@ -21,9 +23,11 @@ public :
     Questionnaire() ;
     Questionnaire(const string &nom,const string &description = "" ,const vector<std::unique_ptr<Question>> &Questions = {});
     string nomQuestionnaire() const ;
+    string descriptionQuestionnaire() const ;
+    vector<std::unique_ptr<Question>> mesQuestions() const ;
     int nombreDeQuestions() const ;
 
-    // il me faut une manière de recuperer les questions pour sauvegarder dans le fichier json
+    json conversionQuestionnaireJson() const ;
 
     // On le mets ici, ou on fait une classe � part ?? (je ne sais pas encore)
     void apprentissage() const ;

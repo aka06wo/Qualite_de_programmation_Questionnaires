@@ -3,6 +3,11 @@
 #include <fstream>
 #include <memory>
 
+#include "QuestionNumerique.h"
+#include "QuestionTexte.h"
+
+const std::string NomFichierQuestionnaire = "Fichier_Questionnaire.json" ;
+
 QuestionnaireJSON::QuestionnaireJSON(const string &nomQuestionnaire) :
     d_nomQuestionnaire(nomQuestionnaire), d_monFichier{json::object()}
 {
@@ -16,12 +21,13 @@ void QuestionnaireJSON::chargerQuestionnaire(Questionnaire &questionnaire) {
     if (questionnaire.nombreDeQuestions()==0)
     {
         // faire un try catch sur le fichier, s'il est pas ouvert
-        std::ifstream monFichier("Fichier_Questionnaire.json");
+        std::ifstream monFichier(NomFichierQuestionnaire);
         monFichier >> d_monFichier ;
 
         json d_monQuestionnaire = d_monFichier[d_nomQuestionnaire];
         for (const auto &q : d_monQuestionnaire["questions"])
         {
+            // faire un switch case plutot
             if (q.value("type","Indefini")=="choixMultiples")
             {
                 questionnaire.ajouterQuestion(std::make_unique<QuestionChoixMultiple>
@@ -29,11 +35,11 @@ void QuestionnaireJSON::chargerQuestionnaire(Questionnaire &questionnaire) {
             }
             else if (q.value("type","Indefini")=="numerique")
             {
-                // make unique et on modifie le questionnaire
+                questionnaire.ajouterQuestion(std::make_unique<QuestionNumerique>(q["question"],q["reponseCorrecte"])) ;
             }
             else if (q.value("type","Indefini")=="texte")
             {
-                // make unique et on modifie le questionnaire
+                questionnaire.ajouterQuestion(std::make_unique<QuestionTexte>(q["question"],q["reponseCorrecte"])) ;
             }
         }
     }
@@ -43,27 +49,14 @@ void QuestionnaireJSON::chargerQuestionnaire(Questionnaire &questionnaire) {
     }
 }
 
-
-// A reecrire
-json QuestionnaireJSON::conversionJSON(const Questionnaire &q) const {
-    json test ;
-    return test;
-}
-
 void QuestionnaireJSON::sauvegarderQuestionnaire(const Questionnaire &questionnaire) const {
     json tousLesQuestionnaires;
     std::ifstream monFichier("Fichier_Questionnaire.json");
     monFichier >> tousLesQuestionnaires;
     monFichier.close();
 
-    for (auto &q : tousLesQuestionnaires)
-    {
-        if (q["titre"] == questionnaire.nomQuestionnaire()) {
-            q= conversionJSON(questionnaire); // ton questionnaire converti en json
-            break;
-        }
-    }
-    // écrire tout le tableau
+    tousLesQuestionnaires[questionnaire.nombreDeQuestions()]=questionnaire.conversionQuestionnaireJson();
+
     std::ofstream fichier_out("Fichier_Questionnaire.json");
     fichier_out << tousLesQuestionnaires.dump(4);
     fichier_out.close();

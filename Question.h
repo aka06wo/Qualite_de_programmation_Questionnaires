@@ -3,7 +3,9 @@
 
 #include<string>
 #include<memory>
+#include "json.hpp"
 
+using nlohmann::json ;
 using std::string ;
 using std::ostream;
 using std::istream;
@@ -15,11 +17,12 @@ public :
     virtual ~Question() = default ;
     string intitule() const ;
     virtual bool verificationReponse(const string &reponse) const = 0 ;
-    void afficherQuestion() const ;
+    virtual void afficherQuestion() const =0;
     virtual void afficherReponse() const = 0;
     virtual string reponse() const = 0;
-    //virtual string Type_Question() const = 0;
     virtual std::unique_ptr<Question> clone() const=0 ;
+    // mamadou : j'en avais besoin pour la classe questionnaireJSON, je vous expliquerait
+    virtual json conversionJSON () const = 0;
 
 private :
     string d_intitule ;
