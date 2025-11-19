@@ -138,7 +138,7 @@
 		},
 		{
 			"backtrace" : 1,
-			"path" : "Fichier_Questionnaire.json",
+			"path" : "cmake-build-debug/Fichier_Questionnaire.json",
 			"sourceGroupIndex" : 1
 		},
 		{

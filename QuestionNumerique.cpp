@@ -12,6 +12,10 @@ string QuestionNumerique::reponse() const
     return std::to_string(d_reponse);
 }
 
+void QuestionNumerique::afficherQuestion() const {
+    std::cout<<intitule()<<std::endl ;
+}
+
 void QuestionNumerique::afficherReponse() const
 {
     std::cout<<reponse()<<std::endl;
@@ -50,4 +54,13 @@ bool QuestionNumerique::verificationReponse(const string &reponse) const
 //désolé je devais le faire pour tester
 std::unique_ptr<Question> QuestionNumerique::clone() const {
     return std::make_unique<QuestionNumerique>(*this);
+}
+
+
+json QuestionNumerique::conversionJSON() const {
+    return json{
+        {"type", "numerique"},
+        {"question", intitule()},
+        {"reponseCorrecte", d_reponse}
+    };
 }
