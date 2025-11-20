@@ -34,7 +34,6 @@ void QuestionChoixMultiple::afficherReponse() const {
     std::cout<<reponse()<<std::endl;
 }
 
-// revoir la modélisation bool QuestionChoixMultiple::verificationReponse(STRING reponse) const
 bool QuestionChoixMultiple::verificationReponse(const string &reponse) const {
     return std::stoi(reponse) == d_indiceReponse + 1 ;
 }
@@ -42,7 +41,6 @@ bool QuestionChoixMultiple::verificationReponse(const string &reponse) const {
 std::unique_ptr<Question> QuestionChoixMultiple::clone() const {
     return std::make_unique<QuestionChoixMultiple>(*this) ;
 }
-
 
 json QuestionChoixMultiple::conversionJSON() const {
     return json {

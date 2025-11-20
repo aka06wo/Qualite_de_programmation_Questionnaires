@@ -4,7 +4,7 @@
 void test() {
     QuestionnaireJSON fichier {"Questionnaire sur la programmation"} ;
     Questionnaire monQuestionnaire {} ;
-    fichier.chargerQuestionnaire(monQuestionnaire) ;
+    fichier.chargerDansQuestionnaire(monQuestionnaire) ;
     monQuestionnaire.apprentissage() ;
 }
 

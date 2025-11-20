@@ -20,7 +20,7 @@ build/
 
 # --- CLION ---
 CMakeLists.txt
-cmake-build-debug
+cmake-build-debug/
 
 
 # --- Environnements ---

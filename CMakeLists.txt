@@ -21,4 +21,10 @@ add_executable(Code_Questionnaire
         QuestionNumerique.cpp
         QuestionNumerique.h
         QuestionTexte.cpp
-        QuestionTexte.h)
+        QuestionTexte.h
+        EvaluationSecondeChance.cpp
+        EvaluationSecondeChance.h
+        Evaluation.cpp
+        Evaluation.h
+        Evaluation.cpp
+        Evaluation.h)
