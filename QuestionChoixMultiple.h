@@ -7,7 +7,7 @@
 
 class QuestionChoixMultiple : public Question
 {
-    public:
+public:
     QuestionChoixMultiple(const string &question,
                 const std::vector<string> &reponsesPossibles, int numReponse);
     string reponse() const override ;
@@ -19,8 +19,7 @@ class QuestionChoixMultiple : public Question
     std::unique_ptr<Question> clone() const override ;
     json conversionJSON () const override ;
 
-    private:
-    // en affichant la question je dois afficher les réponses possibles aussi
+private:
     std::vector<string> d_reponsesPossibles ;
     int d_indiceReponse ;
 };

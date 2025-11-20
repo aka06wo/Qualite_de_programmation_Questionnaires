@@ -21,8 +21,16 @@ string Questionnaire::nomQuestionnaire() const
     return d_nom ;
 }
 
+void Questionnaire::changerNomQuestionnaire(const string &nomQuestionnaire) {
+    d_nom = nomQuestionnaire ;
+}
+
 string Questionnaire::descriptionQuestionnaire() const {
     return d_description ;
+}
+
+void Questionnaire::changerDescriptionQuestionnaire(const string &descriptionQuestionnaire) {
+    d_description = descriptionQuestionnaire ;
 }
 
 int Questionnaire::nombreDeQuestions() const {
