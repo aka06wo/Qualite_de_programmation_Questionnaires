@@ -24,11 +24,9 @@ string QuestionChoixMultiple::choixNumero(int i) const
 void QuestionChoixMultiple::afficherQuestion() const {
     std::cout<<intitule()<<std::endl ;
     if (d_reponsesPossibles.size() != 0) {
-        std::cout<<"[ "<<d_reponsesPossibles[0] ;
-        for (int i = 1; i < d_reponsesPossibles.size(); i++) {
-            std::cout<<", "<<d_reponsesPossibles[i] ;
+        for (int i = 0; i < d_reponsesPossibles.size(); i++) {
+            std::cout<<i+1<<"- "<<d_reponsesPossibles[i]<<std::endl ;
         }
-        std::cout<<" ]"<<std::endl ;
     }
 }
 
