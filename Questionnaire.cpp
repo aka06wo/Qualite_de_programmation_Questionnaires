@@ -41,8 +41,9 @@ json Questionnaire::conversionQuestionnaireJson() const {
     json description_questionnaires ;
     json resultat ;
 
-    description_questionnaires["description"]=q.descriptionQuestionnaire() ;
-    description_questionnaires["nombreDeQuestions"] = q.nombreDeQuestions() ;
+    //aisse: j'ai enleve le q. devant les methodes carpas la peine
+    description_questionnaires["description"]=descriptionQuestionnaire() ;
+    description_questionnaires["nombreDeQuestions"] = nombreDeQuestions() ;
     description_questionnaires["questions"]=json::array() ;
     for (const auto &q : d_Questions) {
         description_questionnaires["questions"].push_back(q->conversionJSON()) ;

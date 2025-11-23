@@ -2,8 +2,8 @@
 #include <iostream>
 
 
-QuestionNumerique::QuestionNumerique(const string& intitule,int reponse): Question{intitule},d_reponse{reponse},
-                d_limiteMax{static_cast<int>(reponse+reponse*0.1)},d_limiteMin{static_cast<int>(reponse-reponse*0.1)}
+QuestionNumerique::QuestionNumerique(const string& intitule,int reponse,int limitemax,int limitemin): Question{intitule},d_reponse{reponse},
+                d_limiteMax{limitemax},d_limiteMin{limitemin}
 {
 }
 
