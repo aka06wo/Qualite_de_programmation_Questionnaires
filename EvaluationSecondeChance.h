@@ -6,15 +6,10 @@
 class EvaluationSecondeChance : public Evaluation
 {
     public:
-    EvaluationSecondeChance(const std::string &nomQuestionnaire);
-    std::string reponseUtilisateurQuestion() const override ;
-    void lanceEvaluation() const override;
+    EvaluationSecondeChance(const Questionnaire &questionnaire);
+    void lanceEvaluation() override;
     void resultatEvaluation() const override;
-    void certificatReussite() const override;
-    void certificatHtml() const override;
-
     private:
-    
 };
 
 

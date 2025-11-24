@@ -26,16 +26,14 @@ public :
     void changerNomQuestionnaire(const string &nomQuestionnaire);
     string descriptionQuestionnaire() const ;
     void changerDescriptionQuestionnaire(const string &descriptionQuestionnaire);
-    vector<std::unique_ptr<Question>> mesQuestions() const ;
     int nombreDeQuestions() const ;
-
-    // Mamadou, j'en ai besoin pour la classe QuestionnaireJSON
+    void afficherQuestionNumero(int i) const ;
+    void afficherReponseNumero(int i) const ;
+    // verifie si la reponse rep est juste pour la question I
+    bool verificationReponse(int i,const std::string &reponse) const ;
     json conversionQuestionnaireJson() const ;
     // elle doit juste remettre tout à zero si jamais il y avait quelque chose
     void reinitialiser() const ;
-
-    // On le mets ici, ou on fait une classe � part ?? (je ne sais pas encore)
-    void apprentissage() const ;
 
 private :
     string d_nom ;
