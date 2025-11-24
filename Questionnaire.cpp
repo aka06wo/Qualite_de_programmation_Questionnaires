@@ -38,6 +38,7 @@ int Questionnaire::nombreDeQuestions() const {
 }
 
 
+
 void Questionnaire::ajouterQuestion(std::unique_ptr<Question> q)
 {
     d_Questions.push_back(std::move(q));
@@ -45,12 +46,24 @@ void Questionnaire::ajouterQuestion(std::unique_ptr<Question> q)
 }
 
 
+void Questionnaire::afficherQuestionNumero(int i) const {
+    d_Questions[i]->afficherQuestion() ;
+}
+
+void Questionnaire::afficherReponseNumero(int i) const {
+    d_Questions[i]->afficherReponse() ;
+}
+
+bool Questionnaire::verificationReponse(int i,const std::string &reponse) const {
+    return d_Questions[i]->verificationReponse(reponse) ;
+}
+
 json Questionnaire::conversionQuestionnaireJson() const {
     json description_questionnaires ;
     json resultat ;
 
-    description_questionnaires["description"]=q.descriptionQuestionnaire() ;
-    description_questionnaires["nombreDeQuestions"] = q.nombreDeQuestions() ;
+    description_questionnaires["description"]=descriptionQuestionnaire() ;
+    description_questionnaires["nombreDeQuestions"] = nombreDeQuestions() ;
     description_questionnaires["questions"]=json::array() ;
     for (const auto &q : d_Questions) {
         description_questionnaires["questions"].push_back(q->conversionJSON()) ;
@@ -62,14 +75,4 @@ json Questionnaire::conversionQuestionnaireJson() const {
 }
 
 
-void Questionnaire::apprentissage() const
-{
-    std::cout << " Apprentissage : " << d_nom << " \n";
-        for (const auto &q : d_Questions)
-        {
-            q->afficherQuestion() ;
-            std::cout<<'\n' ;
-            q->afficherReponse() ;
-        }
-}
 
