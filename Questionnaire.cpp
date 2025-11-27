@@ -72,4 +72,11 @@ void Questionnaire::apprentissage() const
             q->afficherReponse() ;
         }
 }
+void Questionnaire::reinitialiser()
+{
+    d_nom = " ";
+    d_description = " ";
+    d_Questions.clear();
+    d_nbQuestions = 0;
+}
 

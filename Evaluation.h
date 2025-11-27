@@ -16,10 +16,11 @@ public:
     virtual void certificatHtml() const = 0;
     virtual ~Evaluation() = default;
 
-protected:
-    Questionnaire d_questionnaire;
-    QuestionnaireJSON d_monFichier;
+    protected:
+    // pour s'assurer qu'on le modifie pas (le questionnaire)
+    const Questionnaire *d_questionnaire;
     int d_nbEssai ;
+    int d_score ;
 };
 
 
