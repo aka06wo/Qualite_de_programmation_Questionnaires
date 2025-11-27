@@ -32,7 +32,7 @@ public :
     // Mamadou, j'en ai besoin pour la classe QuestionnaireJSON
     json conversionQuestionnaireJson() const ;
     // elle doit juste remettre tout à zero si jamais il y avait quelque chose
-    void reinitialiser() ;
+    void reinitialiser() const ;
 
     // On le mets ici, ou on fait une classe � part ?? (je ne sais pas encore)
     void apprentissage() const ;
