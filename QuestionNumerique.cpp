@@ -1,6 +1,7 @@
 #include "QuestionNumerique.h"
 #include <iostream>
 
+using std::cout;
 
 QuestionNumerique::QuestionNumerique(const string& intitule,int reponse,int limitemax,int limitemin): Question{intitule},d_reponse{reponse},
     d_limiteMax{limitemax},d_limiteMin{limitemin}
