@@ -10,6 +10,7 @@ std::string EvaluationAdaptative::reponseUtilisateurQuestion() const
 }
 void EvaluationAdaptative::lanceEvaluation() const
 {
+    vector<bool> TabDeMarque(d_questionsNonposees.size(),false);
 
 }
 void EvaluationAdaptative::resultatEvaluation() const
