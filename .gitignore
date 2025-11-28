@@ -20,7 +20,11 @@ build/
 
 # --- CLION ---
 CMakeLists.txt
+<<<<<<< HEAD
 cmake-build-debug
+=======
+cmake-build-debug/
+>>>>>>> 832bda9a999153c043c46ca678994b699832933c
 
 
 # --- Environnements ---

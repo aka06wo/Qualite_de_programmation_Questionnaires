@@ -1,4 +1,6 @@
 #include "QuestionChoixMultiple.h"
+// pour is digit
+#include <cctype>
 
 QuestionChoixMultiple::QuestionChoixMultiple(const string &question,
                     const std::vector<string> &reponsesPossibles, int numReponse) :
@@ -10,13 +12,13 @@ string QuestionChoixMultiple::reponse() const {
     return choixNumero(d_indiceReponse);
 }
 
-int QuestionChoixMultiple::nombreDeChoix() const 
+int QuestionChoixMultiple::nombreDeChoix() const
 {
     return d_reponsesPossibles.size() ;
 }
 
 // tester si i ne depasse pas les élements du tableau
-string QuestionChoixMultiple::choixNumero(int i) const 
+string QuestionChoixMultiple::choixNumero(int i) const
 {
     return d_reponsesPossibles[i] ;
 }
@@ -24,19 +26,28 @@ string QuestionChoixMultiple::choixNumero(int i) const
 void QuestionChoixMultiple::afficherQuestion() const {
     std::cout<<intitule()<<std::endl ;
     if (d_reponsesPossibles.size() != 0) {
-        std::cout<<"[ "<<d_reponsesPossibles[0] ;
-        for (int i = 1; i < d_reponsesPossibles.size(); i++) {
-            std::cout<<", "<<d_reponsesPossibles[i] ;
+        for (int i = 0; i < d_reponsesPossibles.size(); i++) {
+            std::cout<<i+1<<"- "<<d_reponsesPossibles[i]<<std::endl ;
         }
-        std::cout<<" ]"<<std::endl ;
     }
+    std::cout<<"Saisissez le numéro de la bonne réponse :\n" ;
 }
 
 void QuestionChoixMultiple::afficherReponse() const {
-    std::cout<<reponse()<<std::endl;
+    std::cout<<"La bonne reponse est : "+ std::to_string(d_indiceReponse+1) + " - " + reponse()<<std::endl;
 }
 
-// revoir la modélisation bool QuestionChoixMultiple::verificationReponse(STRING reponse) const
+bool QuestionChoixMultiple::validiteEntreeUtilisateur(const string &reponse) const {
+    if (reponse.empty()) {
+        return false;
+    }
+    int i=0 ;
+    while (i<reponse.size() && isdigit(reponse[i])) {
+        i++ ;
+    }
+    return i==reponse.size() ;
+}
+
 bool QuestionChoixMultiple::verificationReponse(const string &reponse) const {
     return std::stoi(reponse) == d_indiceReponse + 1 ;
 }
@@ -44,7 +55,6 @@ bool QuestionChoixMultiple::verificationReponse(const string &reponse) const {
 std::unique_ptr<Question> QuestionChoixMultiple::clone() const {
     return std::make_unique<QuestionChoixMultiple>(*this) ;
 }
-
 
 json QuestionChoixMultiple::conversionJSON() const {
     return json {
@@ -54,4 +64,3 @@ json QuestionChoixMultiple::conversionJSON() const {
         {"numReponseCorrecte", d_indiceReponse}
     } ;
 }
-

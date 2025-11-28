@@ -8,16 +8,18 @@
 using nlohmann::json ;
 
 class QuestionnaireJSON {
-    public:
+public:
+    QuestionnaireJSON() ;
     QuestionnaireJSON (const std::string &nomQuestionnaire) ;
+    void changerQuestionnaire(const std::string &nomQuestionnaire) ;
     std::string nomQuestionnaire() const ;
-    void chargerQuestionnaire(Questionnaire &questionnaire) ;
+    void chargerDansQuestionnaire(Questionnaire &questionnaire) ;
     void sauvegarderQuestionnaire(const Questionnaire &questionnaire) const ;
 
-    private:
+private:
     std::string d_nomQuestionnaire ;
     json d_monFichier ;
-    static const std::string NomFichierQuestionnaire ;
+    static std::string NomFichierQuestionnaire() ;
 };
 
 

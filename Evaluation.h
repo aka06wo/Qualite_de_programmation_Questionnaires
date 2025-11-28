@@ -3,9 +3,8 @@
 
 
 #include "Questionnaire.h"
-#include "QuestionnaireJSON.h"
-
-
+#include <string>
+#include <vector>
 
 class Evaluation
 {
@@ -18,28 +17,21 @@ public:
 
     // on mets la possibilité de voir ses erreurs, on stocke l'indice des questions ou il se trompe
     // a la fin on lui affiche question et reponse
-protected:
-    // pour s'assurer qu'on le modifie pas (le questionnaire)
-    const Questionnaire *d_questionnaire;
-    int d_nbEssai ;
-    int d_score ;
-};
-/*class Evaluation
-{
-public:
-    Evaluation(const std::string &nomQuestionnaire);
-    std::string reponseUtilisateurQuestion() const ;
-    virtual void lanceEvaluation() const = 0;
-    virtual void resultatEvaluation() const = 0;
-    //virtual void certificatReussite() const = 0;
-   // virtual void certificatHtml() const = 0;
-    virtual ~Evaluation() = default;
+
+    // Fonction helper pour obtenir une réponse validée selon le type de question
+    std::string obtenirReponseValidee(int indexQuestion) const;
 
 protected:
-    Questionnaire d_questionnaire;
-    QuestionnaireJSON d_monFichier;
     int d_nbEssai ;
-};*/
+    int d_score ;
+    const Questionnaire *d_questionnaire;
+    std::vector<int> d_tabIndiceErreur ;
+
+    // Méthodes helper privées pour la validation
+    bool estEntierValide(const std::string& str) const;
+    bool estChoixValide(const std::string& str, int nbChoix) const;
+    void nettoyerBuffer() const;
+};
 
 
 #endif //CODE_QUESTIONNAIRE_EVALUATION_H
