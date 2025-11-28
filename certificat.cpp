@@ -1,6 +1,6 @@
 #include "certificat.h"
 
-certificat::certificat(const json &j) : json(j)
+certificat::certificat()
 {
 }
 

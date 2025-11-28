@@ -15,6 +15,7 @@ public:
     string choixNumero(int i) const ;
     void afficherQuestion() const override ;
     void afficherReponse() const override ;
+    bool validiteEntreeUtilisateur(const string &reponse) const override ;
     bool verificationReponse(const string &reponse) const override ;
     std::unique_ptr<Question> clone() const override ;
     json conversionJSON () const override ;

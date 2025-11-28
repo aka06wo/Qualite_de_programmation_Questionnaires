@@ -1,18 +1,17 @@
 #include "Questionnaire.h"
 #include "Question.h"
 
-Questionnaire::Questionnaire() : d_nom{"Questionnaire Vide"},d_description{"Ceci est un questionnaire vide"}, d_nbQuestions{0}
+Questionnaire::Questionnaire() : d_nom{"Questionnaire Vide"},d_description{"Ceci est un questionnaire vide"}
 {
 }
 
 Questionnaire::Questionnaire(const string &nom,const string &description, const vector<std::unique_ptr<Question>>& Questions):
-    d_nom{nom},d_description{description}, d_nbQuestions{0}
+    d_nom{nom},d_description{description}
 {
     // On peut faire un move d'un tableau entier ou pas ??
     d_Questions.reserve(Questions.size()) ;
     for (const auto &q : Questions) {
         d_Questions.push_back(q->clone()); // copie polymorphe
-        d_nbQuestions++;
     }
 }
 
@@ -34,7 +33,7 @@ void Questionnaire::changerDescriptionQuestionnaire(const string &descriptionQue
 }
 
 int Questionnaire::nombreDeQuestions() const {
-    return d_nbQuestions;
+    return d_Questions.size() ;
 }
 
 
@@ -42,7 +41,6 @@ int Questionnaire::nombreDeQuestions() const {
 void Questionnaire::ajouterQuestion(std::unique_ptr<Question> q)
 {
     d_Questions.push_back(std::move(q));
-    d_nbQuestions++;
 }
 
 
@@ -54,8 +52,25 @@ void Questionnaire::afficherReponseNumero(int i) const {
     d_Questions[i]->afficherReponse() ;
 }
 
+bool Questionnaire::validiteEntreeUtilisateur(int i,const std::string &reponse) const {
+    return d_Questions[i]->validiteEntreeUtilisateur(reponse) ;
+}
+
 bool Questionnaire::verificationReponse(int i,const std::string &reponse) const {
     return d_Questions[i]->verificationReponse(reponse) ;
+}
+
+std::string Questionnaire::typeQuestion(int i) const {
+    json questionJson = d_Questions[i]->conversionJSON();
+    return questionJson["type"];
+}
+
+int Questionnaire::nombreChoixQuestion(int i) const {
+    json questionJson = d_Questions[i]->conversionJSON();
+    if (questionJson["type"] == "choixMultiples") {
+        return questionJson["reponsesPossibles"].size();
+    }
+    return -1;
 }
 
 json Questionnaire::conversionQuestionnaireJson() const {

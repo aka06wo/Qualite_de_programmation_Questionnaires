@@ -1,4 +1,6 @@
 #include "QuestionChoixMultiple.h"
+// pour is digit
+#include <cctype>
 
 QuestionChoixMultiple::QuestionChoixMultiple(const string &question,
                     const std::vector<string> &reponsesPossibles, int numReponse) :
@@ -28,10 +30,22 @@ void QuestionChoixMultiple::afficherQuestion() const {
             std::cout<<i+1<<"- "<<d_reponsesPossibles[i]<<std::endl ;
         }
     }
+    std::cout<<"Saisissez le numéro de la bonne réponse :\n" ;
 }
 
 void QuestionChoixMultiple::afficherReponse() const {
-    std::cout<<reponse()<<std::endl;
+    std::cout<<"La bonne reponse est : "+ std::to_string(d_indiceReponse+1) + " - " + reponse()<<std::endl;
+}
+
+bool QuestionChoixMultiple::validiteEntreeUtilisateur(const string &reponse) const {
+    if (reponse.empty()) {
+        return false;
+    }
+    int i=0 ;
+    while (i<reponse.size() && isdigit(reponse[i])) {
+        i++ ;
+    }
+    return i==reponse.size() ;
 }
 
 bool QuestionChoixMultiple::verificationReponse(const string &reponse) const {
