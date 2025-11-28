@@ -23,19 +23,25 @@ public :
     Questionnaire() ;
     Questionnaire(const string &nom,const string &description = "" ,const vector<std::unique_ptr<Question>> &Questions = {});
     string nomQuestionnaire() const ;
+    void changerNomQuestionnaire(const string &nomQuestionnaire);
     string descriptionQuestionnaire() const ;
-    vector<std::unique_ptr<Question>> mesQuestions() const ;
+    void changerDescriptionQuestionnaire(const string &descriptionQuestionnaire);
     int nombreDeQuestions() const ;
-
+    void afficherQuestionNumero(int i) const ;
+    void afficherReponseNumero(int i) const ;
+    // verifie les entrees utilisateurs
+    bool validiteEntreeUtilisateur(int i,const string &reponse) const ;
+    // verifie si la reponse rep est juste pour la question I
+    bool verificationReponse(int i,const std::string &reponse) const ;
+    // Retourne le type de la question à l'index i ("numerique", "choixMultiples", "texte")
+    std::string typeQuestion(int i) const ;
+    // Retourne le nombre de choix pour une question à choix multiples, -1 sinon
+    int nombreChoixQuestion(int i) const ;
     json conversionQuestionnaireJson() const ;
-
-    // On le mets ici, ou on fait une classe � part ?? (je ne sais pas encore)
-    void apprentissage() const ;
 
 private :
     string d_nom ;
     string d_description ;
-    int d_nbQuestions ;
     vector<std::unique_ptr<Question>> d_Questions ;
     // L'utilisateur de doit pas pouvoir ajouter une question
     void ajouterQuestion(std::unique_ptr<Question> q);
