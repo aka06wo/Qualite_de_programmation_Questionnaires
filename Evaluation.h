@@ -15,10 +15,10 @@ public:
     virtual void resultatEvaluation() const = 0;
     virtual ~Evaluation() = default;
 
-    // on mets la possibilitÃ© de voir ses erreurs, on stocke l'indice des questions ou il se trompe
+    // on mets la possibilité de voir ses erreurs, on stocke l'indice des questions ou il se trompe
     // a la fin on lui affiche question et reponse
 
-    // Fonction helper pour obtenir une rÃ©ponse validÃ©e selon le type de question
+    // Fonction helper pour obtenir une réponse validée selon le type de question
     std::string obtenirReponseValidee(int indexQuestion) const;
 
 protected:
@@ -26,6 +26,12 @@ protected:
     int d_score ;
     const Questionnaire *d_questionnaire;
     std::vector<int> d_tabIndiceErreur ;
+
+    // Méthodes helper privées pour la validation
+    bool estEntierValide(const std::string& str) const;
+    bool estChoixValide(const std::string& str, int nbChoix) const;
+    void nettoyerBuffer() const;
+
 };
 
 

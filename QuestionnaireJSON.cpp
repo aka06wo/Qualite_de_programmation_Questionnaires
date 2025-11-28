@@ -45,7 +45,8 @@ void QuestionnaireJSON::chargerDansQuestionnaire(Questionnaire &questionnaire) {
             }
             else if (q.value("type","Indefini")=="numerique")
             {
-                questionnaire.ajouterQuestion(std::make_unique<QuestionNumerique>(q["question"],q["reponseCorrecte"])) ;
+                // j'ai ajoute les limitemin et max j'espere que c'est juste?
+                questionnaire.ajouterQuestion(std::make_unique<QuestionNumerique>(q["question"],q["reponseCorrecte"],q["limiteMax"],q["limiteMin"])) ;
             }
             else if (q.value("type","Indefini")=="texte")
             {

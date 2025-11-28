@@ -3,19 +3,22 @@
 
 #include<memory>
 #include <iostream>
-#include "Question.h"
 #include "Evaluation.h"
+#include <vector>
+#include <cstdlib>
+#include <ctime>
 
 class EvaluationAdaptative : public Evaluation
 {
 public:
-    EvaluationAdaptative(const std::string &nomQuestionnaire);
+    EvaluationAdaptative(const Questionnaire &questionnaire);
+    //std::string reponseUtilisateurQuestion() const;
+
     void lanceEvaluation() override;
     void resultatEvaluation() const override;
 
 private:
-    std::vector<std::unique_ptr<Question>> d_questionsNonposees;
-    std::vector<std::unique_ptr<Question>> d_questionsFaussees;
+
 };
 
 #endif // EVALUATIONADAPTATIVE_H
