@@ -26,11 +26,6 @@ protected:
     int d_score ;
     const Questionnaire *d_questionnaire;
     std::vector<int> d_tabIndiceErreur ;
-
-    // Méthodes helper privées pour la validation
-    bool estEntierValide(const std::string& str) const;
-    bool estChoixValide(const std::string& str, int nbChoix) const;
-    void nettoyerBuffer() const;
 };
 
 

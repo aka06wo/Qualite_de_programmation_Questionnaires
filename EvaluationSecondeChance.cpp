@@ -17,7 +17,6 @@ std::string EvaluationSecondeChance::lireReponseValide(int indiceQuestion) const
         // il faut que les autres tests soit bien fait avec des if else
         // sur validite entreeutilisatuer
     }
-
     return reponse;
 }
 
