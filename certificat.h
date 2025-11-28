@@ -7,12 +7,11 @@ using nlohmann::json ;
 class certificat
 {
     public :
-    certificat(const json &j);
+    certificat();
     void certficatText () const ;
     void certficatHtml () const ;
 
     private :
-    json d_infos ;
 };
 
 #endif //CODE_QUESTIONNAIRE_CERTIFICAT_H

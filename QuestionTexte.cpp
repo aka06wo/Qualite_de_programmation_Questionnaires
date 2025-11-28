@@ -12,11 +12,12 @@ using std::endl;
 
 void QuestionTexte::afficherQuestion() const {
      cout<<intitule()<<endl ;
+     cout<<"Saisissez la bonne reponse :\n" ;
  }
 
  void QuestionTexte::afficherReponse() const
  {
-     cout<<"La reponse correcte est: "<<d_reponseCorrecte<<endl;
+     cout<<"La reponse correcte est : "<<d_reponseCorrecte<<endl;
  }
 
  string QuestionTexte::reponse() const
@@ -24,6 +25,9 @@ void QuestionTexte::afficherQuestion() const {
      return d_reponseCorrecte;
  }
 
+bool QuestionTexte::validiteEntreeUtilisateur(const string &reponse) const {
+    return !reponse.empty() ;
+}
 
 // C'est pas trop lourd en test ??
  bool QuestionTexte::verificationReponse(const string &reponse) const

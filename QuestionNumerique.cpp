@@ -14,17 +14,18 @@ string QuestionNumerique::reponse() const
 
 void QuestionNumerique::afficherQuestion() const {
     std::cout<<intitule()<<std::endl ;
+    std::cout<<"Saisissez la bonne reponse :\n" ;
 }
 
 void QuestionNumerique::afficherReponse() const
 {
-    std::cout<<reponse()<<std::endl;
+    std::cout<<"La bonne reponse est : "+reponse()<<std::endl;
 }
 
-// Essaye de faire des if else, trop de return séparées
-bool QuestionNumerique::estUnEntier(const string& reponse) const
+//  essaye de faire if else, au lieu de faire des if séparées
+bool QuestionNumerique::validiteEntreeUtilisateur(const string &reponse) const
 {
-  if (reponse.empty()) return false;
+    if (reponse.empty()) return false;
     int i = 0;
     if (reponse[0] == '-' || reponse[0] == '+') {
         if (reponse.size() == 1) return false;
@@ -37,12 +38,9 @@ bool QuestionNumerique::estUnEntier(const string& reponse) const
     return true;
 }
 
-
-// Aisse il ya trop de return, essaye de faire if else, au lieu de faire des if séparées
+//  essaye de faire if else, au lieu de faire des if séparées
 bool QuestionNumerique::verificationReponse(const string &reponse) const
 {
-   if(!estUnEntier(reponse))
-    return false;
    int rep=std::stoi(reponse);
    if(rep<d_limiteMin || rep>d_limiteMax)
     return false;
@@ -51,11 +49,9 @@ bool QuestionNumerique::verificationReponse(const string &reponse) const
 }
 
 
-//désolé je devais le faire pour tester
 std::unique_ptr<Question> QuestionNumerique::clone() const {
     return std::make_unique<QuestionNumerique>(*this);
 }
-
 
 json QuestionNumerique::conversionJSON() const {
     return json{
