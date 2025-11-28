@@ -4,6 +4,20 @@
 EvaluationAdaptative::EvaluationAdaptative(const Questionnaire &questionnaire):Evaluation{questionnaire}
 {
 }
+std::string EvaluationAdaptative::lireReponseValide(int indiceQuestion ) const
+{
+       std::string  reponse = reponseUtilisateurQuestion();
+    while (!d_questionnaire->validiteEntreeUtilisateur(indiceQuestion, reponse)) {
+        std::cout << "Entrée invalide, veuillez saisir une entrée valide.\n";
+        reponse = reponseUtilisateurQuestion();
+        //std::cout<<"Entrée invalide ! Veuillez saisir un nombre : " ;
+        // si je veux faire cela, dire ce qu'il faut rentrer
+        // il faut que les autres tests soit bien fait avec des if else
+        // sur validite entreeutilisatuer
+    }
+    return reponse;
+
+}
 void EvaluationAdaptative::lanceEvaluation()
 {
     ++d_nbEssai;
@@ -17,11 +31,12 @@ void EvaluationAdaptative::lanceEvaluation()
     while(!d_IndQuestionsNonposees.empty() )
     {
         std::cout << std::string(100, '=') << '\n';
-        int indiceAlea=rand()%d_IndQuestionsNonposees.size();
+        int indiceAlea=rand()%(d_IndQuestionsNonposees.size());
         int indQuestion=d_IndQuestionsNonposees[indiceAlea];
 
         d_questionnaire->afficherQuestionNumero(indQuestion);
-        std::string reponse=obtenirReponseValidee(indQuestion);
+
+        std::string reponse=lireReponseValide(indQuestion);
 
         bool reponseCorrecte=d_questionnaire->verificationReponse(indQuestion,reponse);
 
@@ -44,7 +59,7 @@ void EvaluationAdaptative::lanceEvaluation()
     {
         std::cout << std::string(100, '=') << '\n';
         d_questionnaire->afficherQuestionNumero(d_questionsFaussees[i]);
-        std::string reponse=obtenirReponseValidee(d_questionsFaussees[i]);
+        std::string reponse=lireReponseValide(d_questionsFaussees[i]);
 
         bool reponseCorrecte=d_questionnaire->verificationReponse(d_questionsFaussees[i],reponse);
 
