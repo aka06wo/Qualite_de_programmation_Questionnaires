@@ -8,12 +8,10 @@
 class QuestionNumerique : public Question
 {
     public:
-    // l'utilisateur nous donne d_limiteMax et min, on rajoute dans les paramètres du constructeur
-    QuestionNumerique(const string& intitule,int reponse);
+    QuestionNumerique(const string& intitule,int reponse,int limitemax,int limitemin);
     string reponse() const override ;
     void afficherQuestion() const override ;
     void afficherReponse() const override ;
-   // bool estUnEntier(const string& reponse) const
     bool validiteEntreeUtilisateur(const string &reponse) const override ;
     bool verificationReponse(const string &reponse) const override ;
     std::unique_ptr<Question> clone() const override ;
