@@ -1,8 +1,6 @@
 #ifndef CODE_QUESTIONNAIRE_CERTIFICAT_H
 #define CODE_QUESTIONNAIRE_CERTIFICAT_H
 
-#include "json.hpp"
-using nlohmann::json ;
 #include <iostream>
 #include <fstream>
 #include <sstream>

@@ -40,9 +40,9 @@ void certificat::remplacer(std::string& texte,
     echanger("{{score}}", score);
 
     if (d_score >= 70)
-        echanger("{{message}}", "Félicitations pour votre réussite !");
+        echanger("{{message}}", "F?licitations pour votre r?ussite !");
     else
-        echanger("{{message}}", "Merci pour votre participation.\n N'hésitez pas à retenter votre chance!");
+        echanger("{{message}}", "Merci pour votre participation.\n N'h?sitez pas ? retenter votre chance!");
 }
 void certificat::certficatText () const
 {
@@ -59,7 +59,7 @@ void certificat::certficatText () const
     std::ofstream fichier("certificat_final.txt");
     fichier << modele;
 
-    std::cout << "Certificat texte généré : certificat_final.txt\n";
+    std::cout << "Certificat texte genere : certificat_final.txt\n";
 }
 
 void certificat::certficatHtml () const
@@ -72,5 +72,5 @@ void certificat::certficatHtml () const
     std::ofstream fichier("certificat_final.html");
     fichier << modele;
 
-    std::cout << "Certificat HTML généré : certificat_final.html\n";
+    std::cout << "Certificat HTML genere : certificat_final.html\n";
 }

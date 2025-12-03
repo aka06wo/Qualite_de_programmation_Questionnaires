@@ -1,4 +1,3 @@
-#include <iostream>
 #include "QuestionnaireJSON.h"
 #include "Evaluation.h"
 #include "EvaluationSecondeChance.h"
