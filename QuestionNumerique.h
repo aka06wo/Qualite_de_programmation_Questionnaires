@@ -16,7 +16,6 @@ class QuestionNumerique : public Question
     bool validiteEntreeUtilisateur(const string &reponse) const override ;
     bool verificationReponse(const string &reponse) const override ;
     std::unique_ptr<Question> clone() const override ;
-    // mamadou : j'en avais besoin pour la classe questionnaireJSON, je vous expliquerait
     json conversionJSON () const override ;
 
 

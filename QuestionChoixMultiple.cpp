@@ -37,15 +37,29 @@ void QuestionChoixMultiple::afficherReponse() const {
     std::cout<<"La bonne reponse est : "+ std::to_string(d_indiceReponse+1) + " - " + reponse()<<std::endl;
 }
 
-bool QuestionChoixMultiple::validiteEntreeUtilisateur(const string &reponse) const {
+bool QuestionChoixMultiple::validiteEntreeUtilisateur(const std::string &reponse) const {
     if (reponse.empty()) {
+        std::cout << "Veuillez entrer le numero de la bonne reponse\n";
         return false;
     }
-    int i=0 ;
-    while (i<reponse.size() && isdigit(reponse[i])) {
-        i++ ;
+
+    try {
+        int valeur = std::stoi(reponse);
+        if (valeur < 0 || valeur >= d_reponsesPossibles.size()) {
+            std::cout << "Numero de réponse hors plage, veuillez entrez un numéro valide\n";
+            return false;
+        }
+        else
+            return true;
     }
-    return i==reponse.size() ;
+    catch (const std::invalid_argument&) {
+        std::cout << "Veuillez saisir un numero valide\n";
+        return false;
+    }
+    catch (const std::out_of_range&) {
+        std::cout << "Nombre trop grand, veuillez saisir un numéro valide\n";
+        return false;
+    }
 }
 
 bool QuestionChoixMultiple::verificationReponse(const string &reponse) const {

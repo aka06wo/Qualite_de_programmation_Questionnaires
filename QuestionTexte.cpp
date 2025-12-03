@@ -26,7 +26,12 @@ void QuestionTexte::afficherQuestion() const {
  }
 
 bool QuestionTexte::validiteEntreeUtilisateur(const string &reponse) const {
-    return !reponse.empty() ;
+    if (reponse.empty()) {
+        cout<<"Veuillez entrez une reponse\n" ;
+        return false ;
+    }
+     else
+         return true ;
 }
 
 // C'est pas trop lourd en test ??

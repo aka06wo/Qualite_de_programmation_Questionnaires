@@ -1,9 +1,10 @@
 #include "QuestionNumerique.h"
 #include <iostream>
 
+using std::cout;
 
-QuestionNumerique::QuestionNumerique(const string& intitule,int reponse): Question{intitule},d_reponse{reponse},
-                d_limiteMax{static_cast<int>(reponse+reponse*0.1)},d_limiteMin{static_cast<int>(reponse-reponse*0.1)}
+QuestionNumerique::QuestionNumerique(const string& intitule,int reponse,int limitemax,int limitemin): Question{intitule},d_reponse{reponse},
+    d_limiteMax{limitemax},d_limiteMin{limitemin}
 {
 }
 
@@ -12,7 +13,8 @@ string QuestionNumerique::reponse() const
     return std::to_string(d_reponse);
 }
 
-void QuestionNumerique::afficherQuestion() const {
+void QuestionNumerique::afficherQuestion() const
+{
     std::cout<<intitule()<<std::endl ;
     std::cout<<"Saisissez la bonne reponse :\n" ;
 }
@@ -22,39 +24,62 @@ void QuestionNumerique::afficherReponse() const
     std::cout<<"La bonne reponse est : "+reponse()<<std::endl;
 }
 
-//  essaye de faire if else, au lieu de faire des if séparées
 bool QuestionNumerique::validiteEntreeUtilisateur(const string &reponse) const
 {
-    if (reponse.empty()) return false;
-    int i = 0;
-    if (reponse[0] == '-' || reponse[0] == '+') {
-        if (reponse.size() == 1) return false;
-        i = 1;
+    if (reponse.empty())
+    {
+        cout<< "Veuillez donnez une réponse "<<'\n';
+        return false;
     }
+    else
+    {
+        int i = 0;
+        // si il a - ou + il faut qu'on renvoie false, revoir le code
+        // mamadou, j'ai egalement un warning
 
-    for (int j{i}; j < reponse.size(); ++j) {
-        if (!isdigit(reponse[j])) return false;
+        if (reponse[0] == '-' || reponse[0] == '+')
+        {
+            if (reponse.size() == 1)
+            {
+                cout << " Donnez une réponse valide! " <<'\n';
+                return false;
+            }
+            else
+                ++i;
+        }
+
+        for (int j{i}; j < reponse.size(); ++j)
+        {
+            if (!isdigit(reponse[j]))
+            {
+                cout<< "Votre réponse n'est pas valide, veuillez saisir un nombre\n";
+                return false;
+            }
+            else
+                return true;
+        }
     }
-    return true;
 }
 
-//  essaye de faire if else, au lieu de faire des if séparées
 bool QuestionNumerique::verificationReponse(const string &reponse) const
 {
-   int rep=std::stoi(reponse);
-   if(rep<d_limiteMin || rep>d_limiteMax)
-    return false;
-
-   return true;
+    int rep=std::stoi(reponse);
+    if(rep<d_limiteMin || rep>d_limiteMax)
+        return false;
+    else
+      return true;
 }
 
 
-std::unique_ptr<Question> QuestionNumerique::clone() const {
+std::unique_ptr<Question> QuestionNumerique::clone() const
+{
     return std::make_unique<QuestionNumerique>(*this);
 }
 
-json QuestionNumerique::conversionJSON() const {
-    return json{
+json QuestionNumerique::conversionJSON() const
+{
+    return json
+    {
         {"type", "numerique"},
         {"question", intitule()},
         {"reponseCorrecte", d_reponse}
