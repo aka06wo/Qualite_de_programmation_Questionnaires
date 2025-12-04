@@ -84,10 +84,10 @@ void EvaluationAdaptative::resultatEvaluation() const
     //pour l'instant avant les certificat
     std::cout<< "Resultat :"<< d_score<<"/"<<d_questionnaire->nombreDeQuestions()<< '\n';
     std::cout<< "Nombre d'Essais" << d_nbEssai<< '\n';
-    std::string nomUtilisateurs;
+    std::string nomUtilisateur;
     std::cout<< "Saisissez votre nom :";
-    std::cin>>nomUtilisateurs;
-    certificat c(nomUtilisateurs,d_questionnaire->nomQuestionnaire(),d_score);
+    std::cin>>nomUtilisateur;
+    certificat c(nomUtilisateur,d_questionnaire->nomQuestionnaire(),d_score);
      std::string nomFichier = "certificat_" + nomUtilisateur + ".html";
     std::ofstream fichier(nomFichier);
 

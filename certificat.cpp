@@ -16,6 +16,7 @@ void certificat::certificatText(std::ostream& os) const
 }
 void certificat::certificatHtml(std::ostream& os) const
 {
+
     os<<"!DOCTYPE html\n";
     os<<"<html>\n";
     os<<"<head>\n";
@@ -31,3 +32,5 @@ void certificat::certificatHtml(std::ostream& os) const
     os<<"</body>\n";
     os<<"</html>\n";
 }
+
+

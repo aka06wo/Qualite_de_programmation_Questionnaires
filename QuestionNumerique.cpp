@@ -34,6 +34,9 @@ bool QuestionNumerique::validiteEntreeUtilisateur(const string &reponse) const
     else
     {
         int i = 0;
+        // si il a - ou + il faut qu'on renvoie false, revoir le code
+        // mamadou, j'ai egalement un warning
+
         if (reponse[0] == '-' || reponse[0] == '+')
         {
             if (reponse.size() == 1)
@@ -44,20 +47,18 @@ bool QuestionNumerique::validiteEntreeUtilisateur(const string &reponse) const
             else
                 ++i;
         }
+
         for (int j{i}; j < reponse.size(); ++j)
         {
             if (!isdigit(reponse[j]))
             {
-                cout<< "Votre réponse n'est pas valide veuillez rentrer un nombre"<<'\n';
+                cout<< "Votre réponse n'est pas valide, veuillez saisir un nombre\n";
                 return false;
             }
             else
                 return true;
         }
-
     }
-
-
 }
 
 bool QuestionNumerique::verificationReponse(const string &reponse) const
