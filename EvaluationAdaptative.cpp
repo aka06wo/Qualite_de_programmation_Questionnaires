@@ -1,5 +1,5 @@
 #include "EvaluationAdaptative.h"
-
+#include "certificat.h"
 
 EvaluationAdaptative::EvaluationAdaptative(const Questionnaire &questionnaire):Evaluation{questionnaire}
 {
@@ -84,5 +84,20 @@ void EvaluationAdaptative::resultatEvaluation() const
     //pour l'instant avant les certificat
     std::cout<< "Resultat :"<< d_score<<"/"<<d_questionnaire->nombreDeQuestions()<< '\n';
     std::cout<< "Nombre d'Essais" << d_nbEssai<< '\n';
+    std::string nomUtilisateurs;
+    std::cout<< "Saisissez votre nom :";
+    std::cin>>nomUtilisateurs;
+    certificat c(nomUtilisateurs,d_questionnaire->nomQuestionnaire(),d_score);
+     std::string nomFichier = "certificat_" + nomUtilisateur + ".html";
+    std::ofstream fichier(nomFichier);
+
+    if (!fichier)
+    {
+        std::cerr << "Erreur : impossible de créer le fichier certificat.\n";
+        return;
+    }
+    c.certificatHtml(fichier);
+    fichier.close();
+    std::cout << "Certificat généré !" << std::endl;
 }
 

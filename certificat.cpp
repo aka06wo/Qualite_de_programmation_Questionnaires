@@ -1,76 +1,33 @@
 #include "certificat.h"
 
-certificat::certificat(const std::string& nomUtilisateur,const std::string& nomQuestionnaire,int score):d_nomUtilisateur{nomUtilisateur},d_nomquestionnaire{nomQuestionnaire},d_score{score}
+certificat::certificat(const std::string& nomUtilisateur,const std::string& nomQuestionnaire,int score):
+    d_nomUtilisateur{nomUtilisateur},d_nomquestionnaire{nomQuestionnaire},d_score{score}
 {
 }
-std::string certificat::lireFichier(const std::string &nomFichier) const
+
+void certificat::certificatText(std::ostream& os) const
 {
-    std::ifstream fichier(nomFichier);
-    if (!fichier)
-    {
-        std::cerr << "Erreur : impossible d'ouvrir le fichier " << nomFichier << '\n';
-        return "";
-    }
+    os<<std::string(100,'=')<<'\n';
+    os<<std::string(12,' ')<<"| CERTIFICAT DE REUSSITE |"<<std::string(12,' ')<<'\n';
+    os<<std::string(100,'=')<<'\n';
+    os<<"Félicitations "<<d_nomUtilisateur << " pour votre score de: ";
+    os<<d_score << "au questionnaire "<<d_nomquestionnaire<<'\n';
 
-    std::string contenu;
-    std::string ligne;
-    while (std::getline(fichier, ligne))
-    {
-        contenu += ligne + '\n';
-    }
-
-    return contenu;
 }
-void certificat::remplacer(std::string& texte,
-                           const std::string& nomQues,
-                           const std::string& score) const
+void certificat::certificatHtml(std::ostream& os) const
 {
-    auto echanger = [&](const std::string &a, const std::string &b)
-    {
-        size_t pos = 0;
-        while ((pos = texte.find(a, pos)) != std::string::npos)
-        {
-            texte.replace(pos, a.size(), b);
-            pos += b.size();
-        }
-    };
-
-    echanger("{{nom}}", d_nomUtilisateur);
-    echanger("{{evaluation}}", nomQues);
-    echanger("{{score}}", score);
-
-    if (d_score >= 70)
-        echanger("{{message}}", "F?licitations pour votre r?ussite !");
-    else
-        echanger("{{message}}", "Merci pour votre participation.\n N'h?sitez pas ? retenter votre chance!");
-}
-void certificat::certficatText () const
-{
-    std::string modele = lireFichier("certificat.txt");
-
-    if (modele.empty())
-    {
-        std::cerr << "Erreur : modele certificat.txt introuvable.\n";
-        return;
-    }
-
-    remplacer(modele, d_nomquestionnaire, std::to_string(d_score));
-
-    std::ofstream fichier("certificat_final.txt");
-    fichier << modele;
-
-    std::cout << "Certificat texte genere : certificat_final.txt\n";
-}
-
-void certificat::certficatHtml () const
-{
-    std::string modele = lireFichier("certificat.html");
-    if (modele.empty()) return;
-
-    remplacer(modele, d_nomquestionnaire, std::to_string(d_score));
-
-    std::ofstream fichier("certificat_final.html");
-    fichier << modele;
-
-    std::cout << "Certificat HTML genere : certificat_final.html\n";
+    os<<"!DOCTYPE html\n";
+    os<<"<html>\n";
+    os<<"<head>\n";
+    os<<"<meta charset=\"UTF-8\">\n <title>Certificat de réussite</title>\n";
+    //os<<"<style>\n"; a ajouter aprés
+    os<<"<div class=\"certificat\">\n";
+    os<<"<h1>Certificat de réussite</h1>\n";
+    os<<"<p>Félicitations <strong>" << d_nomUtilisateur << "</strong> !</p>";
+    os<<" pour votre score de: "<<d_score<<"</h2>";
+    os<<" au questionnaire <strong>" << d_nomquestionnaire << "</strong>\n";
+    os<<"/p>\n";
+    os<<"</div>\n";
+    os<<"</body>\n";
+    os<<"</html>\n";
 }
