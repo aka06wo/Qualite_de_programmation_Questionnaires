@@ -6,15 +6,6 @@ EvaluationSecondeChance::EvaluationSecondeChance(const Questionnaire &questionna
 {
 }
 
-std::string EvaluationSecondeChance::lireReponseValide(int indiceQuestion) const {
-    std::string reponse;
-    reponse = reponseUtilisateurQuestion();
-    while (!d_questionnaire->validiteEntreeUtilisateur(indiceQuestion, reponse)) {
-        reponse = reponseUtilisateurQuestion();
-    }
-    return reponse;
-}
-
 void EvaluationSecondeChance::lanceEvaluation()
 {
     d_nbEssai++ ;
@@ -57,8 +48,9 @@ void EvaluationSecondeChance::lanceEvaluation()
 
     resultatEvaluation() ;
 }
-
+/* je pense que c'est de la reesponsabilité de Evaluation non ? Aissé
 void EvaluationSecondeChance::resultatEvaluation() const {
     std::cout << "Vous avez une score de "+ std::to_string(d_score)
                     +" sur "+std::to_string(d_questionnaire->nombreDeQuestions()) ;
 }
+*/

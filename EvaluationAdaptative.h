@@ -12,10 +12,10 @@ class EvaluationAdaptative : public Evaluation
 {
 public:
     EvaluationAdaptative(const Questionnaire &questionnaire);
-    std::string lireReponseValide(int indiceQuestion) const;
+    //std::string lireReponseValide(int indiceQuestion) const;
 
     void lanceEvaluation() override;
-    void resultatEvaluation() const override;
+    //void resultatEvaluation() const override;
 
 private:
 

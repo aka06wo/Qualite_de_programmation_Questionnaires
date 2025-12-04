@@ -38,7 +38,8 @@ void QuestionChoixMultiple::afficherReponse() const {
 }
 
 bool QuestionChoixMultiple::validiteEntreeUtilisateur(const std::string &reponse) const {
-    if (reponse.empty()) {
+    if (reponse.empty())
+    {
         std::cout << "Veuillez entrer le numero de la bonne reponse\n";
         return false;
     }

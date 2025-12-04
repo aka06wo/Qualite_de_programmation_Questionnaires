@@ -11,9 +11,12 @@ class Evaluation
 public:
     Evaluation(const Questionnaire &questionnaire);
     std::string reponseUtilisateurQuestion() const ;
+    std::string  lireReponseValide(int indiceQuestion ) const;
     virtual void lanceEvaluation() = 0;
-    virtual void resultatEvaluation() const = 0;
+    void resultatEvaluation() const ;//tous les types d'évaluation ont la meme présentation du résultat
     virtual ~Evaluation() = default;
+    void genererCertificatHtml() const;
+    void genererCertificatText() const;
 
     // on mets la possibilité de voir ses erreurs, on stocke l'indice des questions ou il se trompe
     // a la fin on lui affiche question et reponse
