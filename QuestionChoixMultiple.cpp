@@ -17,7 +17,7 @@ int QuestionChoixMultiple::nombreDeChoix() const
     return d_reponsesPossibles.size() ;
 }
 
-// tester si i ne depasse pas les élements du tableau
+// tester si i ne depasse pas les élements du tableau ?
 string QuestionChoixMultiple::choixNumero(int i) const
 {
     return d_reponsesPossibles[i] ;
@@ -45,7 +45,7 @@ bool QuestionChoixMultiple::validiteEntreeUtilisateur(const std::string &reponse
 
     try {
         int valeur = std::stoi(reponse);
-        if (valeur < 0 || valeur >= d_reponsesPossibles.size()) {
+        if (valeur < 0 || valeur > d_reponsesPossibles.size()) {
             std::cout << "Numero de réponse hors plage, veuillez entrez un numéro valide\n";
             return false;
         }

@@ -6,32 +6,33 @@
 #include <string>
 #include <vector>
 
+
+
+/*
+
+On doit ecrire un gestionnaire d'evaluation qui gÃ¨re les evalutaions
+
+*/
+
 class Evaluation
 {
 public:
     Evaluation(const Questionnaire &questionnaire);
-    std::string reponseUtilisateurQuestion() const ;
-    virtual void lanceEvaluation() = 0;
-    virtual void resultatEvaluation() const = 0;
     virtual ~Evaluation() = default;
-
-    // on mets la possibilité de voir ses erreurs, on stocke l'indice des questions ou il se trompe
-    // a la fin on lui affiche question et reponse
-
-    // Fonction helper pour obtenir une réponse validée selon le type de question
-    std::string obtenirReponseValidee(int indexQuestion) const;
+    std::string reponseUtilisateurQuestion() const ;
+    std::string lireReponseValide(int indiceQuestion) const  ;
+    virtual void lanceEvaluation() = 0;
+    void separateur(int largeur, char symbole) ;
+    void revueErreursCommises() const ;
+    void resultatEvaluation() const ;
+    //void genererCertificatHtml() const;
+    //void genererCertificatText() const;
 
 protected:
     int d_nbEssai ;
     int d_score ;
     const Questionnaire *d_questionnaire;
     std::vector<int> d_tabIndiceErreur ;
-
-    // Méthodes helper privées pour la validation
-    bool estEntierValide(const std::string& str) const;
-    bool estChoixValide(const std::string& str, int nbChoix) const;
-    void nettoyerBuffer() const;
-
 };
 
 
