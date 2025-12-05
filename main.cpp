@@ -43,7 +43,7 @@ int main()
 {
     //evalSecondeChance() ;
     //evalAdaptative();
-    testCertificat();
+    //testCertificat();
 
     return 0;
 }
