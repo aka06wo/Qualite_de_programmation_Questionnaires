@@ -36,7 +36,6 @@ bool QuestionNumerique::validiteEntreeUtilisateur(const string &reponse) const
         int i = 0;
         // si il a - ou + il faut qu'on renvoie false, revoir le code
         // mamadou, j'ai egalement un warning
-
         if (reponse[0] == '-' || reponse[0] == '+')
         {
             if (reponse.size() == 1)
@@ -60,6 +59,8 @@ bool QuestionNumerique::validiteEntreeUtilisateur(const string &reponse) const
         }
     }
 }
+
+
 
 bool QuestionNumerique::verificationReponse(const string &reponse) const
 {

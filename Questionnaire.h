@@ -33,10 +33,6 @@ public :
     bool validiteEntreeUtilisateur(int i,const string &reponse) const ;
     // verifie si la reponse rep est juste pour la question I
     bool verificationReponse(int i,const std::string &reponse) const ;
-    // Retourne le type de la question à l'index i ("numerique", "choixMultiples", "texte")
-    std::string typeQuestion(int i) const ;
-    // Retourne le nombre de choix pour une question à choix multiples, -1 sinon
-    int nombreChoixQuestion(int i) const ;
     json conversionQuestionnaireJson() const ;
 
 private :

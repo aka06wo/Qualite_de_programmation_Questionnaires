@@ -1,23 +1,34 @@
 #include "EvaluationAdaptative.h"
-#include "certificat.h"
 
 EvaluationAdaptative::EvaluationAdaptative(const Questionnaire &questionnaire):Evaluation{questionnaire}
 {
 }
-std::string EvaluationAdaptative::lireReponseValide(int indiceQuestion ) const
-{
-       std::string  reponse = reponseUtilisateurQuestion();
-    while (!d_questionnaire->validiteEntreeUtilisateur(indiceQuestion, reponse)) {
-        std::cout << "Entrée invalide, veuillez saisir une entrée valide.\n";
-        reponse = reponseUtilisateurQuestion();
-        //std::cout<<"Entrée invalide ! Veuillez saisir un nombre : " ;
-        // si je veux faire cela, dire ce qu'il faut rentrer
-        // il faut que les autres tests soit bien fait avec des if else
-        // sur validite entreeutilisatuer
-    }
-    return reponse;
 
-}
+
+
+/*
+
+
+
+    Aisse en fait Ã§a marche pour charger les questions depuis le questionnaires,
+
+    mais je te proposes de que quand tu finisses d'affichers les questions et que t'as recuperes
+    les endroits ou il s'est trompÃ©
+    Pour commencer a lui poser les questions ou il s'est trompÃ©, fait lui savoir
+    ( fait un affichage pour lui "Que voilÃ , qu'on lui repose les questions maintenant")
+
+    Et regarde la methode separateur que j'ai mis dans evaluation, tu peux te servir de cela pour afficher tes '='
+
+
+    ta methode est bien ecrite et tout, mais voilÃ  je te mets la barre un peu haute (j'ai confiance)
+    Ameliore lÃ , comment tu la prÃ©sentes, optimise lÃ  et tout
+    TU PEUX LE FAIRE :)
+
+
+
+
+ */
+
 void EvaluationAdaptative::lanceEvaluation()
 {
     ++d_nbEssai;
@@ -26,7 +37,7 @@ void EvaluationAdaptative::lanceEvaluation()
     for (int i=0; i<d_questionnaire->nombreDeQuestions(); ++i)
         d_IndQuestionsNonposees.push_back(i);
 
-    std::vector<int> d_questionsFaussees{};
+    //std::vector<int> d_questionsFaussees{};
 
     while(!d_IndQuestionsNonposees.empty() )
     {
@@ -42,62 +53,38 @@ void EvaluationAdaptative::lanceEvaluation()
 
         if(reponseCorrecte)
         {
-            std::cout<< "[v] Bonne réponse !"<<'\n';
+            std::cout<< "[v] Bonne reponse !"<<'\n';
             ++d_score;
         }
         else
         {
-            std::cout<<"[x] Mauvaise réponse !"<< '\n';
-            d_questionsFaussees.push_back(indQuestion);
+            std::cout<<"[x] Mauvaise reponse !"<< '\n';
+            d_tabIndiceErreur.push_back(indQuestion);
 
         }
         d_IndQuestionsNonposees.erase(d_IndQuestionsNonposees.begin()+indiceAlea);
         std::cout << std::string(100, '=') << '\n';
     }
 
-    for(int i{0}; i<d_questionsFaussees.size(); ++i)
+    for(int i{0}; i<d_tabIndiceErreur.size(); ++i)
     {
         std::cout << std::string(100, '=') << '\n';
-        d_questionnaire->afficherQuestionNumero(d_questionsFaussees[i]);
-        std::string reponse=lireReponseValide(d_questionsFaussees[i]);
+        d_questionnaire->afficherQuestionNumero(d_tabIndiceErreur[i]);
+        std::string reponse=lireReponseValide(d_tabIndiceErreur[i]);
 
-        bool reponseCorrecte=d_questionnaire->verificationReponse(d_questionsFaussees[i],reponse);
+        bool reponseCorrecte=d_questionnaire->verificationReponse(d_tabIndiceErreur[i],reponse);
 
         if(reponseCorrecte)
         {
-            std::cout<< "[v] Bonne réponse !"<<'\n';
+            std::cout<< "[v] Bonne reponse !"<<'\n';
             ++d_score;
         }
-         else
+        else
         {
-            std::cout<<"[x] Mauvaise réponse !"<< '\n';
+            std::cout<<"[x] Mauvaise reponse !"<< '\n';
         }
         std::cout << std::string(100, '=') << '\n';
 
     }
-
+    resultatEvaluation();
 }
-
-void EvaluationAdaptative::resultatEvaluation() const
-{
-
-    //pour l'instant avant les certificat
-    std::cout<< "Resultat :"<< d_score<<"/"<<d_questionnaire->nombreDeQuestions()<< '\n';
-    std::cout<< "Nombre d'Essais" << d_nbEssai<< '\n';
-    std::string nomUtilisateur;
-    std::cout<< "Saisissez votre nom :";
-    std::cin>>nomUtilisateur;
-    certificat c(nomUtilisateur,d_questionnaire->nomQuestionnaire(),d_score);
-     std::string nomFichier = "certificat_" + nomUtilisateur + ".html";
-    std::ofstream fichier(nomFichier);
-
-    if (!fichier)
-    {
-        std::cerr << "Erreur : impossible de créer le fichier certificat.\n";
-        return;
-    }
-    c.certificatHtml(fichier);
-    fichier.close();
-    std::cout << "Certificat généré !" << std::endl;
-}
-

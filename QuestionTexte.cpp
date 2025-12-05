@@ -17,7 +17,7 @@ void QuestionTexte::afficherQuestion() const {
 
  void QuestionTexte::afficherReponse() const
  {
-     cout<<"La reponse correcte est : "<<d_reponseCorrecte<<endl;
+     cout<<"La reponse correcte est : "<<reponse()<<endl;
  }
 
  string QuestionTexte::reponse() const

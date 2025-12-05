@@ -60,18 +60,8 @@ bool Questionnaire::verificationReponse(int i,const std::string &reponse) const 
     return d_Questions[i]->verificationReponse(reponse) ;
 }
 
-std::string Questionnaire::typeQuestion(int i) const {
-    json questionJson = d_Questions[i]->conversionJSON();
-    return questionJson["type"];
-}
 
-int Questionnaire::nombreChoixQuestion(int i) const {
-    json questionJson = d_Questions[i]->conversionJSON();
-    if (questionJson["type"] == "choixMultiples") {
-        return questionJson["reponsesPossibles"].size();
-    }
-    return -1;
-}
+
 
 json Questionnaire::conversionQuestionnaireJson() const {
     json description_questionnaires ;
@@ -84,7 +74,7 @@ json Questionnaire::conversionQuestionnaireJson() const {
         description_questionnaires["questions"].push_back(q->conversionJSON()) ;
     }
 
-    resultat["titre"] = nomQuestionnaire() ;
+   //
 
     return resultat ;
 }
