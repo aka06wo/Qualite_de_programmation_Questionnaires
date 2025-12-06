@@ -13,6 +13,8 @@ void Evaluation::separateur(int largeur, char symbole)
 std::string Evaluation::reponseUtilisateurQuestion() const {
     std::string reponse ;
     std::cout<<'>' ;
+    // Utiliser getline pour recuperer la reponse ou pas ?
+    // sinon si je tape LOUIS IX (avec un espace, il n'y a que louis qui sera dans reponse
     std::cin>>reponse;
     return reponse;
 }

@@ -64,17 +64,13 @@ bool Questionnaire::verificationReponse(int i,const std::string &reponse) const 
 
 
 json Questionnaire::conversionQuestionnaireJson() const {
-    json description_questionnaires ;
-    json resultat ;
+    json resultat;
+    resultat["description"] = descriptionQuestionnaire();
+    resultat["nombreDeQuestions"] = nombreDeQuestions();
+    resultat["questions"] = json::array();
 
-    description_questionnaires["description"]=descriptionQuestionnaire() ;
-    description_questionnaires["nombreDeQuestions"] = nombreDeQuestions() ;
-    description_questionnaires["questions"]=json::array() ;
     for (const auto &q : d_Questions) {
-        description_questionnaires["questions"].push_back(q->conversionJSON()) ;
+        resultat["questions"].push_back(q->conversionJSON());
     }
-
-   //
-
-    return resultat ;
+    return resultat;
 }

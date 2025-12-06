@@ -27,6 +27,14 @@ public :
     string descriptionQuestionnaire() const ;
     void changerDescriptionQuestionnaire(const string &descriptionQuestionnaire);
     int nombreDeQuestions() const ;
+
+
+    /*
+    Tes classes Question et Questionnaire font des std::cout.
+    C'est un mélange de responsabilités. Si demain tu veux faire une interface graphique (Qt)
+    ou Web, tu devras tout réécrire.
+    donc c'est mieux que je renvoie l'intitulé de la question i au lieu de l'afficher dans le questionnaire
+     */
     void afficherQuestionNumero(int i) const ;
     void afficherReponseNumero(int i) const ;
     // verifie les entrees utilisateurs

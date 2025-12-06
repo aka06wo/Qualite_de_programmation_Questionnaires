@@ -4,6 +4,21 @@
 #include "EvaluationAdaptative.h"
 #include "certificat.h"
 
+
+/*
+ On doit enlever tous les using std::string, std::vector dans les .h
+ mais les mettres que dans les cpp
+ */
+
+
+
+
+
+
+
+
+
+
 void evalSecondeChance() {
     QuestionnaireJSON fichier {"Questionnaire sur la programmation"} ;
     Questionnaire monQuestionnaire {} ;
