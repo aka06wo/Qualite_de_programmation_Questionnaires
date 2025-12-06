@@ -1,18 +1,9 @@
-#include "QuestionnaireJSON.h"
-#include "Evaluation.h"
-#include "EvaluationSecondeChance.h"
+#include <iostream>
 
-void test() {
-    QuestionnaireJSON fichier {"Questionnaire sur la programmation"} ;
-    Questionnaire monQuestionnaire {} ;
-    fichier.chargerDansQuestionnaire(monQuestionnaire) ;
-    EvaluationSecondeChance monEva {monQuestionnaire} ;
-
-    monEva.lanceEvaluation() ;
-}
+using namespace std;
 
 int main()
 {
-    test() ;
+    cout << "Hello world!" << endl;
     return 0;
 }
