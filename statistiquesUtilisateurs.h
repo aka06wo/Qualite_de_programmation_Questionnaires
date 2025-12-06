@@ -6,6 +6,10 @@ using nlohmann::json ;
 
 class statistiquesUtilisateurs
 {
+  public:
+  statistiquesUtilisateurs();
+  std::string messageSelonScore(double pourcentage) ;
+
     // celui qui gere les resultats des utilisateurs
     // les conserve et charge depuis un fichier json
     /*

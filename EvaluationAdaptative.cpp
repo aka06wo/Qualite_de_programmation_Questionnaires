@@ -8,6 +8,12 @@ EvaluationAdaptative::EvaluationAdaptative(const Questionnaire &questionnaire):E
 
 /*
 
+    Aisse en fait Ã§a marche pour charger les questions depuis le questionnaires,
+
+    mais je te proposes de que quand tu finisses d'affichers les questions et que t'as recuperes
+    les endroits ou il s'est trompÃ©
+    Pour commencer a lui poser les questions ou il s'est trompÃ©, fait lui savoir
+    ( fait un affichage pour lui "Que voilÃ , qu'on lui repose les questions maintenant")
 
 
     Aisse en fait ça marche pour charger les questions depuis le questionnaires,
@@ -18,6 +24,13 @@ EvaluationAdaptative::EvaluationAdaptative(const Questionnaire &questionnaire):E
     ( fait un affichage pour lui "Que voilà, qu'on lui repose les questions maintenant")
 
     Et regarde la methode separateur que j'ai mis dans evaluation, tu peux te servir de cela pour afficher tes '='
+
+
+    ta methode est bien ecrite et tout, mais voilÃ  je te mets la barre un peu haute (j'ai confiance)
+    Ameliore lÃ , comment tu la prÃ©sentes, optimise lÃ  et tout
+    TU PEUX LE FAIRE :)
+
+ */
 
 
     ta methode est bien ecrite et tout, mais voilà je te mets la barre un peu haute (j'ai confiance)

@@ -9,7 +9,6 @@ using nlohmann::json ;
 
 class QuestionnaireJSON {
 public:
-    static std::string NomFichierQuestionnaire() ;
     QuestionnaireJSON() ;
     QuestionnaireJSON (const std::string &nomQuestionnaire) ;
     void changerQuestionnaire(const std::string &nomQuestionnaire) ;
@@ -18,6 +17,7 @@ public:
     bool conversionJSON(json &monJSON, std::ifstream &monFichier) ;
     bool lireFichierJSON(json &d_monFichier, const std::string &nomFichier) ;
     bool extraireQuestionnaire(const json &d_monFichier, const std::string &nomQuestionnaire, json &monQuestionnaire) ;
+    void extraireDescription(const json &monFichier,Questionnaire &questionnaire) ;
     json extraireQuestions(const json &monQuestionnaire) ;
     void ajouterQuestionDepuisJSON(Questionnaire &questionnaire, const json &q) ;
     void chargerDansQuestionnaire(Questionnaire &questionnaire) ;
@@ -28,6 +28,8 @@ public:
 private:
     std::string d_nomQuestionnaire ;
     json d_monFichier ;
+    static std::string NomFichierQuestionnaire() ;
+    static std::string NomFichierQuestionnairesSauvegarde() ;
 };
 
 

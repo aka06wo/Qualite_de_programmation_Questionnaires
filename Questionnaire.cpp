@@ -1,6 +1,12 @@
 #include "Questionnaire.h"
 #include "Question.h"
 
+using nlohmann::json ;
+using std::string ;
+using std::ostream;
+using std::istream;
+using std::vector ;
+
 Questionnaire::Questionnaire() : d_nom{"Questionnaire Vide"},d_description{"Ceci est un questionnaire vide"}
 {
 }
@@ -60,21 +66,14 @@ bool Questionnaire::verificationReponse(int i,const std::string &reponse) const 
     return d_Questions[i]->verificationReponse(reponse) ;
 }
 
-
-
-
 json Questionnaire::conversionQuestionnaireJson() const {
-    json description_questionnaires ;
-    json resultat ;
+    json resultat;
+    resultat["description"] = descriptionQuestionnaire();
+    resultat["nombreDeQuestions"] = nombreDeQuestions();
+    resultat["questions"] = json::array();
 
-    description_questionnaires["description"]=descriptionQuestionnaire() ;
-    description_questionnaires["nombreDeQuestions"] = nombreDeQuestions() ;
-    description_questionnaires["questions"]=json::array() ;
     for (const auto &q : d_Questions) {
-        description_questionnaires["questions"].push_back(q->conversionJSON()) ;
+        resultat["questions"].push_back(q->conversionJSON());
     }
-
-   //
-
-    return resultat ;
+    return resultat;
 }

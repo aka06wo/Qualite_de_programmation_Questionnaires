@@ -1,9 +1,11 @@
 #include "QuestionTexte.h"
 #include <memory>
 #include <cctype> //Pour la fonction tolower
+
 using std::cout;
 using std::cin;
 using std::endl;
+using std::string;
 
 
  QuestionTexte::QuestionTexte(const string &intitule,const string &reponse): Question{intitule},d_reponseCorrecte{reponse}
@@ -60,8 +62,8 @@ std::unique_ptr<Question> QuestionTexte::clone() const {
  }
 
 
-json QuestionTexte::conversionJSON() const {
-     return json{
+nlohmann::json QuestionTexte::conversionJSON() const {
+     return nlohmann::json{
          {"type", "texte"},
          {"question", intitule()},
          {"reponseCorrecte", reponse()}

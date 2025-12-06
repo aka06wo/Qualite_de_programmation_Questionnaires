@@ -1,5 +1,4 @@
 #include "EvaluationSecondeChance.h"
-#include "Question.h"
 #include "certificat.h"
 
 EvaluationSecondeChance::EvaluationSecondeChance(const Questionnaire &questionnaire) : Evaluation{questionnaire}
@@ -27,7 +26,7 @@ void EvaluationSecondeChance::lanceEvaluation()
             if (!d_questionnaire->verificationReponse(i,reponseUtilisateur))
             {
                 separateur(100,'.') ;
-                std::cout<<"[x] Toujours incorrect. La bonne réponse était : \n" ;
+                std::cout<<"[x] Toujours incorrect.\n" ;
                 d_questionnaire->afficherReponseNumero(i);
                 separateur(100,'.') ;
             }
