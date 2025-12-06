@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Questionnaires_projet" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/Questionnaires_projet" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/Questionnaires_projet" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+		</Compiler>
+		<Unit filename="../Evaluation.cpp" />
+		<Unit filename="../Evaluation.h" />
+		<Unit filename="../EvaluationAdaptative.cpp" />
+		<Unit filename="../EvaluationAdaptative.h" />
+		<Unit filename="../EvaluationSecondeChance.cpp" />
+		<Unit filename="../EvaluationSecondeChance.h" />
+		<Unit filename="../Fichier_Questionnaire.json" />
+		<Unit filename="../Question.cpp" />
+		<Unit filename="../Question.h" />
+		<Unit filename="../QuestionChoixMultiple.cpp" />
+		<Unit filename="../QuestionChoixMultiple.h" />
+		<Unit filename="../QuestionNumerique.cpp" />
+		<Unit filename="../QuestionNumerique.h" />
+		<Unit filename="../QuestionTexte.cpp" />
+		<Unit filename="../QuestionTexte.h" />
+		<Unit filename="../Questionnaire.cpp" />
+		<Unit filename="../Questionnaire.h" />
+		<Unit filename="../QuestionnaireJSON.cpp" />
+		<Unit filename="../QuestionnaireJSON.h" />
+		<Unit filename="../certificat.cpp" />
+		<Unit filename="../certificat.h" />
+		<Unit filename="../doctest.h" />
+		<Unit filename="../main.cpp" />
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

@@ -66,7 +66,6 @@ bool Questionnaire::verificationReponse(int i,const std::string &reponse) const 
     return d_Questions[i]->verificationReponse(reponse) ;
 }
 
-
 json Questionnaire::conversionQuestionnaireJson() const {
     json resultat;
     resultat["description"] = descriptionQuestionnaire();

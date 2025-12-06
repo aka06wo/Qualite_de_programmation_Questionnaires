@@ -74,6 +74,8 @@ bool QuestionNumerique::validiteEntreeUtilisateur(const string &reponse) const
 
 }
 
+
+
 bool QuestionNumerique::verificationReponse(const string &reponse) const
 {
     int rep=std::stoi(reponse);
