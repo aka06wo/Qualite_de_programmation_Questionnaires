@@ -2,6 +2,8 @@
 #include <iostream>
 
 using std::cout;
+using std::string ;
+using std::endl ;
 
 QuestionNumerique::QuestionNumerique(const string& intitule,int reponse,int limitemax,int limitemin): Question{intitule},d_reponse{reponse},
     d_limiteMax{limitemax},d_limiteMin{limitemin}
@@ -13,19 +15,30 @@ string QuestionNumerique::reponse() const
     return std::to_string(d_reponse);
 }
 
+int QuestionNumerique::limiteMinimum() const {
+    return d_limiteMin;
+}
+
+int QuestionNumerique::limiteMaximum() const {
+    return d_limiteMax ;
+}
+
 void QuestionNumerique::afficherQuestion() const
 {
-    std::cout<<intitule()<<std::endl ;
-    std::cout<<"Saisissez la bonne reponse :\n" ;
+    cout<<intitule()<<endl ;
+    cout<<"Saisissez la bonne reponse :\n" ;
 }
 
 void QuestionNumerique::afficherReponse() const
 {
-    std::cout<<"La bonne reponse est : "+reponse()<<std::endl;
+    cout<<"La bonne reponse est : "+reponse()<<endl;
 }
 
 bool QuestionNumerique::validiteEntreeUtilisateur(const string &reponse) const
 {
+    // Refaire avec les try cath
+
+
     if (reponse.empty())
     {
         cout<< "Veuillez donnez une réponse "<<'\n';
@@ -58,9 +71,8 @@ bool QuestionNumerique::validiteEntreeUtilisateur(const string &reponse) const
                 return true;
         }
     }
+
 }
-
-
 
 bool QuestionNumerique::verificationReponse(const string &reponse) const
 {
@@ -77,12 +89,14 @@ std::unique_ptr<Question> QuestionNumerique::clone() const
     return std::make_unique<QuestionNumerique>(*this);
 }
 
-json QuestionNumerique::conversionJSON() const
+nlohmann::json QuestionNumerique::conversionJSON() const
 {
-    return json
+    return nlohmann::json
     {
         {"type", "numerique"},
         {"question", intitule()},
-        {"reponseCorrecte", d_reponse}
+        {"reponseCorrecte", reponse()},
+        {"limiteMin",limiteMinimum()},
+        {"limiteMax",limiteMaximum()}
     };
 }

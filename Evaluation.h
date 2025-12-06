@@ -6,14 +6,6 @@
 #include <string>
 #include <vector>
 
-
-
-/*
-
-On doit ecrire un gestionnaire d'evaluation qui gère les evalutaions
-
-*/
-
 class Evaluation
 {
 public:

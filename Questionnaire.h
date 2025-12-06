@@ -9,23 +9,17 @@
 
 class Question ;
 
-using nlohmann::json ;
-using std::string ;
-using std::ostream;
-using std::istream;
-using std::vector ;
-
 class Questionnaire
 {
 public :
     friend class QuestionnaireJSON ;
 
     Questionnaire() ;
-    Questionnaire(const string &nom,const string &description = "" ,const vector<std::unique_ptr<Question>> &Questions = {});
-    string nomQuestionnaire() const ;
-    void changerNomQuestionnaire(const string &nomQuestionnaire);
-    string descriptionQuestionnaire() const ;
-    void changerDescriptionQuestionnaire(const string &descriptionQuestionnaire);
+    Questionnaire(const std::string &nom,const std::string &description = "" ,const std::vector<std::unique_ptr<Question>> &Questions = {});
+    std::string nomQuestionnaire() const ;
+    void changerNomQuestionnaire(const std::string &nomQuestionnaire);
+    std::string descriptionQuestionnaire() const ;
+    void changerDescriptionQuestionnaire(const std::string &descriptionQuestionnaire);
     int nombreDeQuestions() const ;
 
 
@@ -37,17 +31,19 @@ public :
      */
     void afficherQuestionNumero(int i) const ;
     void afficherReponseNumero(int i) const ;
-    // verifie les entrees utilisateurs
-    bool validiteEntreeUtilisateur(int i,const string &reponse) const ;
+
+
+    // on convertit reponse dans validite entree utilisateur et aussi dans verification reponse
+    // il faut qu'on le fasse une seule fois
+    bool validiteEntreeUtilisateur(int i,const std::string &reponse) const ;
     // verifie si la reponse rep est juste pour la question I
     bool verificationReponse(int i,const std::string &reponse) const ;
-    json conversionQuestionnaireJson() const ;
+    nlohmann::json conversionQuestionnaireJson() const ;
 
 private :
-    string d_nom ;
-    string d_description ;
-    vector<std::unique_ptr<Question>> d_Questions ;
-    // L'utilisateur de doit pas pouvoir ajouter une question
+    std::string d_nom ;
+    std::string d_description ;
+    std::vector<std::unique_ptr<Question>> d_Questions ;
     void ajouterQuestion(std::unique_ptr<Question> q);
 };
 

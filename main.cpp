@@ -23,9 +23,11 @@ void evalSecondeChance() {
     QuestionnaireJSON fichier {"Questionnaire sur la programmation"} ;
     Questionnaire monQuestionnaire {} ;
     fichier.chargerDansQuestionnaire(monQuestionnaire) ;
-    EvaluationSecondeChance monEva {monQuestionnaire} ;
 
-    monEva.lanceEvaluation() ;
+    //EvaluationSecondeChance monEva {monQuestionnaire} ;
+    //monEva.lanceEvaluation() ;
+
+    fichier.sauvegarderQuestionnaire(monQuestionnaire) ;
 }
 
 void evalAdaptative() {
@@ -56,7 +58,7 @@ void testCertificat () {
 
 int main()
 {
-    //evalSecondeChance() ;
+    evalSecondeChance() ;
     //evalAdaptative();
     //testCertificat();
 
