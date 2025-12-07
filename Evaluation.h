@@ -31,7 +31,7 @@ protected:
     int d_score ;
     const Questionnaire *d_questionnaire;
     std::vector<int> d_tabIndiceErreur ;
-    void separateur(int largeur, char symbole) ;
+    static void separateur(int largeur, char symbole) ;
 };
 
 
