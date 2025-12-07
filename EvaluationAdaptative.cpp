@@ -30,14 +30,6 @@ EvaluationAdaptative::EvaluationAdaptative(const Questionnaire &questionnaire):E
     Ameliore lÃ , comment tu la prÃ©sentes, optimise lÃ  et tout
     TU PEUX LE FAIRE :)
 
- */
-
-
-    ta methode est bien ecrite et tout, mais voilà je te mets la barre un peu haute (j'ai confiance)
-    Ameliore là, comment tu la présentes, optimise là et tout
-    TU PEUX LE FAIRE :)
-
-
 
 
  */

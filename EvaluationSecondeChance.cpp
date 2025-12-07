@@ -11,6 +11,10 @@ void EvaluationSecondeChance::lanceEvaluation()
     std::string reponseUtilisateur ;
 
     // faire une boucle while pour arreter le questionnaire si l'utilisateur le souhaite
+    // qu'il appuie sur * pour arreter le questionnaire par exemple, il faut qu'on recupere la saisie
+    // utilisateur avant de la tester (verifier)
+
+
     for (int i=0 ; i<d_questionnaire->nombreDeQuestions();i++)
     {
         separateur(100,'=') ;

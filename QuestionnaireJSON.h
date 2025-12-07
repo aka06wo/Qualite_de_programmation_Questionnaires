@@ -2,27 +2,67 @@
 #define CODE_PROJET_QUESTIONNAIREJSON_H
 
 #include "json.hpp"
-#include "Questionnaire.h"
-#include "Question.h"
+
+class Questionnaire ;
 
 using nlohmann::json ;
 
 class QuestionnaireJSON {
 public:
+    /**
+     Constructeur par defaut de la classe QuestionnaireJSON
+     */
     QuestionnaireJSON() ;
+
+    /**
+     Constructeur avec le nom du questionnaire
+     @param nomQuestionnaire Le nom du questionnaire à extraire
+     */
     QuestionnaireJSON (const std::string &nomQuestionnaire) ;
+
+    /**
+     Change le questionnaire à charger
+     @param nomQuestionnaire Le nom du nouveau questionnaire
+     */
     void changerQuestionnaire(const std::string &nomQuestionnaire) ;
+
+    /**
+     Renvoie le nom du questionnaire
+     @return Le nom du questionnaire courant
+     */
     std::string nomQuestionnaire() const ;
-    bool ouvertureFichier(const std::ifstream &monFichier) const;
-    bool conversionJSON(json &monJSON, std::ifstream &monFichier) ;
-    bool lireFichierJSON(json &d_monFichier, const std::string &nomFichier) ;
-    bool extraireQuestionnaire(const json &d_monFichier, const std::string &nomQuestionnaire, json &monQuestionnaire) ;
-    void extraireDescription(const json &monFichier,Questionnaire &questionnaire) ;
-    json extraireQuestions(const json &monQuestionnaire) ;
-    void ajouterQuestionDepuisJSON(Questionnaire &questionnaire, const json &q) ;
+
+    /**
+     Tente d'ouvrir le fichier en parametre
+     @param fichier Le fichier à ouvir
+     @return Vrai s'il a reussi à ouvrir le fichier, Faux sinon
+     */
+    bool ouvertureFichier(const std::ifstream &fichier) const;
+
+    /**
+     Tente de convertir le fichier JSON en objet JSON
+     @param fichier Le fichier JSON d'origine stockée dans un fichier hors du code
+     @param fichierJSON L'objet JSON à avoir en resultat
+     @return Vrai s'il a reussi à le convertir, Faux sinon
+     */
+    bool conversionJSON(json &fichierJSON,std::ifstream &fichier) ;
+
+    /**
+     Tente à la foix de lire le fichier JSON et de le convertir en objet JSON
+     @param nomFichier Nom du fichier JSON
+     @param fichierJSON Objet JSON à avoir en resultat
+     @return Vrai s'il a reussi à lire et convertir le fichier, faux sinon
+     */
+    bool lireFichierJSON(json &fichierJSON, const std::string &nomFichier) ;
+
+
+   // Je continue après
+
+    bool extraireQuestionnaire(const json &fichierJSON, const std::string &nomQuestionnaire, json &questionnaireJSON) ;
+    void extraireDescription(const json &fichierJSON,Questionnaire &questionnaire) ;
+    json extraireQuestions(const json &questionnaireJSON) ;
+    void ajouterQuestionDepuisJSON(Questionnaire &questionnaire, const json &questionnaireJSON) ;
     void chargerDansQuestionnaire(Questionnaire &questionnaire) ;
-
-
     void sauvegarderQuestionnaire(const Questionnaire &questionnaire) const ;
 
 private:

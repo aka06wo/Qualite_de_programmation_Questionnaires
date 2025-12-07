@@ -1,5 +1,10 @@
 #include "statistiquesUtilisateurs.h"
 
+std::string statistiquesUtilisateurs::nomFichierStatistiques() {
+    return "statistiquesUtilisateurs.json";
+}
+
+
 std::string statistiquesUtilisateurs::messageSelonScore(double pourcentage) {
     std::string message{""} ;
     message += "Score obtenu : " + std::to_string(pourcentage) + '\n' ;
