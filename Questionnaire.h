@@ -16,7 +16,10 @@ public :
 
     Questionnaire() ;
     Questionnaire(const std::string &nom,const std::string &description = "" ,const std::vector<std::unique_ptr<Question>> &Questions = {});
+    ~Questionnaire();
     std::string nomQuestionnaire() const ;
+
+    // Changer le nom et la description du questionnaire doit etre privée
     void changerNomQuestionnaire(const std::string &nomQuestionnaire);
     std::string descriptionQuestionnaire() const ;
     void changerDescriptionQuestionnaire(const std::string &descriptionQuestionnaire);

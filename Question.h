@@ -12,6 +12,12 @@ public :
     Question(const std::string& intitule) ;
     virtual ~Question() = default ;
     std::string intitule() const ;
+
+
+
+    // il faut pas qu'on afficher, sa responsabilité c'est de renvoyer la question et reponse
+
+
     virtual void afficherQuestion() const =0;
     virtual void afficherReponse() const = 0;
     virtual std::string reponse() const = 0;
@@ -20,7 +26,8 @@ public :
     virtual std::unique_ptr<Question> clone() const=0 ;
     virtual nlohmann::json conversionJSON () const = 0;
 
-private :
+
+    private :
     std::string d_intitule ;
 };
 

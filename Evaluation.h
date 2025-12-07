@@ -21,18 +21,17 @@ public:
     virtual ~Evaluation() = default;
     std::string reponseUtilisateurQuestion() const ;
     std::string lireReponseValide(int indiceQuestion) const  ;
-    virtual void lanceEvaluation() = 0;
-    void separateur(int largeur, char symbole) ;
     void revueErreursCommises() const ;
     void resultatEvaluation() const ;
-    //void genererCertificatHtml() const;
-    //void genererCertificatText() const;
+    virtual void lanceEvaluation() = 0;
+
 
 protected:
     int d_nbEssai ;
     int d_score ;
     const Questionnaire *d_questionnaire;
     std::vector<int> d_tabIndiceErreur ;
+    void separateur(int largeur, char symbole) ;
 };
 
 

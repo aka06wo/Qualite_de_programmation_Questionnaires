@@ -12,22 +12,33 @@
 
 
 
+/*
+ Et on doit cacher certaines methodes a l'utilisateur, privée, et utilser l'amitié
+ */
 
 
 
 
 
 
+
+
+void testSauvegardeFichier()
+{
+    QuestionnaireJSON fichier {"Questionnaire sur la programmation"} ;
+    Questionnaire monQuestionnaire {} ;
+    fichier.chargerDansQuestionnaire(monQuestionnaire) ;
+
+    fichier.sauvegarderQuestionnaire(monQuestionnaire) ;
+}
 
 void evalSecondeChance() {
     QuestionnaireJSON fichier {"Questionnaire sur la programmation"} ;
     Questionnaire monQuestionnaire {} ;
     fichier.chargerDansQuestionnaire(monQuestionnaire) ;
 
-    //EvaluationSecondeChance monEva {monQuestionnaire} ;
-    //monEva.lanceEvaluation() ;
-
-    fichier.sauvegarderQuestionnaire(monQuestionnaire) ;
+    EvaluationSecondeChance monEva {monQuestionnaire} ;
+    monEva.lanceEvaluation() ;
 }
 
 void evalAdaptative() {

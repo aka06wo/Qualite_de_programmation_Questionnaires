@@ -1,9 +1,10 @@
-#include "QuestionnaireJSON.h"
 #include <fstream>
-
+#include "QuestionnaireJSON.h"
+#include "Questionnaire.h"
 #include "QuestionNumerique.h"
 #include "QuestionTexte.h"
 #include "QuestionChoixMultiple.h"
+
 
 std::string QuestionnaireJSON::NomFichierQuestionnaire() {
     return "Fichier_Questionnaire.json";
@@ -34,7 +35,7 @@ bool QuestionnaireJSON::ouvertureFichier(const std::ifstream &fichier) const{
     return (fichier.is_open());
 }
 
-bool QuestionnaireJSON::conversionJSON(json &fichierJSON, std::ifstream &fichier) {
+bool QuestionnaireJSON::conversionJSON(json &fichierJSON,std::ifstream &fichier) {
     try {
         fichier>>fichierJSON ;
     } catch (const json::parse_error &e) {
@@ -53,9 +54,9 @@ bool QuestionnaireJSON::lireFichierJSON(json &fichierJSON, const std::string &no
 }
 
 bool QuestionnaireJSON::extraireQuestionnaire(
-    const json &fichierJSON, const std::string &nomQuestionnaire, json &questionnaire) {
+    const json &fichierJSON, const std::string &nomQuestionnaire, json &questionnaireJSON) {
     try {
-        questionnaire = fichierJSON.at(nomQuestionnaire);
+        questionnaireJSON = fichierJSON.at(nomQuestionnaire);
     } catch (const json::out_of_range &e) {
         // std::cerr << "Questionnaire '" << nomQuestionnaire << "' manquant → " << e.what() << std::endl;
         return false;
@@ -63,40 +64,44 @@ bool QuestionnaireJSON::extraireQuestionnaire(
     return true;
 }
 
-void QuestionnaireJSON::extraireDescription(const json &monFichier, Questionnaire &questionnaire) {
+void QuestionnaireJSON::extraireDescription(const json &fichierJSON, Questionnaire &questionnaire) {
     try {
-        std::string description = monFichier.at("description") ;
+        std::string description = fichierJSON.at("description") ;
         questionnaire.changerDescriptionQuestionnaire(description);
     } catch (const json::out_of_range &e) {
         //std::cerr << "Questionnaire " << "Description manquante" << e.what() << std::endl;
     }
 }
 
-json QuestionnaireJSON::extraireQuestions(const json &monQuestionnaire) {
+json QuestionnaireJSON::extraireQuestions(const json &questionnaireJSON) {
     try {
-        return monQuestionnaire.at("questions");
+        return questionnaireJSON.at("questions");
     } catch (const json::out_of_range &e) {
         std::cerr << "Aucune question trouvée → " << e.what() << std::endl;
         return json::array(); // retourne un tableau vide
     }
 }
 
-void QuestionnaireJSON::ajouterQuestionDepuisJSON(Questionnaire &questionnaire, const json &q) {
+void QuestionnaireJSON::ajouterQuestionDepuisJSON(Questionnaire &questionnaire, const json &questionnaireJSON) {
     try {
-        std::string type = q.at("type");
+        std::string type = questionnaireJSON.at("type");
 
-        if (type == "choixMultiples") {
+        if (type == "choixMultiples")
+        {
             questionnaire.ajouterQuestion(std::make_unique<QuestionChoixMultiple>(
-                q.at("question"), q.at("reponsesPossibles"), q.at("numReponseCorrecte")));
-        } else if (type == "numerique") {
+                questionnaireJSON.at("question"), questionnaireJSON.at("reponsesPossibles"),
+                questionnaireJSON.at("numReponseCorrecte")));
+        } else if (type == "numerique")
+        {
             questionnaire.ajouterQuestion(std::make_unique<QuestionNumerique>(
-                q.at("question"), q.at("reponseCorrecte"), q.at("limiteMax"), q.at("limiteMin")));
-        } else if (type == "texte") {
+                questionnaireJSON.at("question"), questionnaireJSON.at("reponseCorrecte"),
+                questionnaireJSON.at("limiteMax"), questionnaireJSON.at("limiteMin")));
+        } else if (type == "texte")
+        {
             questionnaire.ajouterQuestion(std::make_unique<QuestionTexte>(
-                q.at("question"), q.at("reponseCorrecte")));
-        } else {
-            std::cerr << "Type de question inconnu → question ignorée." << std::endl;
+                questionnaireJSON.at("question"), questionnaireJSON.at("reponseCorrecte")));
         }
+        // else  std::cerr << "Type de question inconnu → question ignorée." << std::endl;
     } catch (const json::out_of_range &e) {
         std::cerr << "Question ignorée : clé manquante " << e.what() << std::endl;
     }

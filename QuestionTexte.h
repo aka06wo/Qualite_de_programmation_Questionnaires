@@ -13,7 +13,6 @@ class QuestionTexte:public Question {
     bool validiteEntreeUtilisateur(const std::string &reponse) const override ;
     bool verificationReponse(const std::string &reponse) const override;
     std::unique_ptr<Question> clone() const override ;
-    // mamadou : j'en avais besoin pour la classe questionnaireJSON, je vous expliquerait
     nlohmann::json conversionJSON () const override ;
 
     private:

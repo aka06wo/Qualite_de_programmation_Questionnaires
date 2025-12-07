@@ -11,6 +11,10 @@ Questionnaire::Questionnaire() : d_nom{"Questionnaire Vide"},d_description{"Ceci
 {
 }
 
+Questionnaire::~Questionnaire() {
+
+}
+
 Questionnaire::Questionnaire(const string &nom,const string &description, const vector<std::unique_ptr<Question>>& Questions):
     d_nom{nom},d_description{description}
 {

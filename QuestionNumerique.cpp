@@ -5,6 +5,18 @@ using std::cout;
 using std::string ;
 using std::endl ;
 
+
+
+/*
+ Actuellement si une question a comme reponse 5 et limite min 2 et limite max 9
+    et que l'utilisateur donne 3, on dit bonne reponse mais affiche pas 5 (qui est la reponse juste sans limite)
+
+    il faut qu'on y pense
+
+
+
+ */
+
 QuestionNumerique::QuestionNumerique(const string& intitule,int reponse,int limitemax,int limitemin): Question{intitule},d_reponse{reponse},
     d_limiteMax{limitemax},d_limiteMin{limitemin}
 {
@@ -67,11 +79,12 @@ bool QuestionNumerique::validiteEntreeUtilisateur(const string &reponse) const
                 cout<< "Votre réponse n'est pas valide, veuillez saisir un nombre\n";
                 return false;
             }
-            else
-                return true;
         }
+        // Si tous les caractères sont des chiffres, la réponse est valide
+        return true;
     }
-
+    // Ne devrait jamais arriver ici, mais pour éviter le warning
+    return false;
 }
 
 
