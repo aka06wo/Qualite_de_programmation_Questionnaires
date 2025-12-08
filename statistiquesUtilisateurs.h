@@ -8,18 +8,17 @@ class statistiquesUtilisateurs
 {
   public:
   statistiquesUtilisateurs();
-  static std::string nomFichierStatistiques();
+  ~statistiquesUtilisateurs();
   std::string messageSelonScore(double pourcentage) ;
+  std::string statistiquesPourUtilisateur(const std::string &nomUtilisateur) const ;
 
   private :
   json d_statistiquesUtilisateurs ;
-
-
-  /*
-   Fichier JSON déja mis en place
-   */
-
-
+  static std::string nomFichierStatistiquesJSON () ;
+  static std::string NomFichierQuestionnairesSauvegarde() ;
+  void chargerStatistiques() ;
+  void sauverStatistiques() ;
+  json extraireUtilisateur(const std::string &nomUtilisateur) const ;
 };
 
 

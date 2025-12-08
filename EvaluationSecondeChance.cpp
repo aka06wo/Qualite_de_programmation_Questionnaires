@@ -19,7 +19,8 @@ void EvaluationSecondeChance::lanceEvaluation()
     {
         separateur(100,'=') ;
 
-        d_questionnaire->afficherQuestionNumero(i) ;
+        std::cout<<d_questionnaire->intituleQuestionNumero(i) ;
+        std::cout<<d_questionnaire->instructionsQuestionNumero(i) ;
         reponseUtilisateur = lireReponseValide(i) ;
 
         if (!d_questionnaire->verificationReponse(i,reponseUtilisateur))
@@ -31,7 +32,7 @@ void EvaluationSecondeChance::lanceEvaluation()
             {
                 separateur(100,'.') ;
                 std::cout<<"[x] Toujours incorrect.\n" ;
-                d_questionnaire->afficherReponseNumero(i);
+                std::cout<<"La bonne reponse est : "+ d_questionnaire->reponseQuestionNumero(i) ;
                 separateur(100,'.') ;
             }
             else {
@@ -48,6 +49,8 @@ void EvaluationSecondeChance::lanceEvaluation()
         separateur(100,'=') ;
         std::cout<<"\n\n" ;
     }
+
+    // il faut juste qu'on stocke
     resultatEvaluation() ;
 }
 

@@ -15,12 +15,12 @@ Questionnaire::~Questionnaire() {
 
 }
 
-Questionnaire::Questionnaire(const string &nom,const string &description, const vector<std::unique_ptr<Question>>& Questions):
-    d_nom{nom},d_description{description}
+Questionnaire::Questionnaire(const string &nom,const string &description,
+    const vector<std::unique_ptr<Question>>& Questions): d_nom{nom},d_description{description}
 {
-    // On peut faire un move d'un tableau entier ou pas ??
     d_Questions.reserve(Questions.size()) ;
-    for (const auto &q : Questions) {
+    for (const auto &q : Questions)
+    {
         d_Questions.push_back(q->clone()); // copie polymorphe
     }
 }
@@ -46,20 +46,21 @@ int Questionnaire::nombreDeQuestions() const {
     return d_Questions.size() ;
 }
 
-
-
 void Questionnaire::ajouterQuestion(std::unique_ptr<Question> q)
 {
     d_Questions.push_back(std::move(q));
 }
 
-
-void Questionnaire::afficherQuestionNumero(int i) const {
-    d_Questions[i]->afficherQuestion() ;
+std::string Questionnaire::intituleQuestionNumero(int i) const {
+    return d_Questions[i]->intitule() ;
 }
 
-void Questionnaire::afficherReponseNumero(int i) const {
-    d_Questions[i]->afficherReponse() ;
+std::string Questionnaire::instructionsQuestionNumero(int i) const {
+    return d_Questions[i]->instructionsQuestion() ;
+}
+
+std::string Questionnaire::reponseQuestionNumero(int i) const {
+    return d_Questions[i]->reponse() ;
 }
 
 bool Questionnaire::validiteEntreeUtilisateur(int i,const std::string &reponse) const {

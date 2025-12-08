@@ -35,9 +35,10 @@ bool QuestionnaireJSON::ouvertureFichier(const std::ifstream &fichier) const{
     return (fichier.is_open());
 }
 
-bool QuestionnaireJSON::conversionJSON(json &fichierJSON,std::ifstream &fichier) {
+bool QuestionnaireJSON::conversionJSON(json &fichierJSON,std::ifstream &fichier) const {
     try {
         fichier>>fichierJSON ;
+        fichier.close();
     } catch (const json::parse_error &e) {
         // std::cerr << "Erreur JSON : " << e.what() << std::endl;
         return false;
@@ -45,7 +46,7 @@ bool QuestionnaireJSON::conversionJSON(json &fichierJSON,std::ifstream &fichier)
     return true;
 }
 
-bool QuestionnaireJSON::lireFichierJSON(json &fichierJSON, const std::string &nomFichier) {
+bool QuestionnaireJSON::lireFichierJSON(json &fichierJSON, const std::string &nomFichier) const {
     std::ifstream fichier(nomFichier);
     if (!ouvertureFichier(fichier))
         return false;
@@ -77,7 +78,7 @@ json QuestionnaireJSON::extraireQuestions(const json &questionnaireJSON) {
     try {
         return questionnaireJSON.at("questions");
     } catch (const json::out_of_range &e) {
-        std::cerr << "Aucune question trouvée → " << e.what() << std::endl;
+        //std::cerr << "Aucune question trouvée → " << e.what() << std::endl;
         return json::array(); // retourne un tableau vide
     }
 }
@@ -134,10 +135,11 @@ void QuestionnaireJSON::chargerDansQuestionnaire(Questionnaire &questionnaire) {
 
 
 void QuestionnaireJSON::sauvegarderQuestionnaire(const Questionnaire &questionnaire) const {
-    json tousLesQuestionnaires;
-    std::ifstream monFichier(NomFichierQuestionnaire());
-    monFichier >> tousLesQuestionnaires;
-    monFichier.close();
+    json tousLesQuestionnaires{};
+    if ( ! lireFichierJSON(tousLesQuestionnaires, NomFichierQuestionnairesSauvegarde()))
+    {
+        tousLesQuestionnaires = json::object() ;
+    }
 
     tousLesQuestionnaires[questionnaire.nomQuestionnaire()]=questionnaire.conversionQuestionnaireJson();
 

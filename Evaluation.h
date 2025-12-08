@@ -19,7 +19,6 @@ class Evaluation
 public:
     Evaluation(const Questionnaire &questionnaire);
     virtual ~Evaluation() = default;
-    std::string reponseUtilisateurQuestion() const ;
     std::string lireReponseValide(int indiceQuestion) const  ;
     void revueErreursCommises() const ;
     void resultatEvaluation() const ;
@@ -32,6 +31,7 @@ protected:
     const Questionnaire *d_questionnaire;
     std::vector<int> d_tabIndiceErreur ;
     static void separateur(int largeur, char symbole) ;
+    static std::string reponseUtilisateurQuestion() ;
 };
 
 

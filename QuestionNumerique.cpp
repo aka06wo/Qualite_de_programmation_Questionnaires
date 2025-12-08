@@ -13,37 +13,36 @@ using std::endl ;
 
     il faut qu'on y pense
 
-
-
  */
 
-QuestionNumerique::QuestionNumerique(const string& intitule,int reponse,int limitemax,int limitemin): Question{intitule},d_reponse{reponse},
-    d_limiteMax{limitemax},d_limiteMin{limitemin}
+QuestionNumerique::QuestionNumerique(const string& intitule,int reponse,int limitemax,int limitemin):
+    Question{intitule},d_reponse{reponse}, d_limiteMax{limitemax},d_limiteMin{limitemin}
 {
+}
+
+int QuestionNumerique::limiteMinimum() const
+{
+    return d_limiteMin;
+}
+
+int QuestionNumerique::limiteMaximum() const
+{
+    return d_limiteMax ;
+}
+
+std::string QuestionNumerique::intitule() const
+{
+    return d_intitule ;
+}
+
+std::string QuestionNumerique::instructionsQuestion() const
+{
+    return string{"Saisissez la bonne reponse\n"} ;
 }
 
 string QuestionNumerique::reponse() const
 {
     return std::to_string(d_reponse);
-}
-
-int QuestionNumerique::limiteMinimum() const {
-    return d_limiteMin;
-}
-
-int QuestionNumerique::limiteMaximum() const {
-    return d_limiteMax ;
-}
-
-void QuestionNumerique::afficherQuestion() const
-{
-    cout<<intitule()<<endl ;
-    cout<<"Saisissez la bonne reponse :\n" ;
-}
-
-void QuestionNumerique::afficherReponse() const
-{
-    cout<<"La bonne reponse est : "+reponse()<<endl;
 }
 
 bool QuestionNumerique::validiteEntreeUtilisateur(const string &reponse) const

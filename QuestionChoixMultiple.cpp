@@ -7,12 +7,9 @@ QuestionChoixMultiple::QuestionChoixMultiple(const std::string &question,
 {
 }
 
-int QuestionChoixMultiple::indiceReponse() const {
+int QuestionChoixMultiple::indiceReponse() const
+{
     return d_indiceReponse;
-}
-
-std::string QuestionChoixMultiple::reponse() const {
-    return choixNumero(d_indiceReponse);
 }
 
 int QuestionChoixMultiple::nombreDeChoix() const
@@ -25,52 +22,75 @@ std::string QuestionChoixMultiple::choixNumero(int i) const
     return d_reponsesPossibles[i] ;
 }
 
-void QuestionChoixMultiple::afficherQuestion() const {
-    std::cout<<intitule()<<std::endl ;
-    for (int i = 0; i < nombreDeChoix(); i++) {
-        std::cout<<i+1<<"- "<<choixNumero(i)<<std::endl ;
+std::string QuestionChoixMultiple::intitule() const
+{
+    std::string question {d_intitule + '\n'} ;
+    for (int i = 0; i < nombreDeChoix(); i++)
+    {
+        question += std::to_string(i+1) + '-' + choixNumero(i) + '\n' ;
     }
-    std::cout<<"Saisissez le numéro de la bonne réponse :\n" ;
 }
 
-void QuestionChoixMultiple::afficherReponse() const {
-    std::cout<<"La bonne reponse est : "+ std::to_string(d_indiceReponse+1) + " - " + reponse()<<std::endl;
+std::string QuestionChoixMultiple::instructionsQuestion() const
+{
+    return std::string {"Saisissez le numéro de la bonne reponse\n"} ;
 }
 
-bool QuestionChoixMultiple::validiteEntreeUtilisateur(const std::string &reponse) const {
-    if (reponse.empty()) {
+std::string QuestionChoixMultiple::reponse() const
+{
+    std::string reponse {std::to_string(d_indiceReponse+1) + '-' + choixNumero(d_indiceReponse) + '\n' } ;
+    return reponse ;
+}
+
+
+
+/*
+ ON utilise std::stoi deux fois, dans validité et dans verification, il faut qu'on le fasse
+ une seule fois
+ */
+
+bool QuestionChoixMultiple::validiteEntreeUtilisateur(const std::string &reponse) const
+{
+    if (reponse.empty())
+    {
         std::cout << "Veuillez entrer le numero de la bonne reponse\n";
         return false;
     }
-
-    try {
+    try
+    {
         int valeur = std::stoi(reponse);
-        if (valeur < 0 || valeur > d_reponsesPossibles.size()) {
+        if (valeur <= 0 || valeur > d_reponsesPossibles.size())
+        {
             std::cout << "Numero de réponse hors plage, veuillez entrez un numéro valide\n";
             return false;
         }
         else
             return true;
     }
-    catch (const std::invalid_argument&) {
+    catch (const std::invalid_argument&)
+    {
         std::cout << "Veuillez saisir un numero valide\n";
         return false;
     }
-    catch (const std::out_of_range&) {
+    catch (const std::out_of_range&)
+    {
         std::cout << "Nombre trop grand, veuillez saisir un numéro valide\n";
         return false;
     }
 }
 
-bool QuestionChoixMultiple::verificationReponse(const std::string &reponse) const {
+bool QuestionChoixMultiple::verificationReponse(const std::string &reponse) const
+{
     return std::stoi(reponse) == d_indiceReponse + 1 ;
 }
 
-std::unique_ptr<Question> QuestionChoixMultiple::clone() const {
+std::unique_ptr<Question> QuestionChoixMultiple::clone() const
+{
     return std::make_unique<QuestionChoixMultiple>(*this) ;
 }
 
-nlohmann::json QuestionChoixMultiple::conversionJSON() const {
+nlohmann::json QuestionChoixMultiple::conversionJSON() const
+{
     return nlohmann::json {
         {"type", "choixMultiples"},
         {"question", intitule()},

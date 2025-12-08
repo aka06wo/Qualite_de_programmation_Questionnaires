@@ -9,12 +9,12 @@ class QuestionChoixMultiple : public Question
 public:
     QuestionChoixMultiple(const std::string &question,
                 const std::vector<std::string> &reponsesPossibles, int numReponse);
-    std::string reponse() const override ;
     int nombreDeChoix() const ;
     int indiceReponse() const ;
     std::string choixNumero(int i) const ;
-    void afficherQuestion() const override ;
-    void afficherReponse() const override ;
+    std::string intitule() const override ;
+    std::string instructionsQuestion() const override;
+    std::string reponse() const override ;
     bool validiteEntreeUtilisateur(const std::string &reponse) const override ;
     bool verificationReponse(const std::string &reponse) const override ;
     std::unique_ptr<Question> clone() const override ;
