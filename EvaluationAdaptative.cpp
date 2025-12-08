@@ -50,7 +50,8 @@ void EvaluationAdaptative::lanceEvaluation()
         int indiceAlea=rand()%(d_IndQuestionsNonposees.size());
         int indQuestion=d_IndQuestionsNonposees[indiceAlea];
 
-        d_questionnaire->afficherQuestionNumero(indQuestion);
+        std::cout<<d_questionnaire->intituleQuestionNumero(indQuestion) ;
+        std::cout<<d_questionnaire->instructionsQuestionNumero(indQuestion) ;
 
         std::string reponse=lireReponseValide(indQuestion);
 
@@ -71,10 +72,17 @@ void EvaluationAdaptative::lanceEvaluation()
         std::cout << std::string(100, '=') << '\n';
     }
 
+    /*
+     Il faut que l'utilisateur sache que tu commences l'examen sur les questions ou il avait faut
+     Juste un affichage
+     du style (Lui dire qu'on lui repose les questions sur les quels il avait pas trouvé la reponse
+     */
+
     for(int i{0}; i<d_tabIndiceErreur.size(); ++i)
     {
         std::cout << std::string(100, '=') << '\n';
-        d_questionnaire->afficherQuestionNumero(d_tabIndiceErreur[i]);
+        std::cout<<d_questionnaire->intituleQuestionNumero(d_tabIndiceErreur[i]) ;
+        std::cout<<d_questionnaire->instructionsQuestionNumero(d_tabIndiceErreur[i]) ;
         std::string reponse=lireReponseValide(d_tabIndiceErreur[i]);
 
         bool reponseCorrecte=d_questionnaire->verificationReponse(d_tabIndiceErreur[i],reponse);

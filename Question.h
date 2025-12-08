@@ -11,23 +11,15 @@ class Question
 public :
     Question(const std::string& intitule) ;
     virtual ~Question() = default ;
-    std::string intitule() const ;
-
-
-
-    // il faut pas qu'on afficher, sa responsabilité c'est de renvoyer la question et reponse
-
-
-    virtual void afficherQuestion() const =0;
-    virtual void afficherReponse() const = 0;
+    virtual std::string intitule() const = 0 ;
+    virtual std::string instructionsQuestion() const = 0 ;
     virtual std::string reponse() const = 0;
     virtual bool validiteEntreeUtilisateur(const std::string &reponse) const = 0 ;
     virtual bool verificationReponse(const std::string &reponse) const = 0 ;
     virtual std::unique_ptr<Question> clone() const=0 ;
     virtual nlohmann::json conversionJSON () const = 0;
 
-
-    private :
+    protected :
     std::string d_intitule ;
 };
 

@@ -12,19 +12,16 @@ using std::string;
  {
  }
 
-void QuestionTexte::afficherQuestion() const {
-     cout<<intitule()<<endl ;
-     cout<<"Saisissez la bonne reponse :\n" ;
+std::string QuestionTexte::intitule() const {
+    return d_intitule;
+}
+
+std::string QuestionTexte::instructionsQuestion() const {
+     return string {"Saisissez la bonne reponse\n"} ;
  }
 
- void QuestionTexte::afficherReponse() const
- {
-     cout<<"La reponse correcte est : "<<reponse()<<endl;
- }
-
- string QuestionTexte::reponse() const
- {
-     return d_reponseCorrecte;
+std::string QuestionTexte::reponse() const {
+     return d_reponseCorrecte ;
  }
 
 bool QuestionTexte::validiteEntreeUtilisateur(const string &reponse) const {
@@ -40,7 +37,7 @@ bool QuestionTexte::validiteEntreeUtilisateur(const string &reponse) const {
  bool QuestionTexte::verificationReponse(const string &reponse) const
  {
      if(reponse.length()!=d_reponseCorrecte.length())
-        return false;//Si les textes n'ont pas la même taille,ils ne peuvent pas être égales
+        return false;
      else
      {
          for(int i=0;i<reponse.length();i++)
@@ -49,21 +46,20 @@ bool QuestionTexte::validiteEntreeUtilisateur(const string &reponse) const {
              {
                  return false;
                  //tolower permet de convertir une lettre en miniscule
-                 //Ce qui permet d'ignorer la casse lors de la comparaison
              }
          }
-          return true;
+         return true;
      }
  }
 
-//désolé je devais le faire pour tester
+
 std::unique_ptr<Question> QuestionTexte::clone() const {
      return std::make_unique<QuestionTexte>(*this);
  }
 
 
 nlohmann::json QuestionTexte::conversionJSON() const {
-     return nlohmann::json{
+     return nlohmann::json {
          {"type", "texte"},
          {"question", intitule()},
          {"reponseCorrecte", reponse()}

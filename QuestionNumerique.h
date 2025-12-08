@@ -8,11 +8,11 @@ class QuestionNumerique : public Question
 {
     public:
     QuestionNumerique(const std::string& intitule,int reponse,int limitemax,int limitemin);
-    std::string reponse() const override ;
     int limiteMinimum() const ;
     int limiteMaximum() const ;
-    void afficherQuestion() const override ;
-    void afficherReponse() const override ;
+    std::string intitule() const override ;
+    std::string instructionsQuestion() const override;
+    std::string reponse() const override ;
     bool validiteEntreeUtilisateur(const std::string &reponse) const override ;
     bool verificationReponse(const std::string &reponse) const override ;
     std::unique_ptr<Question> clone() const override ;

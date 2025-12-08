@@ -11,6 +11,11 @@
  */
 
 
+/*
+ Utiliser getline (au lieu des cin)
+ */
+
+
 
 /*
  Et on doit cacher certaines methodes a l'utilisateur, privée, et utilser l'amitié

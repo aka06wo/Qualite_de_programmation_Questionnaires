@@ -7,9 +7,9 @@
 class QuestionTexte:public Question {
     public:
     QuestionTexte(const std::string &intitule, const std::string &reponse);
-    void afficherQuestion() const override ;
-    void afficherReponse() const override;
-    std::string reponse() const override;
+    std::string intitule() const override ;
+    std::string instructionsQuestion() const override;
+    std::string reponse() const override ;
     bool validiteEntreeUtilisateur(const std::string &reponse) const override ;
     bool verificationReponse(const std::string &reponse) const override;
     std::unique_ptr<Question> clone() const override ;

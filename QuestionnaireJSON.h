@@ -45,15 +45,15 @@ public:
      @param fichierJSON L'objet JSON à avoir en resultat
      @return Vrai s'il a reussi à le convertir, Faux sinon
      */
-    bool conversionJSON(json &fichierJSON,std::ifstream &fichier) ;
+    bool conversionJSON(json &fichierJSON,std::ifstream &fichier) const ;
 
     /**
      Tente à la foix de lire le fichier JSON et de le convertir en objet JSON
-     @param nomFichier Nom du fichier JSON
      @param fichierJSON Objet JSON à avoir en resultat
+     @param nomFichier Nom du fichier JSON
      @return Vrai s'il a reussi à lire et convertir le fichier, faux sinon
      */
-    bool lireFichierJSON(json &fichierJSON, const std::string &nomFichier) ;
+    bool lireFichierJSON(json &fichierJSON, const std::string &nomFichier) const ;
 
 
    // Je continue après
