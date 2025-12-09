@@ -1,17 +1,17 @@
-#ifndef EVALUATIONTEST_H
-#define EVALUATIONTEST_H
+#ifndef CODE_QUESTIONNAIRE_EVALUATIONTEST_H
+#define CODE_QUESTIONNAIRE_EVALUATIONTEST_H
 
 #include "Evaluation.h"
-class EvaluationTest : public Evaluation {
+#include <iostream>
+#include <string>
+
+class EvaluationTest : public Evaluation
+{
 public:
-    EvaluationTest(const Questionnaire &quest);
-    std::string reponseUtilisateurQuestion() const override;
-    void lanceEvaluation() const override;
-    void resultatEvaluation() const override;
-    void certificatReussite() const override;
-    void certificatHtml() const override;
+
+    EvaluationTest(const Questionnaire &questionnaire);
+    void lanceEvaluation() override;
 
 private:
-};
 
-#endif // EVALUATIONTEST_H
+#endif // CODE_QUESTIONNAIRE_EVALUATIONTEST_H
