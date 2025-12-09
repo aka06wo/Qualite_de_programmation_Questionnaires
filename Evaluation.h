@@ -3,24 +3,35 @@
 
 
 #include "Questionnaire.h"
-#include "QuestionnaireJSON.h"
+#include <string>
+#include <vector>
+
+
+
+/*
+
+On doit ecrire un gestionnaire d'evaluation qui gère les evalutaions
+
+*/
 
 class Evaluation
 {
 public:
-    Evaluation(const std::string &nomQuestionnaire);
-    virtual std::string reponseUtilisateurQuestion() const = 0 ;
-    virtual void lanceEvaluation() const = 0;
-    virtual void resultatEvaluation() const = 0;
-    virtual void certificatReussite() const = 0;
-    virtual void certificatHtml() const = 0;
+    Evaluation(const Questionnaire &questionnaire);
     virtual ~Evaluation() = default;
+    std::string lireReponseValide(int indiceQuestion) const  ;
+    void revueErreursCommises() const ;
+    void resultatEvaluation() const ;
+    virtual void lanceEvaluation() = 0;
 
-    protected:
-    // pour s'assurer qu'on le modifie pas (le questionnaire)
-    const Questionnaire *d_questionnaire;
+
+protected:
     int d_nbEssai ;
     int d_score ;
+    const Questionnaire *d_questionnaire;
+    std::vector<int> d_tabIndiceErreur ;
+    static void separateur(int largeur, char symbole) ;
+    static std::string reponseUtilisateurQuestion() ;
 };
 
 

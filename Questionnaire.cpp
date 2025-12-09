@@ -1,5 +1,84 @@
-//
-// Created by Mamadou Diallo on 30/10/2025.
-//
-
 #include "Questionnaire.h"
+#include "Question.h"
+
+using nlohmann::json ;
+using std::string ;
+using std::ostream;
+using std::istream;
+using std::vector ;
+
+Questionnaire::Questionnaire() : d_nom{"Questionnaire Vide"},d_description{"Ceci est un questionnaire vide"}
+{
+}
+
+Questionnaire::~Questionnaire() {
+
+}
+
+Questionnaire::Questionnaire(const string &nom,const string &description,
+    const vector<std::unique_ptr<Question>>& Questions): d_nom{nom},d_description{description}
+{
+    d_Questions.reserve(Questions.size()) ;
+    for (const auto &q : Questions)
+    {
+        d_Questions.push_back(q->clone()); // copie polymorphe
+    }
+}
+
+string Questionnaire::nomQuestionnaire() const
+{
+    return d_nom ;
+}
+
+void Questionnaire::changerNomQuestionnaire(const string &nomQuestionnaire) {
+    d_nom = nomQuestionnaire ;
+}
+
+string Questionnaire::descriptionQuestionnaire() const {
+    return d_description ;
+}
+
+void Questionnaire::changerDescriptionQuestionnaire(const string &descriptionQuestionnaire) {
+    d_description = descriptionQuestionnaire ;
+}
+
+int Questionnaire::nombreDeQuestions() const {
+    return d_Questions.size() ;
+}
+
+void Questionnaire::ajouterQuestion(std::unique_ptr<Question> q)
+{
+    d_Questions.push_back(std::move(q));
+}
+
+std::string Questionnaire::intituleQuestionNumero(int i) const {
+    return d_Questions[i]->intitule() ;
+}
+
+std::string Questionnaire::instructionsQuestionNumero(int i) const {
+    return d_Questions[i]->instructionsQuestion() ;
+}
+
+std::string Questionnaire::reponseQuestionNumero(int i) const {
+    return d_Questions[i]->reponse() ;
+}
+
+bool Questionnaire::validiteEntreeUtilisateur(int i,const std::string &reponse) const {
+    return d_Questions[i]->validiteEntreeUtilisateur(reponse) ;
+}
+
+bool Questionnaire::verificationReponse(int i,const std::string &reponse) const {
+    return d_Questions[i]->verificationReponse(reponse) ;
+}
+
+json Questionnaire::conversionQuestionnaireJson() const {
+    json resultat;
+    resultat["description"] = descriptionQuestionnaire();
+    resultat["nombreDeQuestions"] = nombreDeQuestions();
+    resultat["questions"] = json::array();
+
+    for (const auto &q : d_Questions) {
+        resultat["questions"].push_back(q->conversionJSON());
+    }
+    return resultat;
+}

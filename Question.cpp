@@ -1,5 +1,4 @@
-//
-// Created by Mamadou Diallo on 30/10/2025.
-//
-
 #include "Question.h"
+
+Question::Question(const std::string& intitule): d_intitule{intitule}
+{}
