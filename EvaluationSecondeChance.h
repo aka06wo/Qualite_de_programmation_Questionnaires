@@ -7,9 +7,8 @@ class EvaluationSecondeChance : public Evaluation
 {
     public:
     EvaluationSecondeChance(const Questionnaire &questionnaire);
-    std::string lireReponseValide(int indiceQuestion) const ;
     void lanceEvaluation() override;
-    void resultatEvaluation() const override;
+
     private:
 };
 

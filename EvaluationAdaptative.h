@@ -1,21 +1,13 @@
 #ifndef EVALUATIONADAPTATIVE_H
 #define EVALUATIONADAPTATIVE_H
 
-#include<memory>
-#include <iostream>
 #include "Evaluation.h"
-#include <vector>
-#include <cstdlib>
-#include <ctime>
 
 class EvaluationAdaptative : public Evaluation
 {
 public:
     EvaluationAdaptative(const Questionnaire &questionnaire);
-    std::string lireReponseValide(int indiceQuestion) const;
-
     void lanceEvaluation() override;
-    void resultatEvaluation() const override;
 
 private:
 

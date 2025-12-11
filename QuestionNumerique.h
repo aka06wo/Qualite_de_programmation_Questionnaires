@@ -2,20 +2,21 @@
 #define CODE_QUESTIONNUMERIQUE_H
 
 #include "Question.h"
-#include <iostream>
 
 
 class QuestionNumerique : public Question
 {
     public:
-    QuestionNumerique(const string& intitule,int reponse,int limitemax,int limitemin);
-    string reponse() const override ;
-    void afficherQuestion() const override ;
-    void afficherReponse() const override ;
-    bool validiteEntreeUtilisateur(const string &reponse) const override ;
-    bool verificationReponse(const string &reponse) const override ;
+    QuestionNumerique(const std::string& intitule,int reponse,int limitemax,int limitemin);
+    int limiteMinimum() const ;
+    int limiteMaximum() const ;
+    std::string intitule() const override ;
+    std::string instructionsQuestion() const override;
+    std::string reponse() const override ;
+    bool validiteEntreeUtilisateur(const std::string &reponse) const override ;
+    bool verificationReponse(const std::string &reponse) const override ;
     std::unique_ptr<Question> clone() const override ;
-    json conversionJSON () const override ;
+    nlohmann::json conversionJSON () const override ;
 
 
     private:

@@ -9,42 +9,32 @@
 
 class Question ;
 
-using nlohmann::json ;
-using std::string ;
-using std::ostream;
-using std::istream;
-using std::vector ;
-
 class Questionnaire
 {
 public :
     friend class QuestionnaireJSON ;
 
     Questionnaire() ;
-    Questionnaire(const string &nom,const string &description = "" ,const vector<std::unique_ptr<Question>> &Questions = {});
-    string nomQuestionnaire() const ;
-    void changerNomQuestionnaire(const string &nomQuestionnaire);
-    string descriptionQuestionnaire() const ;
-    void changerDescriptionQuestionnaire(const string &descriptionQuestionnaire);
+    Questionnaire(const std::string &nom,const std::string &description = "" ,
+                        const std::vector<std::unique_ptr<Question>> &Questions = {});
+    ~Questionnaire();
+    std::string nomQuestionnaire() const ;
+    std::string descriptionQuestionnaire() const ;
     int nombreDeQuestions() const ;
-    void afficherQuestionNumero(int i) const ;
-    void afficherReponseNumero(int i) const ;
-    // verifie les entrees utilisateurs
-    bool validiteEntreeUtilisateur(int i,const string &reponse) const ;
-    // verifie si la reponse rep est juste pour la question I
+    std::string intituleQuestionNumero(int i) const ;
+    std::string instructionsQuestionNumero(int i) const ;
+    std::string reponseQuestionNumero(int i) const ;
+    bool validiteEntreeUtilisateur(int i,const std::string &reponse) const ;
     bool verificationReponse(int i,const std::string &reponse) const ;
-    // Retourne le type de la question à l'index i ("numerique", "choixMultiples", "texte")
-    std::string typeQuestion(int i) const ;
-    // Retourne le nombre de choix pour une question à choix multiples, -1 sinon
-    int nombreChoixQuestion(int i) const ;
-    json conversionQuestionnaireJson() const ;
 
 private :
-    string d_nom ;
-    string d_description ;
-    vector<std::unique_ptr<Question>> d_Questions ;
-    // L'utilisateur de doit pas pouvoir ajouter une question
+    std::string d_nom ;
+    std::string d_description ;
+    std::vector<std::unique_ptr<Question>> d_Questions ;
+    void changerNomQuestionnaire(const std::string &nomQuestionnaire);
+    void changerDescriptionQuestionnaire(const std::string &descriptionQuestionnaire);
     void ajouterQuestion(std::unique_ptr<Question> q);
+    nlohmann::json conversionQuestionnaireJson() const ;
 };
 
 
