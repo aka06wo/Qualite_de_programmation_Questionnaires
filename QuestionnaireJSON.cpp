@@ -6,11 +6,13 @@
 #include "QuestionChoixMultiple.h"
 
 
-std::string QuestionnaireJSON::NomFichierQuestionnaire() {
+std::string QuestionnaireJSON::NomFichierQuestionnaire()
+{
     return "Fichier_Questionnaire.json";
 }
 
-std::string QuestionnaireJSON::NomFichierQuestionnairesSauvegarde() {
+std::string QuestionnaireJSON::NomFichierQuestionnairesSauvegarde()
+{
     return "Fichier_Questionnaire_Sauvegarde.json";
 }
 
@@ -23,19 +25,23 @@ QuestionnaireJSON::QuestionnaireJSON(const std::string &nomQuestionnaire) :
 {
 }
 
-std::string QuestionnaireJSON::nomQuestionnaire() const {
+std::string QuestionnaireJSON::nomQuestionnaire() const
+{
     return d_nomQuestionnaire ;
 }
 
-void QuestionnaireJSON::changerQuestionnaire(const std::string &nomQuestionnaire) {
+void QuestionnaireJSON::changerQuestionnaire(const std::string &nomQuestionnaire)
+{
     d_nomQuestionnaire = nomQuestionnaire;
 }
 
-bool QuestionnaireJSON::ouvertureFichier(const std::ifstream &fichier) const{
+bool QuestionnaireJSON::ouvertureFichier(const std::ifstream &fichier) const
+{
     return (fichier.is_open());
 }
 
-bool QuestionnaireJSON::conversionJSON(json &fichierJSON,std::ifstream &fichier) const {
+bool QuestionnaireJSON::conversionJSON(json &fichierJSON,std::ifstream &fichier) const
+{
     try {
         fichier>>fichierJSON ;
         fichier.close();
@@ -46,7 +52,8 @@ bool QuestionnaireJSON::conversionJSON(json &fichierJSON,std::ifstream &fichier)
     return true;
 }
 
-bool QuestionnaireJSON::lireFichierJSON(json &fichierJSON, const std::string &nomFichier) const {
+bool QuestionnaireJSON::lireFichierJSON(json &fichierJSON, const std::string &nomFichier) const
+{
     std::ifstream fichier(nomFichier);
     if (!ouvertureFichier(fichier))
         return false;
@@ -55,7 +62,8 @@ bool QuestionnaireJSON::lireFichierJSON(json &fichierJSON, const std::string &no
 }
 
 bool QuestionnaireJSON::extraireQuestionnaire(
-    const json &fichierJSON, const std::string &nomQuestionnaire, json &questionnaireJSON) {
+    const json &fichierJSON, const std::string &nomQuestionnaire, json &questionnaireJSON)
+{
     try {
         questionnaireJSON = fichierJSON.at(nomQuestionnaire);
     } catch (const json::out_of_range &e) {
@@ -74,7 +82,8 @@ void QuestionnaireJSON::extraireDescription(const json &fichierJSON, Questionnai
     }
 }
 
-json QuestionnaireJSON::extraireQuestions(const json &questionnaireJSON) {
+json QuestionnaireJSON::extraireQuestions(const json &questionnaireJSON)
+{
     try {
         return questionnaireJSON.at("questions");
     } catch (const json::out_of_range &e) {
@@ -83,7 +92,8 @@ json QuestionnaireJSON::extraireQuestions(const json &questionnaireJSON) {
     }
 }
 
-void QuestionnaireJSON::ajouterQuestionDepuisJSON(Questionnaire &questionnaire, const json &questionnaireJSON) {
+void QuestionnaireJSON::ajouterQuestionDepuisJSON(Questionnaire &questionnaire, const json &questionnaireJSON)
+{
     try {
         std::string type = questionnaireJSON.at("type");
 
@@ -109,7 +119,8 @@ void QuestionnaireJSON::ajouterQuestionDepuisJSON(Questionnaire &questionnaire, 
 }
 
 
-void QuestionnaireJSON::chargerDansQuestionnaire(Questionnaire &questionnaire) {
+void QuestionnaireJSON::chargerDansQuestionnaire(Questionnaire &questionnaire)
+{
     if (questionnaire.nombreDeQuestions()!=0) {
         std::cout<<"Questionnaire non vide, risque de perte des données ou de doublons"<<std::endl ;
         return ;
@@ -130,11 +141,11 @@ void QuestionnaireJSON::chargerDansQuestionnaire(Questionnaire &questionnaire) {
     for (const auto &q : questions) {
         ajouterQuestionDepuisJSON(questionnaire, q);
     }
-
 }
 
 
-void QuestionnaireJSON::sauvegarderQuestionnaire(const Questionnaire &questionnaire) const {
+void QuestionnaireJSON::sauvegarderQuestionnaire(const Questionnaire &questionnaire) const
+{
     json tousLesQuestionnaires{};
     if ( ! lireFichierJSON(tousLesQuestionnaires, NomFichierQuestionnairesSauvegarde()))
     {

@@ -10,7 +10,6 @@ using std::endl ;
 /*
  Actuellement si une question a comme reponse 5 et limite min 2 et limite max 9
     et que l'utilisateur donne 3, on dit bonne reponse mais affiche pas 5 (qui est la reponse juste sans limite)
-
     il faut qu'on y pense
 
  */

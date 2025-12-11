@@ -1,51 +1,48 @@
 #ifndef CODE_QUESTIONNAIRE_EVALUATION_H
 #define CODE_QUESTIONNAIRE_EVALUATION_H
 
-
 #include "Questionnaire.h"
 #include <string>
 #include <vector>
+#include <memory>
 
+#include "Afficheur.h"
+#include "certificat.h"
+#include "certificatText.h"
 
-
-/*
-
-On doit ecrire un gestionnaire d'evaluation qui gère les evalutaions
-
-*/
+class AfficheurConcole ;
 
 class Evaluation
 {
-public:
-    Evaluation(const Questionnaire &questionnaire);
-
+    public:
+    Evaluation(const Questionnaire &questionnaire,
+                    std::unique_ptr<Afficheur> afficheur);
     virtual ~Evaluation() = default;
-    std::string lireReponseValide(int indiceQuestion) const  ;
-
-
-
-
-    void augmenteScore() ;
-    void augmenteEssai() ;
-    void enregistreErreurs(int indiceErreur) ;
-
-
-
+    int score() const ;
+    int nombreEssais() const ;
+    int nombreErreurs() const ;
 
     void revueErreursCommises() const ;
     void resultatEvaluation() const ;
-    virtual void lanceEvaluation() = 0;
+    virtual void lanceEvaluation() = 0 ;
 
-
-protected:
+    protected:
     const Questionnaire *d_questionnaire;
-    static std::string reponseUtilisateurQuestion() ;
+    std::unique_ptr<Afficheur> d_afficheur;
+    void augmenteScore() ;
+    void augmenteEssai() ;
+    void afficheQuestionsInstructions(int indice) const ;
+    void enregistreErreurs(int indiceErreur) ;
+    std::string lireReponseValide(int indiceQuestion, const std::string &reponse) const ;
 
-private:
+
+    private:
     int d_nbEssai ;
     int d_score ;
     std::vector<int> d_tabIndiceErreur ;
+    certificatText d_certificatText;
 };
+
 
 
 #endif //CODE_QUESTIONNAIRE_EVALUATION_H

@@ -44,13 +44,6 @@ std::string QuestionChoixMultiple::reponse() const
     return reponse ;
 }
 
-
-
-/*
- ON utilise std::stoi deux fois, dans validité et dans verification, il faut qu'on le fasse
- une seule fois
- */
-
 bool QuestionChoixMultiple::validiteEntreeUtilisateur(const std::string &reponse) const
 {
     if (reponse.empty())

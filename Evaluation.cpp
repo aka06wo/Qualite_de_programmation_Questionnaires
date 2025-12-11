@@ -1,31 +1,42 @@
 #include "Evaluation.h"
-#include "certificat.h"
-
 #include "Afficheur.h"
+#include "AfficheurConcole.h"
 
-Evaluation::Evaluation(const Questionnaire &questionnaire) : d_questionnaire(&questionnaire),
-                                                             d_nbEssai{0}, d_score{0}, d_tabIndiceErreur{}
+Evaluation::Evaluation(const Questionnaire &questionnaire,std::unique_ptr<Afficheur> afficheur) :
+        d_questionnaire(&questionnaire),d_afficheur{std::move(afficheur)},
+        d_nbEssai{0}, d_score{0}, d_tabIndiceErreur{}, d_certificatText{}
 {
+
 }
 
 
-std::string Evaluation::lireReponseValide(int indiceQuestion) const
+std::string Evaluation::lireReponseValide(int indiceQuestion, const std::string &reponse) const
 {
-    std::string reponse {reponseUtilisateurQuestion()} ;
-
-    while (!d_questionnaire->validiteEntreeUtilisateur(indiceQuestion, reponse))
+    std::string rep {reponse} ;
+    while (!d_questionnaire->validiteEntreeUtilisateur(indiceQuestion, rep))
     {
-        reponse = reponseUtilisateurQuestion();
+        d_afficheur->affiche("> ") ;
+        getline(std::cin, rep);
     }
     return reponse;
 }
 
+int Evaluation::score() const {
+    return d_score;
+}
+
+int Evaluation::nombreEssais() const {
+    return d_nbEssai;
+}
+
+int Evaluation::nombreErreurs() const {
+    return d_tabIndiceErreur.size();
+}
 
 void Evaluation::augmenteEssai()
 {
     d_nbEssai++ ;
 }
-
 
 void Evaluation::augmenteScore()
 {
@@ -37,28 +48,41 @@ void Evaluation::enregistreErreurs(int indiceErreur)
     d_tabIndiceErreur.push_back(indiceErreur) ;
 }
 
-
-
 void Evaluation::revueErreursCommises() const
 {
-    std::cout<<"Voici vos erreurs commises sur le Questionnaire \n["<<d_questionnaire->nomQuestionnaire()<<"]\n" ;
+    d_afficheur->affiche("Voici vos erreurs commises sur le Questionnaire \n["
+                                    + d_questionnaire->nomQuestionnaire() + "]\n") ;
     for (int i=0;i<d_tabIndiceErreur.size();i++)
     {
-        Afficheur::separateur(100,'-') ;
-        std::cout<<"Erreur N°"+ std::to_string(i+1) +":\n";
+        d_afficheur->separateur(100,'-') ;
+        d_afficheur->affiche("Erreur N°"+ std::to_string(i+1) +":\n") ;
         std::cout<<d_questionnaire->intituleQuestionNumero(i) ;
-        std::cout<<"Reponse correcte : "<<d_questionnaire->reponseQuestionNumero(i) ;
-        Afficheur::separateur(100,'-') ;
+        d_afficheur->affiche("Reponse correcte : " +
+                                        d_questionnaire->reponseQuestionNumero(i)) ;
+        d_afficheur->separateur(100,'-') ;
     }
 }
 
 void Evaluation::resultatEvaluation() const
 {
-    // Utiliser les certificats ici ?
-    // les mettres comme classe abstraite ??
+    d_afficheur->affiche("Vous avez trouvé "+ std::to_string(score()) + "%\n"
+                    +" sur "+std::to_string(d_questionnaire->nombreDeQuestions()) +
+                    " questions\n") ;
+    double pourcentage {100.0*(score()/d_questionnaire->nombreDeQuestions())} ;
+    d_afficheur->messageSelonScore(pourcentage) ;
+    if (pourcentage >= 75)
+    {
 
+        // on lui donne les mots clé en parametre et il genere le certificat
+        d_certificatText.genereCertificat() ;
+    }
+}
 
-    std::cout << "Vous avez une score de "+ std::to_string(d_score)
-                    +" sur "+std::to_string(d_questionnaire->nombreDeQuestions()) + '\n' ;
+void Evaluation::afficheQuestionsInstructions(int indice) const
+{
+    d_afficheur->affiche(d_questionnaire->intituleQuestionNumero(indice)) ;
+    d_afficheur->affiche(d_questionnaire->instructionsQuestionNumero(indice)) ;
+    d_afficheur->affiche("Tapez * pour quitter l'evaluation Seconde chance\n") ;
+    d_afficheur->affiche("> ") ;
 }
 
