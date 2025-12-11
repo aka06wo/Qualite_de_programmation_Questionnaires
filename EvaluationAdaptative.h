@@ -2,6 +2,7 @@
 #define EVALUATIONADAPTATIVE_H
 
 #include "Evaluation.h"
+#include <vector>
 
 class EvaluationAdaptative : public Evaluation
 {
@@ -10,7 +11,7 @@ public:
     void lanceEvaluation() override;
 
 private:
-    void PoseQuestions(vector<int>& tableau,vector<int>& TableauErreurs );
+    void PoseQuestions(std::vector<int>& tableau,std::vector<int>& TableauErreurs );
 
 };
 

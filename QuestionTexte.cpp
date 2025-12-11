@@ -54,12 +54,14 @@ bool QuestionTexte::validiteEntreeUtilisateur(const string &reponse) const {
  }
 
 
-std::unique_ptr<Question> QuestionTexte::clone() const {
+std::unique_ptr<Question> QuestionTexte::clone() const
+{
      return std::make_unique<QuestionTexte>(*this);
  }
 
 
-nlohmann::json QuestionTexte::conversionJSON() const {
+nlohmann::json QuestionTexte::conversionJSON() const
+{
      return nlohmann::json {
          {"type", "texte"},
          {"question", intitule()},

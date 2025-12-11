@@ -38,11 +38,13 @@ public:
 
 
 protected:
+    const Questionnaire *d_questionnaire;
+    static std::string reponseUtilisateurQuestion() ;
+
+private:
     int d_nbEssai ;
     int d_score ;
-    const Questionnaire *d_questionnaire;
     std::vector<int> d_tabIndiceErreur ;
-    static std::string reponseUtilisateurQuestion() ;
 };
 
 

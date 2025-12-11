@@ -3,7 +3,7 @@
 
 #include "Question.h"
 #include <vector>
-
+#include <memory>
 
 class QuestionChoixMultiple : public Question
 {

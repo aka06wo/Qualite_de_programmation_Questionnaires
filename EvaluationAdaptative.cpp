@@ -9,7 +9,7 @@ EvaluationAdaptative::EvaluationAdaptative(const Questionnaire &questionnaire):E
 // pour pouvoir mettre leurs attributs en privée et juste utilisez les methodes
 // deja fait dans evaluation seconde chance
 // eva adaptative ??
-void EvaluationAdaptative::PoseQuestions(vector<int>& tableau,vector<int>& TableauErreurs )
+void EvaluationAdaptative::PoseQuestions(std::vector<int>& tableau,std::vector<int>& TableauErreurs )
 {
      while(!tableau.empty())
     {
@@ -57,9 +57,9 @@ void EvaluationAdaptative::lanceEvaluation()
 
         if(!d_questionsFaussees.empty())
         {
-            cout<< "Vous avez terminez de répondre Au Questionnaire";//je vais revoir comment mieux le dire
+            std::cout<< "Vous avez terminez de répondre Au Questionnaire";//je vais revoir comment mieux le dire
 
-            PoseQuestions(d_questionsFaussees,d_tabIndiceErreur);
+            //PoseQuestions(d_questionsFaussees,d_tabIndiceErreur);
         }
 
     resultatEvaluation();

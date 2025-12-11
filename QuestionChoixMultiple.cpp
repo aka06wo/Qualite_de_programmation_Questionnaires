@@ -1,6 +1,5 @@
 #include "QuestionChoixMultiple.h"
-#include "iostream"
-#include <memory>
+#include <iostream>
 
 
 QuestionChoixMultiple::QuestionChoixMultiple(const std::string &question,
