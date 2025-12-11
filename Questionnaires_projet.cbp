@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+  <FileVersion major="1" minor="6" />
+  <Project>
+    <Option title="Questionnaires_projet" />
+    <Option pch_mode="2" />
+    <Option compiler="gcc" />
+
+    <Build>
+      <Target title="Debug">
+        <Option output="bin/Debug/Questionnaires_projet.exe" />
+        <Option object_output="obj/Debug/" />
+        <Option type="1" />
+        <Option compiler="gcc" />
+      </Target>
+      <Target title="Release">
+        <Option output="bin/Release/Questionnaires_projet.exe" />
+        <Option object_output="obj/Release/" />
+        <Option type="1" />
+        <Option compiler="gcc" />
+        <Option optimize="2" />
+      </Target>
+    </Build>
+
+    <Compiler>
+      <Add option="-Wall" />
+      <Add option="-std=c++11" />
+    </Compiler>
+
+    <!-- Liste des fichiers -->
+    <Unit filename="main.cpp" />
+    <Unit filename="Evaluation.cpp" />
+    <Unit filename="Evaluation.h" />
+    <Unit filename="EvaluationAdaptative.cpp" />
+    <Unit filename="EvaluationAdaptative.h" />
+    <Unit filename="EvaluationSecondeChance.cpp" />
+    <Unit filename="EvaluationSecondeChance.h" />
+    <Unit filename="QuestionChoixMultiple.cpp" />
+    <Unit filename="QuestionChoixMultiple.h" />
+    <Unit filename="Question.h" />
+    <Unit filename="QuestionNumerique.cpp" />
+    <Unit filename="QuestionNumerique.h" />
+    <Unit filename="QuestionTexte.cpp" />
+    <Unit filename="QuestionTexte.h" />
+    <Unit filename="Questionnaire.cpp" />
+    <Unit filename="Questionnaire.h" />
+    <Unit filename="QuestionnaireJSON.cpp" />
+    <Unit filename="QuestionnaireJSON.h" />
+    <Unit filename="Afficheur.cpp" />
+    <Unit filename="Afficheur.h" />
+    <Unit filename="Apprentissage.cpp" />
+    <Unit filename="Apprentissage.h" />
+    <Unit filename="EvaluationTest.cpp" />
+    <Unit filename="Menu.cpp" />
+    <Unit filename="Menu.h" />
+    <Unit filename="question.cpp" />
+    <Unit filename="apprentissage.cpp" />
+    <Unit filename="apprentissage.h" />
+    <Unit filename="certificat.cpp" />
+    <Unit filename="certificat.h" />
+    <Unit filename="questionnaireEvaluations.cpp" />
+    <Unit filename="questionnaireEvaluations.h" />
+    <Unit filename="statistiquesUtilisateurs.cpp" />
+    <Unit filename="statistiquesUtilisateurs.h" />
+
+    <Extensions>
+      <code_completion />
+      <debugger />
+    </Extensions>
+  </Project>
+</CodeBlocks_project_file>

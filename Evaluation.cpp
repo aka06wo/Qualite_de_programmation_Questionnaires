@@ -1,53 +1,64 @@
 #include "Evaluation.h"
 #include "certificat.h"
 
+#include "Afficheur.h"
+
 Evaluation::Evaluation(const Questionnaire &questionnaire) : d_questionnaire(&questionnaire),
-    d_nbEssai{0}, d_score{0}, d_tabIndiceErreur{}
+                                                             d_nbEssai{0}, d_score{0}, d_tabIndiceErreur{}
 {
 }
 
-std::string Evaluation::reponseUtilisateurQuestion() const
-{
-    std::string reponse ;
-    std::cin>>reponse;
-    return reponse;
-}
+
 std::string Evaluation::lireReponseValide(int indiceQuestion) const
 {
-    std::string reponse;
-    reponse = reponseUtilisateurQuestion();
+    std::string reponse {reponseUtilisateurQuestion()} ;
+
     while (!d_questionnaire->validiteEntreeUtilisateur(indiceQuestion, reponse))
     {
         reponse = reponseUtilisateurQuestion();
     }
     return reponse;
 }
+
+
+void Evaluation::augmenteEssai()
+{
+    d_nbEssai++ ;
+}
+
+
+void Evaluation::augmenteScore()
+{
+    d_score++ ;
+}
+
+void Evaluation::enregistreErreurs(int indiceErreur)
+{
+    d_tabIndiceErreur.push_back(indiceErreur) ;
+}
+
+
+
+void Evaluation::revueErreursCommises() const
+{
+    std::cout<<"Voici vos erreurs commises sur le Questionnaire \n["<<d_questionnaire->nomQuestionnaire()<<"]\n" ;
+    for (int i=0;i<d_tabIndiceErreur.size();i++)
+    {
+        Afficheur::separateur(100,'-') ;
+        std::cout<<"Erreur NÂ°"+ std::to_string(i+1) +":\n";
+        std::cout<<d_questionnaire->intituleQuestionNumero(i) ;
+        std::cout<<"Reponse correcte : "<<d_questionnaire->reponseQuestionNumero(i) ;
+        Afficheur::separateur(100,'-') ;
+    }
+}
+
 void Evaluation::resultatEvaluation() const
 {
-    std::cout << "Vous avez une score de "+ std::to_string(d_score)
-              +" sur "+std::to_string(d_questionnaire->nombreDeQuestions()) ;
-              if(d_score>70)
-                genererCertificatHtml();
-}
-void Evaluation::genererCertificatHtml() const
-{
- std::string nomUtilisateur;
-    std::cout<< "Saisissez votre nom :";
-    std::cin>>nomUtilisateur;
-    certificat c(nomUtilisateur,d_questionnaire->nomQuestionnaire(),d_score);
-     std::string nomFichier = "certificat_" + nomUtilisateur + ".html";
-    std::ofstream fichier(nomFichier);
+    // Utiliser les certificats ici ?
+    // les mettres comme classe abstraite ??
 
-    if (!fichier)
-    {
-        std::cerr << "Erreur : impossible de créer le fichier certificat.\n";
-        return;
-    }
-    c.certificatHtml(fichier);
-    fichier.close();
-    std::cout << "Certificat généré !" << std::endl;
+
+    std::cout << "Vous avez une score de "+ std::to_string(d_score)
+                    +" sur "+std::to_string(d_questionnaire->nombreDeQuestions()) + '\n' ;
 }
-void Evaluation::genererCertificatText() const
-{
-  //revoir ça car je ne sais pas si c'est la peine de le faire
-}
+

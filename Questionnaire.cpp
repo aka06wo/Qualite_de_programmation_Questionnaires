@@ -1,16 +1,26 @@
 #include "Questionnaire.h"
 #include "Question.h"
 
+using nlohmann::json ;
+using std::string ;
+using std::ostream;
+using std::istream;
+using std::vector ;
+
 Questionnaire::Questionnaire() : d_nom{"Questionnaire Vide"},d_description{"Ceci est un questionnaire vide"}
 {
 }
 
-Questionnaire::Questionnaire(const string &nom,const string &description, const vector<std::unique_ptr<Question>>& Questions):
-    d_nom{nom},d_description{description}
+Questionnaire::~Questionnaire() {
+
+}
+
+Questionnaire::Questionnaire(const string &nom,const string &description,
+    const vector<std::unique_ptr<Question>>& Questions): d_nom{nom},d_description{description}
 {
-    // On peut faire un move d'un tableau entier ou pas ??
     d_Questions.reserve(Questions.size()) ;
-    for (const auto &q : Questions) {
+    for (const auto &q : Questions)
+    {
         d_Questions.push_back(q->clone()); // copie polymorphe
     }
 }
@@ -36,20 +46,21 @@ int Questionnaire::nombreDeQuestions() const {
     return d_Questions.size() ;
 }
 
-
-
 void Questionnaire::ajouterQuestion(std::unique_ptr<Question> q)
 {
     d_Questions.push_back(std::move(q));
 }
 
-
-void Questionnaire::afficherQuestionNumero(int i) const {
-    d_Questions[i]->afficherQuestion() ;
+std::string Questionnaire::intituleQuestionNumero(int i) const {
+    return d_Questions[i]->intitule() ;
 }
 
-void Questionnaire::afficherReponseNumero(int i) const {
-    d_Questions[i]->afficherReponse() ;
+std::string Questionnaire::instructionsQuestionNumero(int i) const {
+    return d_Questions[i]->instructionsQuestion() ;
+}
+
+std::string Questionnaire::reponseQuestionNumero(int i) const {
+    return d_Questions[i]->reponse() ;
 }
 
 bool Questionnaire::validiteEntreeUtilisateur(int i,const std::string &reponse) const {
@@ -60,31 +71,14 @@ bool Questionnaire::verificationReponse(int i,const std::string &reponse) const 
     return d_Questions[i]->verificationReponse(reponse) ;
 }
 
-std::string Questionnaire::typeQuestion(int i) const {
-    json questionJson = d_Questions[i]->conversionJSON();
-    return questionJson["type"];
-}
-
-int Questionnaire::nombreChoixQuestion(int i) const {
-    json questionJson = d_Questions[i]->conversionJSON();
-    if (questionJson["type"] == "choixMultiples") {
-        return questionJson["reponsesPossibles"].size();
-    }
-    return -1;
-}
-
 json Questionnaire::conversionQuestionnaireJson() const {
-    json description_questionnaires ;
-    json resultat ;
+    json resultat;
+    resultat["description"] = descriptionQuestionnaire();
+    resultat["nombreDeQuestions"] = nombreDeQuestions();
+    resultat["questions"] = json::array();
 
-    description_questionnaires["description"]=descriptionQuestionnaire() ;
-    description_questionnaires["nombreDeQuestions"] = nombreDeQuestions() ;
-    description_questionnaires["questions"]=json::array() ;
     for (const auto &q : d_Questions) {
-        description_questionnaires["questions"].push_back(q->conversionJSON()) ;
+        resultat["questions"].push_back(q->conversionJSON());
     }
-
-    resultat["titre"] = nomQuestionnaire() ;
-
-    return resultat ;
+    return resultat;
 }

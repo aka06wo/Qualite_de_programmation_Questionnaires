@@ -1,20 +1,24 @@
-#include "QuestionnaireJSON.h"
-#include "QuestionChoixMultiple.h"
 #include <fstream>
-#include <memory>
-
+#include "QuestionnaireJSON.h"
+#include "Questionnaire.h"
 #include "QuestionNumerique.h"
 #include "QuestionTexte.h"
+#include "QuestionChoixMultiple.h"
+
 
 std::string QuestionnaireJSON::NomFichierQuestionnaire() {
     return "Fichier_Questionnaire.json";
+}
+
+std::string QuestionnaireJSON::NomFichierQuestionnairesSauvegarde() {
+    return "Fichier_Questionnaire_Sauvegarde.json";
 }
 
 QuestionnaireJSON::QuestionnaireJSON() : d_nomQuestionnaire{}, d_monFichier{json::object()}
 {
 }
 
-QuestionnaireJSON::QuestionnaireJSON(const string &nomQuestionnaire) :
+QuestionnaireJSON::QuestionnaireJSON(const std::string &nomQuestionnaire) :
     d_nomQuestionnaire(nomQuestionnaire), d_monFichier{json::object()}
 {
 }
@@ -27,13 +31,14 @@ void QuestionnaireJSON::changerQuestionnaire(const std::string &nomQuestionnaire
     d_nomQuestionnaire = nomQuestionnaire;
 }
 
-bool QuestionnaireJSON::ouvertureFichier(const std::ifstream &monFichier) const{
-    return (monFichier.is_open());
+bool QuestionnaireJSON::ouvertureFichier(const std::ifstream &fichier) const{
+    return (fichier.is_open());
 }
 
-bool QuestionnaireJSON::conversionJSON(json &monJSON, std::ifstream &monFichier) {
+bool QuestionnaireJSON::conversionJSON(json &fichierJSON,std::ifstream &fichier) const {
     try {
-        monFichier>>monJSON ;
+        fichier>>fichierJSON ;
+        fichier.close();
     } catch (const json::parse_error &e) {
         // std::cerr << "Erreur JSON : " << e.what() << std::endl;
         return false;
@@ -41,18 +46,18 @@ bool QuestionnaireJSON::conversionJSON(json &monJSON, std::ifstream &monFichier)
     return true;
 }
 
-bool QuestionnaireJSON::lireFichierJSON(json &d_monFichier, const std::string &nomFichier) {
-    std::ifstream monFichier(nomFichier);
-    if (!ouvertureFichier(monFichier))
+bool QuestionnaireJSON::lireFichierJSON(json &fichierJSON, const std::string &nomFichier) const {
+    std::ifstream fichier(nomFichier);
+    if (!ouvertureFichier(fichier))
         return false;
 
-    return conversionJSON(d_monFichier, monFichier);
+    return conversionJSON(fichierJSON, fichier);
 }
 
 bool QuestionnaireJSON::extraireQuestionnaire(
-    const json &d_monFichier, const std::string &nomQuestionnaire, json &monQuestionnaire) {
+    const json &fichierJSON, const std::string &nomQuestionnaire, json &questionnaireJSON) {
     try {
-        monQuestionnaire = d_monFichier.at(nomQuestionnaire);
+        questionnaireJSON = fichierJSON.at(nomQuestionnaire);
     } catch (const json::out_of_range &e) {
         // std::cerr << "Questionnaire '" << nomQuestionnaire << "' manquant → " << e.what() << std::endl;
         return false;
@@ -60,33 +65,46 @@ bool QuestionnaireJSON::extraireQuestionnaire(
     return true;
 }
 
-json QuestionnaireJSON::extraireQuestions(const json &monQuestionnaire) {
+void QuestionnaireJSON::extraireDescription(const json &fichierJSON, Questionnaire &questionnaire) {
     try {
-        return monQuestionnaire.at("questions");
+        std::string description = fichierJSON.at("description") ;
+        questionnaire.changerDescriptionQuestionnaire(description);
     } catch (const json::out_of_range &e) {
-        std::cerr << "Aucune question trouvée → " << e.what() << std::endl;
-        return json::array(); // retourne un tableau vide pour que la boucle for ne fasse rien
+        //std::cerr << "Questionnaire " << "Description manquante" << e.what() << std::endl;
     }
 }
 
-void QuestionnaireJSON::ajouterQuestionDepuisJSON(Questionnaire &questionnaire, const json &q) {
+json QuestionnaireJSON::extraireQuestions(const json &questionnaireJSON) {
     try {
-        std::string type = q.at("type");
-
-        if (type == "choixMultiples") {
-            questionnaire.ajouterQuestion(std::make_unique<QuestionChoixMultiple>(
-                q.at("question"), q.at("reponsesPossibles"), q.at("numReponseCorrecte")));
-        } else if (type == "numerique") {
-            questionnaire.ajouterQuestion(std::make_unique<QuestionNumerique>(
-                q.at("question"), q.at("reponseCorrecte"), q.at("limiteMax"), q.at("limiteMin")));
-        } else if (type == "texte") {
-            questionnaire.ajouterQuestion(std::make_unique<QuestionTexte>(
-                q.at("question"), q.at("reponseCorrecte")));
-        } else {
-            std::cerr << "Type de question inconnu → question ignorée." << std::endl;
-        }
+        return questionnaireJSON.at("questions");
     } catch (const json::out_of_range &e) {
-        std::cerr << "Question ignorée : clé manquante → " << e.what() << std::endl;
+        //std::cerr << "Aucune question trouvée → " << e.what() << std::endl;
+        return json::array(); // retourne un tableau vide
+    }
+}
+
+void QuestionnaireJSON::ajouterQuestionDepuisJSON(Questionnaire &questionnaire, const json &questionnaireJSON) {
+    try {
+        std::string type = questionnaireJSON.at("type");
+
+        if (type == "choixMultiples")
+        {
+            questionnaire.ajouterQuestion(std::make_unique<QuestionChoixMultiple>(
+                questionnaireJSON.at("question"), questionnaireJSON.at("reponsesPossibles"),
+                questionnaireJSON.at("numReponseCorrecte")));
+        } else if (type == "numerique")
+        {
+            questionnaire.ajouterQuestion(std::make_unique<QuestionNumerique>(
+                questionnaireJSON.at("question"), questionnaireJSON.at("reponseCorrecte"),
+                questionnaireJSON.at("limiteMax"), questionnaireJSON.at("limiteMin")));
+        } else if (type == "texte")
+        {
+            questionnaire.ajouterQuestion(std::make_unique<QuestionTexte>(
+                questionnaireJSON.at("question"), questionnaireJSON.at("reponseCorrecte")));
+        }
+        // else  std::cerr << "Type de question inconnu → question ignorée." << std::endl;
+    } catch (const json::out_of_range &e) {
+        std::cerr << "Question ignorée : clé manquante " << e.what() << std::endl;
     }
 }
 
@@ -101,8 +119,11 @@ void QuestionnaireJSON::chargerDansQuestionnaire(Questionnaire &questionnaire) {
         return;
 
     json monQuestionnaire;
-    if (!extraireQuestionnaire(d_monFichier, d_nomQuestionnaire, monQuestionnaire))
+    if (!extraireQuestionnaire(d_monFichier, nomQuestionnaire(), monQuestionnaire))
         return;
+
+    questionnaire.changerNomQuestionnaire(nomQuestionnaire()) ;
+    extraireDescription(monQuestionnaire, questionnaire);
 
     json questions = extraireQuestions(monQuestionnaire);
 
@@ -110,25 +131,19 @@ void QuestionnaireJSON::chargerDansQuestionnaire(Questionnaire &questionnaire) {
         ajouterQuestionDepuisJSON(questionnaire, q);
     }
 
-    // optionnelle
-    if (monQuestionnaire.contains("description")) {
-        questionnaire.changerDescriptionQuestionnaire(monQuestionnaire["description"]);
-    }
-
-    questionnaire.changerNomQuestionnaire(d_nomQuestionnaire);
 }
 
 
-// il reste a securiser celui la
 void QuestionnaireJSON::sauvegarderQuestionnaire(const Questionnaire &questionnaire) const {
-    json tousLesQuestionnaires;
-    std::ifstream monFichier(NomFichierQuestionnaire());
-    monFichier >> tousLesQuestionnaires;
-    monFichier.close();
+    json tousLesQuestionnaires{};
+    if ( ! lireFichierJSON(tousLesQuestionnaires, NomFichierQuestionnairesSauvegarde()))
+    {
+        tousLesQuestionnaires = json::object() ;
+    }
 
-    tousLesQuestionnaires[questionnaire.nombreDeQuestions()]=questionnaire.conversionQuestionnaireJson();
+    tousLesQuestionnaires[questionnaire.nomQuestionnaire()]=questionnaire.conversionQuestionnaireJson();
 
-    std::ofstream fichier_out(NomFichierQuestionnaire());
-    fichier_out << tousLesQuestionnaires.dump(4);
-    fichier_out.close();
+    std::ofstream fichier_sauv(NomFichierQuestionnairesSauvegarde());
+    fichier_sauv << tousLesQuestionnaires.dump(4);
+    fichier_sauv.close();
 }

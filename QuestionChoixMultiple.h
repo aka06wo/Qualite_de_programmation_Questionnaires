@@ -3,25 +3,26 @@
 
 #include "Question.h"
 #include <vector>
-#include <iostream>
+
 
 class QuestionChoixMultiple : public Question
 {
 public:
-    QuestionChoixMultiple(const string &question,
-                const std::vector<string> &reponsesPossibles, int numReponse);
-    string reponse() const override ;
+    QuestionChoixMultiple(const std::string &question,
+                const std::vector<std::string> &reponsesPossibles, int numReponse);
     int nombreDeChoix() const ;
-    string choixNumero(int i) const ;
-    void afficherQuestion() const override ;
-    void afficherReponse() const override ;
-    bool validiteEntreeUtilisateur(const string &reponse) const override ;
-    bool verificationReponse(const string &reponse) const override ;
+    int indiceReponse() const ;
+    std::string choixNumero(int i) const ;
+    std::string intitule() const override ;
+    std::string instructionsQuestion() const override;
+    std::string reponse() const override ;
+    bool validiteEntreeUtilisateur(const std::string &reponse) const override ;
+    bool verificationReponse(const std::string &reponse) const override ;
     std::unique_ptr<Question> clone() const override ;
-    json conversionJSON () const override ;
+    nlohmann::json conversionJSON () const override ;
 
 private:
-    std::vector<string> d_reponsesPossibles ;
+    std::vector<std::string> d_reponsesPossibles ;
     int d_indiceReponse ;
 };
 
