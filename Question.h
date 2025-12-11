@@ -1,7 +1,6 @@
 #ifndef CODE_QUESTION_H
 #define CODE_QUESTION_H
 
-#include <iostream>
 #include<string>
 #include<memory>
 #include "json.hpp"

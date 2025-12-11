@@ -1,5 +1,5 @@
 #include "QuestionChoixMultiple.h"
-
+#include "iostream"
 
 QuestionChoixMultiple::QuestionChoixMultiple(const std::string &question,
                     const std::vector<std::string> &reponsesPossibles, int numReponse) :
@@ -42,13 +42,6 @@ std::string QuestionChoixMultiple::reponse() const
     std::string reponse {std::to_string(d_indiceReponse+1) + '-' + choixNumero(d_indiceReponse) + '\n' } ;
     return reponse ;
 }
-
-
-
-/*
- ON utilise std::stoi deux fois, dans validité et dans verification, il faut qu'on le fasse
- une seule fois
- */
 
 bool QuestionChoixMultiple::validiteEntreeUtilisateur(const std::string &reponse) const
 {

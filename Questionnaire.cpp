@@ -11,14 +11,10 @@ Questionnaire::Questionnaire() : d_nom{"Questionnaire Vide"},d_description{"Ceci
 {
 }
 
-Questionnaire::~Questionnaire() {
-
-}
-
 Questionnaire::Questionnaire(const string &nom,const string &description,
-    const vector<std::unique_ptr<Question>>& Questions): d_nom{nom},d_description{description}
+    const vector<std::unique_ptr<Question>>& Questions): d_nom{nom},d_description{description},
+    d_Questions{}
 {
-    d_Questions.reserve(Questions.size()) ;
     for (const auto &q : Questions)
     {
         d_Questions.push_back(q->clone()); // copie polymorphe

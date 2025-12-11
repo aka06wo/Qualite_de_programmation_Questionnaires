@@ -11,9 +11,8 @@ class Question ;
 
 class Questionnaire
 {
-public :
+    public :
     friend class QuestionnaireJSON ;
-
     Questionnaire() ;
     Questionnaire(const std::string &nom,const std::string &description = "" ,
                         const std::vector<std::unique_ptr<Question>> &Questions = {});
@@ -27,7 +26,7 @@ public :
     bool validiteEntreeUtilisateur(int i,const std::string &reponse) const ;
     bool verificationReponse(int i,const std::string &reponse) const ;
 
-private :
+    private :
     std::string d_nom ;
     std::string d_description ;
     std::vector<std::unique_ptr<Question>> d_Questions ;
