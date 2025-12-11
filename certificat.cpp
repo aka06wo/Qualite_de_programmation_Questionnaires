@@ -1,21 +1,23 @@
 #include "certificat.h"
-#include "Afficheur.h"
 
+certificat::certificat():
+    d_nomUtilisateur{},d_nomquestionnaire{},d_score{}
+{
+}
 
 /*
  ça marche, seul point négatif, ici on crée une classe par utilisateur, 1000 utilisateurs, 1000 classes c'est beaucoup
  il faut une seule classe qui gere touts les utilisateurs, donc constructeur vide
  si on veut un fichier html, on dit a la classe de generer pour la personne donnée en parametre
- */
+
 certificat::certificat(const std::string& nomUtilisateur,const std::string& nomQuestionnaire,int score):
     d_nomUtilisateur{nomUtilisateur},d_nomquestionnaire{nomQuestionnaire},d_score{score}
 {
 }
 
 
-/*
- Et si on demandais pas os en parametres et qu'on affichait directement ?
- */
+ //Et si on demandais pas os en parametres et qu'on affichait directement ?
+
 void certificat::certificatText(std::ostream& os) const
 {
     Afficheur::separateur(100,'=') ;
@@ -46,4 +48,6 @@ void certificat::certificatHtml(std::ostream& os) const
     os << "</html>\n";
 }
 
+
+*/
 

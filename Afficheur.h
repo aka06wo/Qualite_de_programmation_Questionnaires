@@ -6,12 +6,14 @@
 class Afficheur
 {
     public :
-    static void separateur(int largeur, char symbole) ;
-    static void messageSelonScore(double pourcentage) ;
-    static void affichageConsole(std::string &message) ;
+    Afficheur();
+    virtual ~Afficheur();
+    virtual void separateur(int largeur, char symbole) const = 0 ;
+    virtual void messageSelonScore(double pourcentage) const = 0 ;
+    virtual void affiche(const std::string &message) const = 0 ;
 
     private :
-    Afficheur();
+
 };
 
 

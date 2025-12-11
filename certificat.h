@@ -6,14 +6,21 @@
 #include <sstream>
 
 
+/*
+ *mettre en classe abstraite et changer pour ne pas le construire avec un nom, il faut
+ *qu'il gere tout les utilisateurs
+ */
+
+// a faire sans const std::string& nomUtilisateur,const std::string& nomQuestionnaire,int score
+
 class certificat
 {
 public :
-    certificat(const std::string& nomUtilisateur,const std::string& nomQuestionnaire,int score);
-   void certificatHtml(std::ostream& os) const;
-    void certificatText(std::ostream& os) const;
+    certificat();
+    virtual void genereCertificat() const = 0;
 
 private :
+    // il faut pas qu'on les stockes
     std::string d_nomUtilisateur,d_nomquestionnaire;
     int d_score;
 

@@ -6,7 +6,8 @@
 class EvaluationSecondeChance : public Evaluation
 {
     public:
-    EvaluationSecondeChance(const Questionnaire &questionnaire);
+    EvaluationSecondeChance(const Questionnaire &questionnaire,
+                                std::unique_ptr<Afficheur> afficheur);
     void lanceEvaluation() override;
 
     private:
