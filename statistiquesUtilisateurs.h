@@ -9,7 +9,6 @@ class statistiquesUtilisateurs
   public:
   statistiquesUtilisateurs();
   ~statistiquesUtilisateurs();
-  std::string messageSelonScore(double pourcentage) ;
   std::string statistiquesPourUtilisateur(const std::string &nomUtilisateur) const ;
 
   private :

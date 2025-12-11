@@ -1,4 +1,5 @@
 #include "certificat.h"
+#include "Afficheur.h"
 
 
 /*
@@ -13,16 +14,15 @@ certificat::certificat(const std::string& nomUtilisateur,const std::string& nomQ
 
 
 /*
- Utilise la fonctions separateur() de evaluation ou tu l'ecris ici pour afficher les '='
- pour eviter les copie collé
+ Et si on demandais pas os en parametres et qu'on affichait directement ?
  */
 void certificat::certificatText(std::ostream& os) const
 {
-    os<<std::string(100,'=')<<'\n';
+    Afficheur::separateur(100,'=') ;
     os<<std::string(12,' ')<<"| CERTIFICAT DE REUSSITE |"<<std::string(12,' ')<<'\n';
     os<<"Felicitations "<<d_nomUtilisateur << " pour votre score de : "<<d_score ;
     os<<"\nau questionnaire ["<<d_nomquestionnaire<<"]\n";
-    os<<std::string(100,'=')<<'\n';
+    Afficheur::separateur(100,'=') ;
 }
 
 

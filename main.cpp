@@ -5,16 +5,6 @@
 #include "certificat.h"
 
 
-/*
- On doit enlever tous les using std::string, std::vector dans les .h
- mais les mettres que dans les cpp
- */
-
-
-/*
- Utiliser getline (au lieu des cin)
- */
-
 
 
 /*
@@ -74,7 +64,7 @@ void testCertificat () {
 
 int main()
 {
-    //evalSecondeChance() ;
+    evalSecondeChance() ;
     //evalAdaptative();
     //testCertificat();
 

@@ -1,38 +1,14 @@
 #include "EvaluationAdaptative.h"
+#include "Afficheur.h"
 
 EvaluationAdaptative::EvaluationAdaptative(const Questionnaire &questionnaire):Evaluation{questionnaire}
 {
 }
 
-
-
-/*
-
-    Aisse en fait Ã§a marche pour charger les questions depuis le questionnaires,
-
-    mais je te proposes de que quand tu finisses d'affichers les questions et que t'as recuperes
-    les endroits ou il s'est trompÃ©
-    Pour commencer a lui poser les questions ou il s'est trompÃ©, fait lui savoir
-    ( fait un affichage pour lui "Que voilÃ , qu'on lui repose les questions maintenant")
-
-
-    Aisse en fait ça marche pour charger les questions depuis le questionnaires,
-
-    mais je te proposes de que quand tu finisses d'affichers les questions et que t'as recuperes
-    les endroits ou il s'est trompé
-    Pour commencer a lui poser les questions ou il s'est trompé, fait lui savoir
-    ( fait un affichage pour lui "Que voilà, qu'on lui repose les questions maintenant")
-
-    Et regarde la methode separateur que j'ai mis dans evaluation, tu peux te servir de cela pour afficher tes '='
-
-
-    ta methode est bien ecrite et tout, mais voilÃ  je te mets la barre un peu haute (j'ai confiance)
-    Ameliore lÃ , comment tu la prÃ©sentes, optimise lÃ  et tout
-    TU PEUX LE FAIRE :)
-
-
-
- */
+// utiliser augmente score, erreur, et essai
+// pour pouvoir mettre leurs attributs en privée et juste utilisez les methodes
+// deja fait dans evaluation seconde chance
+// eva adaptative ??
 
 void EvaluationAdaptative::lanceEvaluation()
 {
@@ -46,7 +22,8 @@ void EvaluationAdaptative::lanceEvaluation()
 
     while(!d_IndQuestionsNonposees.empty() )
     {
-        std::cout << std::string(100, '=') << '\n';
+        Afficheur::separateur(100,'=') ;
+
         int indiceAlea=rand()%(d_IndQuestionsNonposees.size());
         int indQuestion=d_IndQuestionsNonposees[indiceAlea];
 
@@ -69,7 +46,8 @@ void EvaluationAdaptative::lanceEvaluation()
 
         }
         d_IndQuestionsNonposees.erase(d_IndQuestionsNonposees.begin()+indiceAlea);
-        std::cout << std::string(100, '=') << '\n';
+        Afficheur::separateur(100,'=') ;
+        std::cout<<'\n' ;
     }
 
     /*
@@ -80,7 +58,7 @@ void EvaluationAdaptative::lanceEvaluation()
 
     for(int i{0}; i<d_tabIndiceErreur.size(); ++i)
     {
-        std::cout << std::string(100, '=') << '\n';
+        Afficheur::separateur(100,'=') ;
         std::cout<<d_questionnaire->intituleQuestionNumero(d_tabIndiceErreur[i]) ;
         std::cout<<d_questionnaire->instructionsQuestionNumero(d_tabIndiceErreur[i]) ;
         std::string reponse=lireReponseValide(d_tabIndiceErreur[i]);
@@ -96,7 +74,8 @@ void EvaluationAdaptative::lanceEvaluation()
         {
             std::cout<<"[x] Mauvaise reponse !"<< '\n';
         }
-        std::cout << std::string(100, '=') << '\n';
+        Afficheur::separateur(100,'=') ;
+        std::cout <<'\n';
 
     }
     resultatEvaluation();

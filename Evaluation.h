@@ -20,6 +20,16 @@ public:
     Evaluation(const Questionnaire &questionnaire);
     virtual ~Evaluation() = default;
     std::string lireReponseValide(int indiceQuestion) const  ;
+
+
+
+    void augmenteScore() ;
+    void augmenteEssai() ;
+    void enregistreErreurs(int indiceErreur) ;
+
+
+
+
     void revueErreursCommises() const ;
     void resultatEvaluation() const ;
     virtual void lanceEvaluation() = 0;
@@ -30,7 +40,6 @@ protected:
     int d_score ;
     const Questionnaire *d_questionnaire;
     std::vector<int> d_tabIndiceErreur ;
-    static void separateur(int largeur, char symbole) ;
     static std::string reponseUtilisateurQuestion() ;
 };
 

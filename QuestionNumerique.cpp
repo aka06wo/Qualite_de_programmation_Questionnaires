@@ -30,19 +30,19 @@ int QuestionNumerique::limiteMaximum() const
     return d_limiteMax ;
 }
 
-std::string QuestionNumerique::intitule() const
+string QuestionNumerique::intitule() const
 {
-    return d_intitule ;
+    return string{d_intitule+'\n'};
 }
 
-std::string QuestionNumerique::instructionsQuestion() const
+string QuestionNumerique::instructionsQuestion() const
 {
     return string{"Saisissez la bonne reponse\n"} ;
 }
 
 string QuestionNumerique::reponse() const
 {
-    return std::to_string(d_reponse);
+    return string{std::to_string(d_reponse)+'\n'};
 }
 
 bool QuestionNumerique::validiteEntreeUtilisateur(const string &reponse) const

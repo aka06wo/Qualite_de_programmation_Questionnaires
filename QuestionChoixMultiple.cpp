@@ -29,6 +29,7 @@ std::string QuestionChoixMultiple::intitule() const
     {
         question += std::to_string(i+1) + '-' + choixNumero(i) + '\n' ;
     }
+    return question ;
 }
 
 std::string QuestionChoixMultiple::instructionsQuestion() const

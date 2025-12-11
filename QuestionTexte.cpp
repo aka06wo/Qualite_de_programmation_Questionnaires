@@ -3,7 +3,6 @@
 #include <cctype> //Pour la fonction tolower
 
 using std::cout;
-using std::cin;
 using std::endl;
 using std::string;
 
@@ -12,16 +11,18 @@ using std::string;
  {
  }
 
-std::string QuestionTexte::intitule() const {
-    return d_intitule;
+string QuestionTexte::intitule() const
+{
+    return string{d_intitule+'\n'};
 }
 
-std::string QuestionTexte::instructionsQuestion() const {
+string QuestionTexte::instructionsQuestion() const {
      return string {"Saisissez la bonne reponse\n"} ;
  }
 
-std::string QuestionTexte::reponse() const {
-     return d_reponseCorrecte ;
+string QuestionTexte::reponse() const
+{
+     return string{d_reponseCorrecte+'\n'} ;
  }
 
 bool QuestionTexte::validiteEntreeUtilisateur(const string &reponse) const {
