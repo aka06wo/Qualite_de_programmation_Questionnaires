@@ -1,9 +1,9 @@
 #include "EvaluationSecondeChance.h"
 #include "certificat.h"
-#include "Afficheur.h"
+#include <iostream>
 
-EvaluationSecondeChance::EvaluationSecondeChance(const Questionnaire &questionnaire,
-                        std::unique_ptr<Afficheur> afficheur) : Evaluation{questionnaire,std::move(afficheur)}
+EvaluationSecondeChance::EvaluationSecondeChance(const Questionnaire &questionnaire)
+                        : Evaluation{questionnaire}
 {
 }
 
@@ -17,11 +17,12 @@ void EvaluationSecondeChance::lanceEvaluation() {
 
     while (i<nbQuestions && quitter==false)
     {
-        d_afficheur->separateur(100,'=') ;
-        d_afficheur->affiche("Question N°" + std::to_string(i+1) + " sur "
-                                        + std::to_string(nbQuestions) + '\n') ;
+        std::cout << std::string(100,'=') << std::endl ;
+        std::cout << "Question N°" + std::to_string(i+1) + " sur "
+                  + std::to_string(nbQuestions) + '\n' ;
+        std::cout << d_questionnaire->intituleQuestionNumero(i) ;
+        std::cout << d_questionnaire->instructionsQuestionNumero(i) ;
         getline(std::cin,reponseUtilisateur);
-        afficheQuestionsInstructions(i) ;
         if (reponseUtilisateur == "*")
         {
             quitter = true ;
@@ -32,32 +33,32 @@ void EvaluationSecondeChance::lanceEvaluation() {
             reponseUtilisateur = lireReponseValide(i,reponseUtilisateur) ;
             if ( ! d_questionnaire->verificationReponse(i,reponseUtilisateur))
             {
-                d_afficheur->affiche("[x] Incorrect, mais tu as droit à une seconde chance. \n") ;
-                d_afficheur->affiche("> ") ;
+                std::cout << "[x] Incorrect, mais tu as droit à une seconde chance. \n" ;
+                std::cout << "> " ;
                 getline(std::cin,reponseUtilisateur);
                 reponseUtilisateur = lireReponseValide(i,reponseUtilisateur) ;
                 if ( ! d_questionnaire->verificationReponse(i,reponseUtilisateur))
                 {
                     enregistreErreurs(i) ;
-                    d_afficheur->separateur(100,'.') ;
-                    d_afficheur->affiche("[x] Toujours incorrect.\n") ;
-                    d_afficheur->affiche("La bonne reponse est : "+ d_questionnaire->reponseQuestionNumero(i)) ;
-                    d_afficheur->separateur(100,'.') ;
+                    std::cout << std::string(100,'.') << std::endl ;
+                    std::cout << "[x] Toujours incorrect.\n" ;
+                    std::cout << "La bonne reponse est : "+ d_questionnaire->reponseQuestionNumero(i) ;
+                    std::cout << std::string(100,'.') << std::endl ;
                 }
                 else
                 {
-                    d_afficheur->affiche("[v] Bonne reponse !\n") ;
+                    std::cout << "[v] Bonne reponse !\n" ;
                     augmenteScore() ;
                 }
             }
             else
             {
-                d_afficheur->affiche("[v] Bonne reponse !\n") ;
+                std::cout << "[v] Bonne reponse !\n" ;
                 augmenteScore() ;
             }
 
-            d_afficheur->separateur(100,'=') ;
-            d_afficheur->affiche("\n\n") ;
+            std::cout << std::string(100,'=') << std::endl ;
+            std::cout << "\n\n" ;
         }
 
         resultatEvaluation() ;

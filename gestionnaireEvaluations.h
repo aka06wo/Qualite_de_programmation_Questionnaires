@@ -4,6 +4,7 @@
 
 class gestionnaireEvaluations
 {
+    public :
     // la classe qui gère les evaluations (eventuellement contenir un tableau d'evaluation)
     // pointeur dynamique
 
