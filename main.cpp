@@ -44,7 +44,9 @@ void evalAdaptative() {
     eval.lanceEvaluation();
 }
 
-void testCertificat () {
+/*
+void testCertificat ()
+{
     certificat monCertificat("Mamadou", "Programmation C++", 85);
 
     // ----- Test console -----
@@ -61,6 +63,7 @@ void testCertificat () {
         std::cout << "Erreur lors de la création du fichier.\n";
     }
 }
+*/
 
 int main()
 {

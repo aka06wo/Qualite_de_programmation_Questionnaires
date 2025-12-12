@@ -1,5 +1,5 @@
 #include "EvaluationAdaptative.h"
-#include "Afficheur.h"
+#include <iostream>
 
 EvaluationAdaptative::EvaluationAdaptative(const Questionnaire &questionnaire):Evaluation{questionnaire}
 {
@@ -22,7 +22,7 @@ void EvaluationAdaptative::lanceEvaluation()
 
     while(!d_IndQuestionsNonposees.empty() )
     {
-        Afficheur::separateur(100,'=') ;
+        std::cout << std::string(100,'=') << std::endl ;
 
         int indiceAlea=rand()%(d_IndQuestionsNonposees.size());
         int indQuestion=d_IndQuestionsNonposees[indiceAlea];
@@ -46,7 +46,7 @@ void EvaluationAdaptative::lanceEvaluation()
 
         }
         d_IndQuestionsNonposees.erase(d_IndQuestionsNonposees.begin()+indiceAlea);
-        Afficheur::separateur(100,'=') ;
+        std::cout << std::string(100,'=') << std::endl ;
         std::cout<<'\n' ;
     }
 
@@ -58,7 +58,7 @@ void EvaluationAdaptative::lanceEvaluation()
 
     for(int i{0}; i<d_tabIndiceErreur.size(); ++i)
     {
-        Afficheur::separateur(100,'=') ;
+        std::cout << std::string(100,'=') << std::endl ;
         std::cout<<d_questionnaire->intituleQuestionNumero(d_tabIndiceErreur[i]) ;
         std::cout<<d_questionnaire->instructionsQuestionNumero(d_tabIndiceErreur[i]) ;
         std::string reponse=lireReponseValide(d_tabIndiceErreur[i]);
@@ -74,7 +74,7 @@ void EvaluationAdaptative::lanceEvaluation()
         {
             std::cout<<"[x] Mauvaise reponse !"<< '\n';
         }
-        Afficheur::separateur(100,'=') ;
+        std::cout << std::string(100,'=') << std::endl ;
         std::cout <<'\n';
 
     }
