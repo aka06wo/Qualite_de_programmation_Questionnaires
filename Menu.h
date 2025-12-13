@@ -4,7 +4,15 @@
 
 class Menu
 {
-    // la classe menu
+public :
+    void execute() ;
+private :
+    std::unique_ptr<gestionnaireQuestionnaires> d_gestionnaireQuestion ;
+    int MenuPrincipale() ;
+    void menuQuestionnaire() ;
+    void menuApprentissage() ;
+    void menuevaluation()
+
 };
 
 
