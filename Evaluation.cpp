@@ -6,6 +6,33 @@ Evaluation::Evaluation(const Questionnaire &questionnaire) :
 {
 }
 
+std::string Evaluation::messageSelonScore(double pourcentage)
+{
+    std::string message {"Score obtenu : " + std::to_string(pourcentage) + '\n'} ;
+    if (pourcentage >= 90)
+    {
+        message += "Félicitations ! Tu es un génie, presque invincible !\n";
+    }
+    else if (pourcentage >= 75)
+    {
+        message += "Bravo ! Très bon travail \n";
+    }
+    else if (pourcentage >= 50)
+    {
+        message += "Pas mal ! Mais tu peux faire encore mieux, on croit en toi !\n";
+    }
+    else if (pourcentage >= 25)
+    {
+        message += "Hum... ça commence à se compliquer. Allez, courage !\n";
+    }
+    else
+    {
+        message += "Oups... peut-être que tu devrais revoir tes notes\n";
+    }
+
+    return message;
+}
+
 std::string Evaluation::lireReponseValide(int indiceQuestion, const std::string &reponse) const
 {
     std::string reponseValide = reponse;
@@ -55,13 +82,20 @@ void Evaluation::changerQuestionnaire(const Questionnaire &nouveauQuestionnaire)
     d_tabIndiceErreur.clear();
 }
 
+int Evaluation::score() const {
+    return d_score;
+}
+
+double Evaluation::pourcentageReussite() const {
+    return (1.0*score()/d_questionnaire->nombreDeQuestions())*100 ;
+}
+
 void Evaluation::resultatEvaluation() const
 {
-    // Utiliser les certificats ici ?
-    // les mettres comme classe abstraite ??
-
-
-    std::cout << "Vous avez une score de "+ std::to_string(d_score)
+    std::cout << "Vous avez une score de "+ std::to_string(score())
               +" sur "+std::to_string(d_questionnaire->nombreDeQuestions()) + '\n' ;
+    messageSelonScore(1.0*score()/d_questionnaire->nombreDeQuestions()) ;
+
+    // Certificat console ?
 }
 

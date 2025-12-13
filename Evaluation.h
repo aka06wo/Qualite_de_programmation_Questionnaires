@@ -13,6 +13,7 @@ class Evaluation
     virtual ~Evaluation() = default;
     void revueErreursCommises() const ;
     void changerQuestionnaire(const Questionnaire &nouveauQuestionnaire);
+    double pourcentageReussite() const;
     virtual void lanceEvaluation() = 0 ;
 
     protected:
@@ -22,11 +23,13 @@ class Evaluation
     void enregistreErreurs(int indiceErreur) ;
     void augmenteScore() ;
     void augmenteEssai() ;
+    int score() const ;
 
     private:
     int d_nbEssai ;
     int d_score ;
     std::vector<int> d_tabIndiceErreur ;
+    static std::string messageSelonScore(double pourcentage) ;
 };
 
 
