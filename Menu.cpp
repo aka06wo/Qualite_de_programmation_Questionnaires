@@ -15,6 +15,7 @@
 using std::cout;
 using std::cin;
 using std::string;
+// finalement pas besoin de creer des questions(ils sont deja stock"=Ã© dans json) donc s'occuper uniquement de la parti questionnaire , evaluation et apprentissage 
 void Menu::execute()
 {
     auto choix = MenuPrincipale();
@@ -27,10 +28,10 @@ void Menu::execute()
         case 1 :
             cout << "-> Lancement de la creation d'une question Texte...\n";
             string intitule, reponse;
-            cout << "Intitulé : ";
-            std::getline(cin >> std::ws, intitule); // ws ignore tous les espaces, tabulations et retours à la ligne en attente
+            cout << "IntitulÃ© : ";
+            std::getline(cin >> std::ws, intitule); // ws ignore tous les espaces, tabulations et retours Ã  la ligne en attente
 
-            cout << "Réponse : ";
+            cout << "RÃ©ponse : ";
             std::getline(cin, reponse);
 
             question = std::make_unique<QuestionTexte>(intitule, reponse);
@@ -40,10 +41,10 @@ void Menu::execute()
             string intitule;
             int reponse, mini, maxi;
 
-            cout << "Intitulé : ";
+            cout << "IntitulÃ© : ";
             std::getline(cin >> std::ws, intitule);
 
-            cout << "Réponse correcte : ";
+            cout << "RÃ©ponse correcte : ";
             cin >> reponse;
 
             cout << "Valeur min : ";
@@ -60,7 +61,7 @@ void Menu::execute()
         string intitule;
         int bonneReponse;
 
-        cout << "Intitulé : ";
+        cout << "IntitulÃ© : ";
         std::getline(cin >> std::ws, intitule);
 
         std::vector<string> choixPossibles;
@@ -72,7 +73,7 @@ void Menu::execute()
             choixPossibles.push_back(choix);
         }
 
-        cout << "Numéro de la bonne réponse (1-3) : ";
+        cout << "NumÃ©ro de la bonne rÃ©ponse (1-3) : ";
         cin >> bonneReponse;
 
         question = std::make_unique<QuestionChoixMultiple>(
@@ -94,7 +95,7 @@ int Menu::MenuPrincipale()
         cout<<"Veuillez choisir un type de question :\n";
         cout<<"(1) Question texte\n";
         cout<<"(2) Question numerique\n";
-        cout<<"(3) Question à choix multiple\n";
+        cout<<"(3) Question Ã  choix multiple\n";
         cout<<"(0) Quitter le programme\n";
         cout<<"Votre choix  est : ";
         cin>>choix;
