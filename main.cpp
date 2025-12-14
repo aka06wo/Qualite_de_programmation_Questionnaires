@@ -18,7 +18,7 @@
 
 
 
-void testSauvegardeFichier()
+/*void testSauvegardeFichier()
 {
     QuestionnaireJSON fichier {"Questionnaire sur la programmation"} ;
     Questionnaire monQuestionnaire {} ;
@@ -61,10 +61,10 @@ void testCertificat () {
         std::cout << "Erreur lors de la création du fichier.\n";
     }
 }
-
+*/
 int main()
 {
-    evalSecondeChance() ;
+   // evalSecondeChance() ;
     //evalAdaptative();
     //testCertificat();
 

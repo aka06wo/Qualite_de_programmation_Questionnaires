@@ -3,6 +3,7 @@
 
 #include "Question.h"
 #include <string>
+#include <iostream>
 
 class QuestionTexte:public Question {
     public:

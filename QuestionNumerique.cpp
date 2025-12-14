@@ -46,43 +46,32 @@ string QuestionNumerique::reponse() const
 
 bool QuestionNumerique::validiteEntreeUtilisateur(const string &reponse) const
 {
-    // Refaire avec les try cath
-
-
-    if (reponse.empty())
-    {
-        cout<< "Veuillez donnez une réponse "<<'\n';
-        return false;
-    }
-    else
-    {
-        int i = 0;
-        // si il a - ou + il faut qu'on renvoie false, revoir le code
-        // mamadou, j'ai egalement un warning
-        if (reponse[0] == '-' || reponse[0] == '+')
-        {
-            if (reponse.size() == 1)
-            {
-                cout << " Donnez une réponse valide! " <<'\n';
-                return false;
-            }
-            else
-                ++i;
-        }
-
-        for (int j{i}; j < reponse.size(); ++j)
-        {
-            if (!isdigit(reponse[j]))
-            {
-                cout<< "Votre réponse n'est pas valide, veuillez saisir un nombre\n";
-                return false;
-            }
-        }
-        // Si tous les caractères sont des chiffres, la réponse est valide
-        return true;
-    }
-    // Ne devrait jamais arriver ici, mais pour éviter le warning
-    return false;
+     if (reponse.empty())
+ {
+     cout<< "Veuillez donnez une réponse "<<'\n';
+     return false;
+ }
+   try
+ {
+     int valeur = std::stoi(reponse);
+     if (!isdigit(valeur))
+     {
+         std::cout << "Ceci n'est pas un nombre, veuillez entrez un nombre valide\n";
+         return false;
+     }
+     else
+         return true;
+ }
+ catch (const std::invalid_argument&)
+ {
+     std::cout << "Ceci n'est pas un nombre,Veuillez saisir un nombre valide\n";
+     return false;
+ }
+ catch (const std::out_of_range&)
+ {
+     std::cout << "Nombre trop grand, veuillez saisir un nombre valide\n";
+     return false;
+ }
 }
 
 
