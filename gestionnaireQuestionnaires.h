@@ -12,6 +12,7 @@ public :
     const Questionnaire& questionnaireTexte() const;
     const Questionnaire& questionnaireNumerique() const;
     const Questionnaire& questionnaireChoixMultiple() const;
+    std::vector<Questionnaire>getParType(int type);
 };
 
 
