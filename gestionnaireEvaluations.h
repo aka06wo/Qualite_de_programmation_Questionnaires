@@ -1,16 +1,23 @@
 #ifndef CODE_QUESTIONNAIRE_GESTIONNAIREEVALUATIONS_H
 #define CODE_QUESTIONNAIRE_GESTIONNAIREEVALUATIONS_H
 
+#include "Questionnaire.h"
+#include "Evaluation.h"
 
 class gestionnaireEvaluations
 {
-    // la classe qui gère les evaluations (eventuellement contenir un tableau d'evaluation)
-    // pointeur dynamique
+    public :
+    gestionnaireEvaluations(const Questionnaire &q) ;
+    bool lanceEvaluation (int evaluation) ;
 
-    // On aura static constexpr int EVAL_SECONDE_CHANCE = 1 ; on stocke l'indice de l'eval dans le tableau
+    private :
+    const Questionnaire *d_questionnaire ;
+    std::vector<std::unique_ptr<Evaluation>> d_evaluations ;
+    static constexpr int EVALUATION_TEST = 0 ;
+    static constexpr int EVALUATION_SECONDE_CHANCE = 1 ;
+    static constexpr int EVALUATION_ADAPTATIVE = 2 ;
+    void commenceEvaluation(int evaluation) ;
 
-
-    // Sidy ou Ibrahima ( ou vous faites à deux)
 };
 
 

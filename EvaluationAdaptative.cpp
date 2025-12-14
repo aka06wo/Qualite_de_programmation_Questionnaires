@@ -1,8 +1,7 @@
 #include "EvaluationAdaptative.h"
 #include "Afficheur.h"
 
-EvaluationAdaptative::EvaluationAdaptative(const Questionnaire &questionnaire,
-                        std::unique_ptr<Afficheur> afficheur) : Evaluation{questionnaire,std::move(afficheur)}
+EvaluationAdaptative::EvaluationAdaptative(const Questionnaire &questionnaire) : Evaluation{questionnaire}
 {
 }
 
@@ -12,7 +11,8 @@ void EvaluationAdaptative::PoseQuestionsDe(std::vector<int>& tableau)
     std::string reponseUtilisateur="";
      while(!tableau.empty())
     {
-       d_afficheur->separateur(100,'=') ;
+       std::cout << std::string(100,'=') << std::endl ;
+        std::cout <<'\n';
 
         int indiceAlea=rand()%(tableau.size());
         int indQuestion=tableau[indiceAlea];
@@ -38,8 +38,8 @@ void EvaluationAdaptative::PoseQuestionsDe(std::vector<int>& tableau)
 
         }
         tableau.erase(tableau.begin()+indiceAlea);
-        d_afficheur->separateur(100,'=') ;
-        std::cout<<'\n' ;
+         std::cout << std::string(100,'=') << std::endl ;
+        std::cout <<'\n';
     }
 
 
@@ -48,9 +48,10 @@ void EvaluationAdaptative::ReposerQuestionsFausses()
 {
     std::string reponseUtilisateur="";
     int i=d_questionnaire->nombreDeQuestions()-score();
-    while(i!=0)
+    while(i!=-1)
         {
-        d_afficheur->separateur(100,'=') ;
+         std::cout << std::string(100,'=') << std::endl ;
+        std::cout <<'\n';
 
         std::cout<<d_questionnaire->intituleQuestionNumero(i) ;
         std::cout<<d_questionnaire->instructionsQuestionNumero(i) ;
@@ -70,8 +71,8 @@ void EvaluationAdaptative::ReposerQuestionsFausses()
         {
             std::cout<<"[x] Mauvaise reponse !"<< '\n';
         }
-        d_afficheur->separateur(100,'=') ;
-        std::cout<<'\n' ;
+        std::cout << std::string(100,'=') << std::endl ;
+        std::cout <<'\n';
         --i;
 
         }

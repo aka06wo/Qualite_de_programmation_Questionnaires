@@ -2,12 +2,14 @@
 #define EVALUATIONADAPTATIVE_H
 
 #include "Evaluation.h"
+
+#include<iostream>
 #include <vector>
 
 class EvaluationAdaptative : public Evaluation
 {
 public:
-    EvaluationAdaptative(const Questionnaire &questionnaire,std::unique_ptr<Afficheur> afficheur);
+    EvaluationAdaptative(const Questionnaire &questionnaire);
     void lanceEvaluation() override;
 
 private:

@@ -6,43 +6,32 @@
 #include <vector>
 #include <memory>
 
-#include "Afficheur.h"
-#include "certificat.h"
-#include "certificatText.h"
-
-class AfficheurConcole ;
-
 class Evaluation
 {
     public:
-    Evaluation(const Questionnaire &questionnaire,
-                    std::unique_ptr<Afficheur> afficheur);
+    Evaluation(const Questionnaire &questionnaire);
     virtual ~Evaluation() = default;
-    int score() const ;
-    int nombreEssais() const ;
-    int nombreErreurs() const ;
-
     void revueErreursCommises() const ;
-    void resultatEvaluation() const ;
+    void changerQuestionnaire(const Questionnaire &nouveauQuestionnaire);
+    double pourcentageReussite() const;
     virtual void lanceEvaluation() = 0 ;
 
     protected:
     const Questionnaire *d_questionnaire;
-    std::unique_ptr<Afficheur> d_afficheur;
+    std::string lireReponseValide(int indiceQuestion, const std::string &reponse) const ;
+    void resultatEvaluation() const ;
+    void enregistreErreurs(int indiceErreur) ;
     void augmenteScore() ;
     void augmenteEssai() ;
-    void afficheQuestionsInstructions(int indice) const ;
-    void enregistreErreurs(int indiceErreur) ;
-    std::string lireReponseValide(int indiceQuestion, const std::string &reponse) const ;
+    int score() const ;
 
 
     private:
     int d_nbEssai ;
     int d_score ;
     std::vector<int> d_tabIndiceErreur ;
-    certificatText d_certificatText;
+    static std::string messageSelonScore(double pourcentage) ;
 };
-
 
 
 #endif //CODE_QUESTIONNAIRE_EVALUATION_H

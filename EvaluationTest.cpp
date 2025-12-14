@@ -6,8 +6,8 @@
 //using std::string;
 EvaluationTest::EvaluationTest(const Questionnaire &questionnaire)
     : Evaluation(questionnaire)
-}
-    void EvaluationTest::lanceEvaluation()
+{}
+void EvaluationTest::lanceEvaluation()
 {
 
     int nbQuestions = d_questionnaire->nombreDeQuestions();

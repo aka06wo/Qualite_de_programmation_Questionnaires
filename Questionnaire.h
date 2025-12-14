@@ -2,12 +2,10 @@
 #define CODE_QUESTIONNAIRE_H
 
 #include<string>
-#include<iostream>
 #include <vector>
 #include <memory>
 #include "json.hpp"
-
-class Question ;
+#include "Question.h"
 
 class Questionnaire
 {
@@ -16,7 +14,6 @@ class Questionnaire
     Questionnaire() ;
     Questionnaire(const std::string &nom,const std::string &description = "" ,
                         const std::vector<std::unique_ptr<Question>> &Questions = {});
-    ~Questionnaire();
     std::string nomQuestionnaire() const ;
     std::string descriptionQuestionnaire() const ;
     int nombreDeQuestions() const ;

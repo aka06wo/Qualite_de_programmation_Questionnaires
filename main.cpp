@@ -18,7 +18,7 @@
 
 
 
-/*void testSauvegardeFichier()
+void testSauvegardeFichier()
 {
     QuestionnaireJSON fichier {"Questionnaire sur la programmation"} ;
     Questionnaire monQuestionnaire {} ;
@@ -44,7 +44,9 @@ void evalAdaptative() {
     eval.lanceEvaluation();
 }
 
-void testCertificat () {
+/*
+void testCertificat ()
+{
     certificat monCertificat("Mamadou", "Programmation C++", 85);
 
     // ----- Test console -----
@@ -62,9 +64,10 @@ void testCertificat () {
     }
 }
 */
+
 int main()
 {
-   // evalSecondeChance() ;
+    evalSecondeChance() ;
     //evalAdaptative();
     //testCertificat();
 

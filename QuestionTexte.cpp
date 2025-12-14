@@ -1,5 +1,6 @@
 #include "QuestionTexte.h"
 #include <memory>
+#include <iostream>
 #include <cctype> //Pour la fonction tolower
 
 using std::cout;
@@ -27,14 +28,14 @@ string QuestionTexte::reponse() const
 
 bool QuestionTexte::validiteEntreeUtilisateur(const string &reponse) const {
     if (reponse.empty()) {
-        cout<<"Veuillez entrez une reponse\n" ;
+        std::cout<<"Veuillez entrez une reponse\n" ;
         return false ;
     }
      else
          return true ;
 }
 
-// C'est pas trop lourd en test ??
+
  bool QuestionTexte::verificationReponse(const string &reponse) const
  {
      if(reponse.length()!=d_reponseCorrecte.length())

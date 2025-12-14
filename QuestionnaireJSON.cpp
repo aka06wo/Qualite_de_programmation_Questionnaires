@@ -4,6 +4,7 @@
 #include "QuestionNumerique.h"
 #include "QuestionTexte.h"
 #include "QuestionChoixMultiple.h"
+#include <iostream>
 
 
 std::string QuestionnaireJSON::NomFichierQuestionnaire()
@@ -21,7 +22,7 @@ QuestionnaireJSON::QuestionnaireJSON() : d_nomQuestionnaire{}, d_monFichier{json
 }
 
 QuestionnaireJSON::QuestionnaireJSON(const std::string &nomQuestionnaire) :
-    d_nomQuestionnaire(nomQuestionnaire), d_monFichier{json::object()}
+    d_nomQuestionnaire{nomQuestionnaire}, d_monFichier{json::object()}
 {
 }
 
@@ -114,7 +115,7 @@ void QuestionnaireJSON::ajouterQuestionDepuisJSON(Questionnaire &questionnaire, 
         }
         // else  std::cerr << "Type de question inconnu → question ignorée." << std::endl;
     } catch (const json::out_of_range &e) {
-        std::cerr << "Question ignorée : clé manquante " << e.what() << std::endl;
+        //std::cerr << "Question ignorée : clé manquante " << e.what() << std::endl;
     }
 }
 
