@@ -4,17 +4,20 @@
 #include <iostream>
 #include <memory>
 #include "gestionnaireQuestionnaires.h"
+#include "gestionnaireEvaluations.h"
 
 class Menu
 {
 public :
     void execute() ;
 private :
-    std::unique_ptr<gestionnaireQuestionnaires> d_gestionnaireQuestion ;
+    gestionnaireQuestionnaires  d_gestionnaireQuestion ;
+    gestionnaireEvaluations    d_gestionnairevaluation ;
     int MenuPrincipale() ;
-    void menuQuestionnaire() ;
-    void menuApprentissage() ;
-    void menuevaluation();
+    int menuChoixQuestionnaire(const std::vector<Questionnaire>& questionnaires) ;
+    int menuQuestionnaire() ;
+    int menuApprentissage() ;
+    int menuevaluation();
 
 };
 

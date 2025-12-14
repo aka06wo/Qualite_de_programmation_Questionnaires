@@ -8,6 +8,10 @@ class gestionnaireQuestionnaires
     // on les charge tous et on demande à l'utilsateur le quel il veut prendre
 
     // a l'image de gestionnaireEvaluation
+public :
+    const Questionnaire& questionnaireTexte() const;
+    const Questionnaire& questionnaireNumerique() const;
+    const Questionnaire& questionnaireChoixMultiple() const;
 };
 
 
