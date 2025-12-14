@@ -7,11 +7,12 @@
 class EvaluationAdaptative : public Evaluation
 {
 public:
-    EvaluationAdaptative(const Questionnaire &questionnaire);
+    EvaluationAdaptative(const Questionnaire &questionnaire,std::unique_ptr<Afficheur> afficheur);
     void lanceEvaluation() override;
 
 private:
-    void PoseQuestions(std::vector<int>& tableau,std::vector<int>& TableauErreurs );
+    void PoseQuestionsDe(std::vector<int>& tableau);
+    void ReposerQuestionsFausses();
 
 };
 

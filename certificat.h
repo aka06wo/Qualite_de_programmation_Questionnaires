@@ -17,11 +17,11 @@ class certificat
 {
 public :
     certificat();
-    virtual void genereCertificat() const = 0;
+    virtual void genereCertificat()  const= 0;
 
 private :
-    // il faut pas qu'on les stockes
-    std::string d_nomUtilisateur,d_nomquestionnaire;
+    // il faut pas qu'on les stocke
+    std::string d_nomquestionnaire;
     int d_score;
 
 };

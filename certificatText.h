@@ -8,6 +8,9 @@ class certificatText : public certificat
     public:
     certificatText() ;
     void genereCertificat() const override;
+
+    private:
+       std::string d_nomFichier;
 };
 
 

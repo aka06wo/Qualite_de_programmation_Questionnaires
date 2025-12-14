@@ -1,19 +1,18 @@
 #include "EvaluationAdaptative.h"
 #include "Afficheur.h"
 
-EvaluationAdaptative::EvaluationAdaptative(const Questionnaire &questionnaire):Evaluation{questionnaire}
+EvaluationAdaptative::EvaluationAdaptative(const Questionnaire &questionnaire,
+                        std::unique_ptr<Afficheur> afficheur) : Evaluation{questionnaire,std::move(afficheur)}
 {
 }
 
-// utiliser augmente score, erreur, et essai
-// pour pouvoir mettre leurs attributs en privée et juste utilisez les methodes
-// deja fait dans evaluation seconde chance
-// eva adaptative ??
-void EvaluationAdaptative::PoseQuestions(std::vector<int>& tableau,std::vector<int>& TableauErreurs )
+void EvaluationAdaptative::PoseQuestionsDe(std::vector<int>& tableau)
 {
+    std::srand(std::time(nullptr));
+    std::string reponseUtilisateur="";
      while(!tableau.empty())
     {
-        Afficheur::separateur(100,'=');
+       d_afficheur->separateur(100,'=') ;
 
         int indiceAlea=rand()%(tableau.size());
         int indQuestion=tableau[indiceAlea];
@@ -21,9 +20,11 @@ void EvaluationAdaptative::PoseQuestions(std::vector<int>& tableau,std::vector<i
         std::cout<<d_questionnaire->intituleQuestionNumero(indQuestion) ;
         std::cout<<d_questionnaire->instructionsQuestionNumero(indQuestion) ;
 
-        std::string reponse=lireReponseValide(indQuestion);
+        getline(std::cin,reponseUtilisateur);
 
-        bool reponseCorrecte=d_questionnaire->verificationReponse(indQuestion,reponse);
+        reponseUtilisateur=lireReponseValide(indQuestion,reponseUtilisateur);
+
+        bool reponseCorrecte=d_questionnaire->verificationReponse(indQuestion,reponseUtilisateur);
 
         if(reponseCorrecte)
         {
@@ -33,33 +34,64 @@ void EvaluationAdaptative::PoseQuestions(std::vector<int>& tableau,std::vector<i
         else
         {
             std::cout<<"[x] Mauvaise reponse !"<< '\n';
-            TableauErreurs.push_back(indQuestion);
+            enregistreErreurs(indQuestion) ;
 
         }
         tableau.erase(tableau.begin()+indiceAlea);
-        Afficheur::separateur(100,'=') ;
+        d_afficheur->separateur(100,'=') ;
         std::cout<<'\n' ;
     }
 
 
 }
+void EvaluationAdaptative::ReposerQuestionsFausses()
+{
+    std::string reponseUtilisateur="";
+    int i=d_questionnaire->nombreDeQuestions()-score();
+    while(i!=0)
+        {
+        d_afficheur->separateur(100,'=') ;
+
+        std::cout<<d_questionnaire->intituleQuestionNumero(i) ;
+        std::cout<<d_questionnaire->instructionsQuestionNumero(i) ;
+
+        getline(std::cin,reponseUtilisateur);
+
+        reponseUtilisateur=lireReponseValide(i,reponseUtilisateur);
+
+        bool reponseCorrecte=d_questionnaire->verificationReponse(i,reponseUtilisateur);
+
+        if(reponseCorrecte)
+        {
+            std::cout<< "[v] Bonne reponse !"<<'\n';
+            augmenteScore();
+        }
+        else
+        {
+            std::cout<<"[x] Mauvaise reponse !"<< '\n';
+        }
+        d_afficheur->separateur(100,'=') ;
+        std::cout<<'\n' ;
+        --i;
+
+        }
+
+}
 void EvaluationAdaptative::lanceEvaluation()
 {
     augmenteEssai();
-    std::srand(std::time(nullptr));
     std::vector<int> d_IndQuestionsNonposees;
     for (int i=0; i<d_questionnaire->nombreDeQuestions(); ++i)
         d_IndQuestionsNonposees.push_back(i);
 
     std::vector<int> d_questionsFaussees{};
 
-        PoseQuestions(d_IndQuestionsNonposees,d_questionsFaussees);
+        PoseQuestionsDe(d_IndQuestionsNonposees);
 
         if(!d_questionsFaussees.empty())
         {
             std::cout<< "Vous avez terminez de répondre Au Questionnaire";//je vais revoir comment mieux le dire
-
-            //PoseQuestions(d_questionsFaussees,d_tabIndiceErreur);
+            ReposerQuestionsFausses();
         }
 
     resultatEvaluation();
