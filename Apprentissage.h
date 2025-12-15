@@ -1,10 +1,17 @@
 #ifndef CODE_QUESTIONNAIRE_APPRENTISSAGE_H
 #define CODE_QUESTIONNAIRE_APPRENTISSAGE_H
 
+#include "Questionnaire.h"
 
 class Apprentissage
 {
-    // la classe de sidy, tu peux t'inspirer de ce qu'on a fait dans evaluation
+    public:
+    Apprentissage(const Questionnaire& questionnaire);
+    virtual ~Apprentissage()=default;
+    virtual void executer()=0;
+
+protected:
+    const Questionnaire *d_questionnaire;
 };
 
 
