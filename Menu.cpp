@@ -17,8 +17,85 @@ using std::cin;
 using std::string;
 using std::endl ;
 // finalement pas besoin de creer des questions(ils sont deja stock"=é dans json) donc s'occuper uniquement de la parti questionnaire , evaluation et apprentissage
-void Menu::execute()
+void Menu::lancer()
 {
+    while (true)
+    {
+        int type = menuChoixTypeQuestionnaire();
+        if (type == 0)
+            return;
+
+        auto questionnaires = gestionnaireQuestionnaires::getParType(type);
+        int index = menuChoixQuestionnaire(questionnaires);
+        if (index < 0)
+            return;
+
+        const Questionnaire& q = questionnaires[index];
+
+        cout << "\nQuestionnaire : " << q.nomQuestionnaire() << '\n';
+        cout << "Nombre de questions : " << q.nombreDeQuestions() << "\";
+
+        gestionnaireEvaluations gestEval(q);
+
+        bool rester = true;
+        while (rester)
+        {
+            int action = menuQuestionnaire();
+
+            switch (action)
+            {
+                case 1:
+                    {
+                    int choixApp = menuApprentissage();
+                    switch (choixApp)
+                    {
+                        case 1: apprentissageSimple(q);
+                        break;
+                        case 2: apprentissageParType(q);
+                        break;
+                        case 0:
+                            break;
+                    }
+                    break;
+                }
+
+                case 2:
+                    {
+                    int eval = menuEvaluation();
+                    switch (eval)
+                    {
+                        case 1:
+                            gestEval.lanceEvaluation(EVALUATION_TEST);
+                            break;
+                        case 2:
+                            gestEval.lanceEvaluation(EVALUATION_SECONDE_CHANCE);
+                            break;
+                        case 3:
+                            gestEval.lanceEvaluation(EVALUATION_ADAPTATIVE);
+                            break;
+                        case 0:
+                            break;
+                    }
+                    break;
+                }
+
+                case 3:
+                    afficherStatistiques(q);
+                    break;
+
+                case 4:
+                    genererCertificatHTML(q);
+                    break;
+
+                case 5:
+                    rester = false;
+                    break;
+
+                case 0:
+                    return;
+            }
+        }
+    }
 }
 
 int Menu::MenuPrincipale()

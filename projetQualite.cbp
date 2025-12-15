@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+  <FileVersion major="1" minor="6" />
+  <Project>
+    <Option title="projetQualite" />
+    <Option pch_mode="2" />
+    <Option compiler="gcc" />
+
+    <Build>
+      <Target title="Debug">
+        <Option output="bin/Debug/projetQualite" prefix_auto="1" extension_auto="1" />
+        <Option object_output="obj/Debug/" />
+        <Option type="1" /> <!-- executable -->
+        <Option compiler="gcc" />
+        <Compiler>
+          <Add option="-g" />
+        </Compiler>
+      </Target>
+
+      <Target title="Release">
+        <Option output="bin/Release/projetQualite" prefix_auto="1" extension_auto="1" />
+        <Option object_output="obj/Release/" />
+        <Option type="1" />
+        <Option compiler="gcc" />
+        <Compiler>
+          <Add option="-O2" />
+        </Compiler>
+      </Target>
+    </Build>
+
+    <Compiler>
+      <Add option="-Wall" />
+      <Add option="-std=c++17" />
+    </Compiler>
+
+    <Linker>
+    </Linker>
+
+    <!-- Fichiers source -->
+    <Unit filename="Afficheur.cpp" />
+    <Unit filename="affichage.cpp" />
+    <Unit filename="apprentissage.cpp" />
+    <Unit filename="apprentissageAvecPetitePause.cpp" />
+    <Unit filename="apprentissageClassique.cpp" />
+    <Unit filename="apprentissageParType.cpp" />
+    <Unit filename="Evaluation.cpp" />
+    <Unit filename="EvaluationAdaptative.cpp" />
+    <Unit filename="EvaluationSecondeChance.cpp" />
+    <Unit filename="EvaluationTest.cpp" />
+    <Unit filename="gestionnaireEvaluations.cpp" />
+    <Unit filename="json.cpp" />
+    <Unit filename="main.cpp" />
+    <Unit filename="Menu.cpp" />
+    <Unit filename="Question.cpp" />
+    <Unit filename="QuestionChoixMultiple.cpp" />
+    <Unit filename="Questionnaire.cpp" />
+    <Unit filename="QuestionnaireJSON.cpp" />
+    <Unit filename="QuestionNumerique.cpp" />
+    <Unit filename="QuestionTexte.cpp" />
+    <Unit filename="statistiquesUtilisateurs.cpp" />
+
+    <!-- Headers -->
+    <Unit filename="Afficheur.h" />
+    <Unit filename="apprentissage.h" />
+    <Unit filename="apprentissageAvecPetitePause.h" />
+    <Unit filename="apprentissageClassique.h" />
+    <Unit filename="apprentissageParType.h" />
+    <Unit filename="Evaluation.h" />
+    <Unit filename="EvaluationAdaptative.h" />
+    <Unit filename="EvaluationSecondeChance.h" />
+    <Unit filename="EvaluationTest.h" />
+    <Unit filename="gestionnaireEvaluations.h" />
+    <Unit filename="json.h" />
+    <Unit filename="Menu.h" />
+    <Unit filename="Question.h" />
+    <Unit filename="QuestionChoixMultiple.h" />
+    <Unit filename="Questionnaire.h" />
+    <Unit filename="QuestionnaireJSON.h" />
+    <Unit filename="QuestionNumerique.h" />
+    <Unit filename="QuestionTexte.h" />
+    <Unit filename="statistiquesUtilisateurs.h" />
+    <Unit filename="certificat.h" />
+
+    <Extensions>
+      <code_completion />
+      <debugger />
+    </Extensions>
+  </Project>
+</CodeBlocks_project_file>

@@ -1,5 +1,7 @@
-//
-// Created by Mamadou Diallo on 05/12/2025.
-//
+#include "apprentissage.h"
 
-#include "Apprentissage.h"
+apprentissage::apprentissage(const Questionnaire& questionnaire):d_questionnaire{questionnaire}
+{
+}
+
+

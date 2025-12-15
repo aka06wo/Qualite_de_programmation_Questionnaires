@@ -1,11 +1,18 @@
-#ifndef CODE_QUESTIONNAIRE_APPRENTISSAGE_H
-#define CODE_QUESTIONNAIRE_APPRENTISSAGE_H
+#ifndef APPRENTISSAGE_H
+#define APPRENTISSAGE_H
+#include "Questionnaire.h"
+#include <memory>
 
-
-class Apprentissage
+class apprentissage
 {
-    // la classe de sidy, tu peux t'inspirer de ce qu'on a fait dans evaluation
+    public:
+        apprentissage(const Questionnaire& questionnaire);
+        virtual ~apprentissage()=default;
+        virtual void executer()=0;
+
+    protected:
+        Questionnaire d_questionnaire;
+
 };
 
-
-#endif //CODE_QUESTIONNAIRE_APPRENTISSAGE_H
+#endif // APPRENTISSAGE_H
