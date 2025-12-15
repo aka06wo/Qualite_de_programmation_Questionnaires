@@ -1,17 +1,20 @@
 #ifndef CODE_QUESTIONNAIRE_GESTIONNAIREQUESTIONNAIRES_H
 #define CODE_QUESTIONNAIRE_GESTIONNAIREQUESTIONNAIRES_H
 
+#include "Questionnaire.h"
 
 class gestionnaireQuestionnaires
 {
-    // la classe qui va gerer les differents questionnaires
-    // on les charge tous et on demande à l'utilsateur le quel il veut prendre
+    public :
+    gestionnaireQuestionnaires() ;
+    gestionnaireQuestionnaires(const std::string &nomQuestionnaire) ;
+    Questionnaire renvoiQuestionnaireCourant() const;
+    void changeQuestionnaire(const std::string &nomQ) ;
+    std::string nomsDesDifferentsQuestionnaires() const;
 
-    // a l'image de gestionnaireEvaluation
-public :
-    const Questionnaire& questionnaireTexte() const;
-    const Questionnaire& questionnaireNumerique() const;
-    const Questionnaire& questionnaireChoixMultiple() const;
+    private :
+    const std::string d_questionnaireCourant ;
+
 };
 
 

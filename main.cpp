@@ -5,19 +5,6 @@
 #include "certificat.h"
 
 
-
-
-/*
- Et on doit cacher certaines methodes a l'utilisateur, privée, et utilser l'amitié
- */
-
-
-
-
-
-
-
-
 void testSauvegardeFichier()
 {
     QuestionnaireJSON fichier {"Questionnaire sur la programmation"} ;
@@ -58,9 +45,9 @@ void testCertificat ()
     {
         monCertificat.certificatHtml(fichier);
         fichier.close();
-        std::cout << "\nFichier certificat.html créé avec succès !\n";
+        std::cout << "\nFichier certificat.html crÃ©Ã© avec succÃ¨s !\n";
     } else {
-        std::cout << "Erreur lors de la création du fichier.\n";
+        std::cout << "Erreur lors de la crÃ©ation du fichier.\n";
     }
 }
 */

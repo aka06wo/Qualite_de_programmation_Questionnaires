@@ -17,7 +17,7 @@ std::string QuestionnaireJSON::NomFichierQuestionnairesSauvegarde()
     return "Fichier_Questionnaire_Sauvegarde.json";
 }
 
-QuestionnaireJSON::QuestionnaireJSON() : d_nomQuestionnaire{}, d_monFichier{json::object()}
+QuestionnaireJSON::QuestionnaireJSON() : d_nomQuestionnaire{}, d_monFichier{json::array()}
 {
 }
 
@@ -46,7 +46,7 @@ bool QuestionnaireJSON::conversionJSON(json &fichierJSON,std::ifstream &fichier)
     try {
         fichier>>fichierJSON ;
         fichier.close();
-    } catch (const json::parse_error &e) {
+    } catch (const json::parse_error&) {
         // std::cerr << "Erreur JSON : " << e.what() << std::endl;
         return false;
     }
@@ -65,20 +65,24 @@ bool QuestionnaireJSON::lireFichierJSON(json &fichierJSON, const std::string &no
 bool QuestionnaireJSON::extraireQuestionnaire(
     const json &fichierJSON, const std::string &nomQuestionnaire, json &questionnaireJSON)
 {
-    try {
-        questionnaireJSON = fichierJSON.at(nomQuestionnaire);
-    } catch (const json::out_of_range &e) {
-        // std::cerr << "Questionnaire '" << nomQuestionnaire << "' manquant → " << e.what() << std::endl;
-        return false;
+    // Je suppose que le fichier est bien construit, sinon try catch sur
+    // json::out_of_range & comme les autres
+    for (const auto& q : fichierJSON)
+    {
+        if (q.at("nom") == nomQuestionnaire)
+        {
+            questionnaireJSON = q;
+            return true;
+        }
     }
-    return true;
+    return false;
 }
 
 void QuestionnaireJSON::extraireDescription(const json &fichierJSON, Questionnaire &questionnaire) {
     try {
         std::string description = fichierJSON.at("description") ;
         questionnaire.changerDescriptionQuestionnaire(description);
-    } catch (const json::out_of_range &e) {
+    } catch (const json::out_of_range &) {
         //std::cerr << "Questionnaire " << "Description manquante" << e.what() << std::endl;
     }
 }
@@ -87,7 +91,7 @@ json QuestionnaireJSON::extraireQuestions(const json &questionnaireJSON)
 {
     try {
         return questionnaireJSON.at("questions");
-    } catch (const json::out_of_range &e) {
+    } catch (const json::out_of_range &) {
         //std::cerr << "Aucune question trouvée → " << e.what() << std::endl;
         return json::array(); // retourne un tableau vide
     }
@@ -114,7 +118,7 @@ void QuestionnaireJSON::ajouterQuestionDepuisJSON(Questionnaire &questionnaire, 
                 questionnaireJSON.at("question"), questionnaireJSON.at("reponseCorrecte")));
         }
         // else  std::cerr << "Type de question inconnu → question ignorée." << std::endl;
-    } catch (const json::out_of_range &e) {
+    } catch (const json::out_of_range &) {
         //std::cerr << "Question ignorée : clé manquante " << e.what() << std::endl;
     }
 }
@@ -150,12 +154,29 @@ void QuestionnaireJSON::sauvegarderQuestionnaire(const Questionnaire &questionna
     json tousLesQuestionnaires{};
     if ( ! lireFichierJSON(tousLesQuestionnaires, NomFichierQuestionnairesSauvegarde()))
     {
-        tousLesQuestionnaires = json::object() ;
+        tousLesQuestionnaires = json::array() ;
+    }
+    json nouveauQ = questionnaire.conversionQuestionnaireJson();
+
+    bool trouve = false;
+    for (auto &q : tousLesQuestionnaires)
+    {
+        if (q.at("nom") == questionnaire.nomQuestionnaire()) {
+            q = nouveauQ;
+            trouve = true;
+            break;
+        }
     }
 
-    tousLesQuestionnaires[questionnaire.nomQuestionnaire()]=questionnaire.conversionQuestionnaireJson();
+    // Si pas trouvé, on ajoute à la fin
+    if (!trouve) {
+        tousLesQuestionnaires.push_back(nouveauQ);
+    }
 
     std::ofstream fichier_sauv(NomFichierQuestionnairesSauvegarde());
-    fichier_sauv << tousLesQuestionnaires.dump(4);
-    fichier_sauv.close();
+    if (fichier_sauv.is_open())
+    {
+        fichier_sauv << tousLesQuestionnaires.dump(4);
+        fichier_sauv.close();
+    }
 }

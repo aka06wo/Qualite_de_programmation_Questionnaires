@@ -1,8 +1,6 @@
 #ifndef CODE_QUESTIONNAIRE_MENU_H
 #define CODE_QUESTIONNAIRE_MENU_H
 
-#include <iostream>
-#include <memory>
 #include "gestionnaireQuestionnaires.h"
 #include "gestionnaireEvaluations.h"
 
@@ -17,7 +15,7 @@ private :
     int menuChoixQuestionnaire(const std::vector<Questionnaire>& questionnaires) ;
     int menuQuestionnaire() ;
     int menuApprentissage() ;
-    int menuevaluation();
+    int menuEvaluation();
 
 };
 

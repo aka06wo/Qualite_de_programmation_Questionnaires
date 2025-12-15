@@ -1,18 +1,23 @@
+#include <iostream>
+
 #include "EvaluationAdaptative.h"
-#include "Afficheur.h"
 
 EvaluationAdaptative::EvaluationAdaptative(const Questionnaire &questionnaire) : Evaluation{questionnaire}
 {
 }
 
+/*
+ Aisse il faut que tu reecrives (ameliore) cette methodes (lance evaluation)
+ et il faut enregistrer les erreurs dans le tableau de base que si tu reposes les questions
+*/
+
 void EvaluationAdaptative::PoseQuestionsDe(std::vector<int>& tableau)
 {
     std::srand(std::time(nullptr));
-    std::string reponseUtilisateur="";
+    std::string reponseUtilisateur ;
      while(!tableau.empty())
     {
-       std::cout << std::string(100,'=') << std::endl ;
-        std::cout <<'\n';
+       std::cout<<separateur('=',100) ;
 
         int indiceAlea=rand()%(tableau.size());
         int indQuestion=tableau[indiceAlea];
@@ -21,11 +26,9 @@ void EvaluationAdaptative::PoseQuestionsDe(std::vector<int>& tableau)
         std::cout<<d_questionnaire->instructionsQuestionNumero(indQuestion) ;
 
         getline(std::cin,reponseUtilisateur);
-
         reponseUtilisateur=lireReponseValide(indQuestion,reponseUtilisateur);
 
         bool reponseCorrecte=d_questionnaire->verificationReponse(indQuestion,reponseUtilisateur);
-
         if(reponseCorrecte)
         {
             std::cout<< "[v] Bonne reponse !"<<'\n';
@@ -38,16 +41,15 @@ void EvaluationAdaptative::PoseQuestionsDe(std::vector<int>& tableau)
 
         }
         tableau.erase(tableau.begin()+indiceAlea);
-         std::cout << std::string(100,'=') << std::endl ;
-        std::cout <<'\n';
+         std::cout<< separateur('=',100) ;
     }
 
 
 }
 void EvaluationAdaptative::ReposerQuestionsFausses()
 {
-    std::string reponseUtilisateur="";
-    int i=d_questionnaire->nombreDeQuestions()-score();
+    std::string reponseUtilisateur;
+    int i=d_questionnaire->nombreDeQuestions()-scoreDernierEssai();
     while(i!=-1)
         {
          std::cout << std::string(100,'=') << std::endl ;
@@ -91,7 +93,7 @@ void EvaluationAdaptative::lanceEvaluation()
 
         if(!d_questionsFaussees.empty())
         {
-            std::cout<< "Vous avez terminez de répondre Au Questionnaire";//je vais revoir comment mieux le dire
+            std::cout<< "Vous avez terminez de rï¿½pondre Au Questionnaire";//je vais revoir comment mieux le dire
             ReposerQuestionsFausses();
         }
 

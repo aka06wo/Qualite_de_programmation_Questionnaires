@@ -1,5 +1,6 @@
-//
-// Created by Mamadou Diallo on 05/12/2025.
-//
-
 #include "Apprentissage.h"
+
+Apprentissage::Apprentissage(const Questionnaire& questionnaire):
+                                        d_questionnaire{&questionnaire}
+{
+}

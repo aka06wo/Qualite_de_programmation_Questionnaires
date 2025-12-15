@@ -40,8 +40,7 @@ std::string QuestionChoixMultiple::instructionsQuestion() const
 
 std::string QuestionChoixMultiple::reponse() const
 {
-    std::string reponse {std::to_string(d_indiceReponse+1) + '-' + choixNumero(d_indiceReponse) + '\n' } ;
-    return reponse ;
+    return std::string(std::to_string(d_indiceReponse+1) + '-' + choixNumero(d_indiceReponse) + '\n') ;
 }
 
 bool QuestionChoixMultiple::validiteEntreeUtilisateur(const std::string &reponse) const

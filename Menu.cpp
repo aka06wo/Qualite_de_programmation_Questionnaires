@@ -1,22 +1,13 @@
 #include "Menu.h"
-#include "Question.h"
 #include "Questionnaire.h"
-#include "apprentissage.h"
 #include "Evaluation.h"
-#include "EvaluationTest.h"
-#include "EvaluationAdaptative.h"
-#include "EvaluationSecondeChance.h"
-#include "gestionnaireEvaluations.h"
-#include "gestionnaireQuestionnaires.h"
-#include <vector>
 #include <iostream>
-#include <memory>
-#include "QuestionnaireJSON.h"
+
 using std::cout;
 using std::cin;
 using std::string;
 using std::endl ;
-// finalement pas besoin de creer des questions(ils sont deja stock"=é dans json) donc s'occuper uniquement de la parti questionnaire , evaluation et apprentissage
+
 void Menu::execute()
 {
 }

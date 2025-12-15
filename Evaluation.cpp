@@ -1,10 +1,118 @@
 #include "Evaluation.h"
 #include <iostream>
 
+
+std::string Evaluation::separateur(const char &c, int k)
+{
+    return std::string(k,c) + '\n';
+}
+
+
 Evaluation::Evaluation(const Questionnaire &questionnaire) :
-        d_questionnaire{&questionnaire},d_nbEssai{0}, d_score{0}, d_tabIndiceErreur{}
+        d_questionnaire{&questionnaire}, d_essais{}
 {
 }
+
+void Evaluation::augmenteEssai()
+{
+    essai nouveauEssai{} ;
+    d_essais.push_back(nouveauEssai);
+}
+
+int Evaluation::nombreEssais() const {
+    return d_essais.size();
+}
+
+
+essai Evaluation::dernierEssai() const
+{
+    if (nombreEssais()>0)
+    {
+        return d_essais[nombreEssais()-1] ;
+    }
+    else
+    {
+        return essai{} ;
+    }
+}
+
+void Evaluation::augmenteScore()
+{
+    d_essais[nombreEssais()-1].augmenteScore() ;
+}
+
+void Evaluation::enregistreErreurs(int indiceErreur)
+{
+    d_essais[nombreEssais()-1].saisieErreurs(indiceErreur) ;
+}
+
+std::string Evaluation::erreursEssaiNumero (int numEssai) const
+{
+    std::string essai {""} ;
+    essai += "ESSAI NUMERO : " + std::to_string(numEssai) + '\n';
+    for (int i=0; i < d_essais[numEssai].nombreErreurs(); i++)
+    {
+        essai += separateur(100,'-') ;
+        essai += "Erreur N°"+ std::to_string(i+1) +":\n" ;
+        essai += d_questionnaire->intituleQuestionNumero(i) ;
+        essai += "Reponse correcte : " +
+                     d_questionnaire->reponseQuestionNumero(i) ;
+        essai += separateur(100,'-') ;
+    }
+    return essai ;
+}
+
+std::string Evaluation::erreursCommisesEssais() const
+{
+    std::string erreursEssais {""} ;
+    erreursEssais += "Voici vos erreurs commises sur le Questionnaire \n["
+              + d_questionnaire->nomQuestionnaire() + "]\n" ;
+    for (int i=0;i<d_essais.size();i++)
+    {
+        erreursEssais += erreursEssaiNumero(i) ;
+    }
+    return erreursEssais ;
+}
+
+void Evaluation::changerQuestionnaire(const Questionnaire &nouveauQuestionnaire)
+{
+    d_questionnaire = &nouveauQuestionnaire;
+    d_essais.clear();
+}
+
+int Evaluation::scoreDernierEssai() const
+{
+    return dernierEssai().score() ;
+}
+
+double Evaluation::pourcentageReussite() const
+{
+    return (1.0*scoreDernierEssai()/d_questionnaire->nombreDeQuestions())*100 ;
+}
+
+
+std::string Evaluation::lireReponseValide(int indiceQuestion, const std::string &reponse) const
+{
+    std::string reponseValide = reponse;
+    while (!d_questionnaire->validiteEntreeUtilisateur(indiceQuestion, reponseValide))
+    {
+        std::cout<<"> " ;
+        getline(std::cin,reponseValide);
+    }
+    return reponseValide;
+}
+
+
+std::string Evaluation::resultatEvaluation() const
+{
+    std::string res{""} ;
+    res += "Vous avez une score de "+ std::to_string(scoreDernierEssai())
+              +" sur "+std::to_string(d_questionnaire->nombreDeQuestions()) + '\n' ;
+    res += messageSelonScore(100.0*scoreDernierEssai()/d_questionnaire->nombreDeQuestions()) ;
+
+    return res ;
+}
+
 
 std::string Evaluation::messageSelonScore(double pourcentage)
 {
@@ -31,72 +139,5 @@ std::string Evaluation::messageSelonScore(double pourcentage)
     }
 
     return message;
-}
-
-
-std::string Evaluation::lireReponseValide(int indiceQuestion, const std::string &reponse) const
-{
-    std::string reponseValide = reponse;
-    while (!d_questionnaire->validiteEntreeUtilisateur(indiceQuestion, reponseValide))
-    {
-        std::cout<<"> " ;
-        getline(std::cin,reponseValide);
-    }
-    return reponseValide;
-}
-
-void Evaluation::augmenteEssai()
-{
-    d_nbEssai++ ;
-}
-
-void Evaluation::augmenteScore()
-{
-    d_score++ ;
-}
-
-void Evaluation::enregistreErreurs(int indiceErreur)
-{
-    d_tabIndiceErreur.push_back(indiceErreur) ;
-}
-
-void Evaluation::revueErreursCommises() const
-{
-    std::cout << "Voici vos erreurs commises sur le Questionnaire \n["
-              << d_questionnaire->nomQuestionnaire() << "]\n" ;
-    for (int i=0;i<d_tabIndiceErreur.size();i++)
-    {
-        std::cout << std::string(100,'-') << std::endl ;
-        std::cout << "Erreur N°"+ std::to_string(i+1) +":\n" ;
-        std::cout<<d_questionnaire->intituleQuestionNumero(i) ;
-        std::cout << "Reponse correcte : " +
-                     d_questionnaire->reponseQuestionNumero(i) ;
-        std::cout << std::string(100,'-') << std::endl ;
-    }
-}
-
-void Evaluation::changerQuestionnaire(const Questionnaire &nouveauQuestionnaire)
-{
-    d_questionnaire = &nouveauQuestionnaire;
-    d_nbEssai=0 ;
-    d_score = 0 ;
-    d_tabIndiceErreur.clear();
-}
-
-int Evaluation::score() const {
-    return d_score;
-}
-
-double Evaluation::pourcentageReussite() const {
-    return (1.0*score()/d_questionnaire->nombreDeQuestions())*100 ;
-}
-
-void Evaluation::resultatEvaluation() const
-{
-    std::cout << "Vous avez une score de "+ std::to_string(score())
-              +" sur "+std::to_string(d_questionnaire->nombreDeQuestions()) + '\n' ;
-    messageSelonScore(1.0*score()/d_questionnaire->nombreDeQuestions()) ;
-
-    // Certificat console ?
 }
 

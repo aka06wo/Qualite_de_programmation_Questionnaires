@@ -2,16 +2,14 @@
 #define CODE_QUESTIONNAIRE_EVALUATIONTEST_H
 
 #include "Evaluation.h"
-#include <iostream>
-#include <string>
+#include "Questionnaire.h"
 
 class EvaluationTest : public Evaluation
 {
-public:
-
+    public:
     EvaluationTest(const Questionnaire &questionnaire);
     void lanceEvaluation() override;
+};
 
-private:
 
-#endif // CODE_QUESTIONNAIRE_EVALUATIONTEST_H
+#endif //CODE_QUESTIONNAIRE_EVALUATIONTEST_H

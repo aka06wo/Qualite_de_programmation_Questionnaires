@@ -7,10 +7,8 @@ class certificatText : public certificat
 {
     public:
     certificatText() ;
-    void genereCertificat() const override;
-
-    private:
-       std::string d_nomFichier;
+    void genereCertificat(const std::string &nomQuestionnaire,
+                const std::string &descriptionQ, int score, int nbQuestions) const override;
 };
 
 
