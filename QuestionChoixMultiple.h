@@ -6,7 +6,7 @@
 
 class QuestionChoixMultiple : public Question
 {
-public:
+    public:
     QuestionChoixMultiple(const std::string &question,
                 const std::vector<std::string> &reponsesPossibles, int numReponse);
     int nombreDeChoix() const ;
@@ -20,7 +20,7 @@ public:
     std::unique_ptr<Question> clone() const override ;
     nlohmann::json conversionJSON () const override ;
 
-private:
+    private:
     std::vector<std::string> d_reponsesPossibles ;
     int d_indiceReponse ;
 };

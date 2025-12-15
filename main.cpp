@@ -5,19 +5,6 @@
 #include "certificat.h"
 
 
-
-
-/*
- Et on doit cacher certaines methodes a l'utilisateur, privée, et utilser l'amitié
- */
-
-
-
-
-
-
-
-
 void testSauvegardeFichier()
 {
     QuestionnaireJSON fichier {"Questionnaire sur la programmation"} ;

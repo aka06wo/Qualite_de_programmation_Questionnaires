@@ -2,33 +2,36 @@
 #define CODE_QUESTIONNAIRE_EVALUATION_H
 
 #include "Questionnaire.h"
+#include "essai.h"
+
 #include <string>
 #include <vector>
-#include <memory>
 
 class Evaluation
 {
     public:
     Evaluation(const Questionnaire &questionnaire);
     virtual ~Evaluation() = default;
-    void revueErreursCommises() const ;
+    int nombreEssais() const ;
+    essai dernierEssai() const ;
+    int scoreDernierEssai() const ;
+    std::string erreursEssaiNumero (int numEssai) const;
+    std::string erreursCommisesEssais() const ;
     void changerQuestionnaire(const Questionnaire &nouveauQuestionnaire);
     double pourcentageReussite() const;
+    std::string resultatEvaluation() const ;
     virtual void lanceEvaluation() = 0 ;
 
     protected:
     const Questionnaire *d_questionnaire;
-    std::string lireReponseValide(int indiceQuestion, const std::string &reponse) const ;
-    void resultatEvaluation() const ;
-    void enregistreErreurs(int indiceErreur) ;
     void augmenteScore() ;
     void augmenteEssai() ;
-    int score() const ;
+    void enregistreErreurs(int indiceErreur) ;
+    std::string lireReponseValide(int indiceQuestion, const std::string &reponse) const ;
+    static std::string separateur(const char &c, int k) ;
 
     private:
-    int d_nbEssai ;
-    int d_score ;
-    std::vector<int> d_tabIndiceErreur ;
+    std::vector<essai> d_essais;
     static std::string messageSelonScore(double pourcentage) ;
 };
 

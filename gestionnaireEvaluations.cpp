@@ -3,6 +3,7 @@
 #include "gestionnaireEvaluations.h"
 #include "EvaluationAdaptative.h"
 #include "EvaluationSecondeChance.h"
+#include "EvaluationTest.h"
 
 gestionnaireEvaluations::gestionnaireEvaluations(const Questionnaire &q) :
             d_questionnaire(&q), d_evaluations {}
