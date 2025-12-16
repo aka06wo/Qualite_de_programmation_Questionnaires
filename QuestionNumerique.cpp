@@ -19,47 +19,40 @@ int QuestionNumerique::limiteMaximum() const {
 }
 
 std::string QuestionNumerique::intitule() const {
-    return string{d_intitule+'\n'};
+    return string{d_intitule};
 }
 
 string QuestionNumerique::instructionsQuestion() const {
-    return string{"Saisissez la bonne reponse :\n"} ;
+    return string{"Saisissez la bonne reponse :"} ;
 }
 
 string QuestionNumerique::reponse() const {
-    return std::to_string(d_reponse+'\n');
+    return std::to_string(d_reponse);
 }
 
 
 bool QuestionNumerique::validiteEntreeUtilisateur(const string &reponse) const
 {
      if (reponse.empty())
- {
-     cout<< "Veuillez donnez une réponse "<<'\n';
-     return false;
- }
+    {
+         cout<< "Veuillez donnez une réponse "<<'\n';
+         return false;
+    }
    try
- {
-     int valeur = std::stoi(reponse);
-     if (!isdigit(valeur))
+    {
+       int valeur = std::stoi(reponse);
+       return true ;
+    }
+     catch (const std::invalid_argument&)
      {
-         std::cout << "Ceci n'est pas un nombre, veuillez entrez un nombre valide\n";
+         std::cout << "Ceci n'est pas un nombre,Veuillez saisir un nombre valide\n";
          return false;
      }
-     else
-         return true;
- }
- catch (const std::invalid_argument&)
- {
-     std::cout << "Ceci n'est pas un nombre,Veuillez saisir un nombre valide\n";
-     return false;
- }
- catch (const std::out_of_range&)
- {
-     std::cout << "Nombre trop grand, veuillez saisir un nombre valide\n";
-     return false;
- }
-
+     catch (const std::out_of_range&)
+     {
+         std::cout << "Nombre trop grand, veuillez saisir un nombre valide\n";
+         return false;
+     }
 }
 
 bool QuestionNumerique::verificationReponse(const string &reponse) const

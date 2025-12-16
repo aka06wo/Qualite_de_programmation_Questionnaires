@@ -48,15 +48,15 @@ void Evaluation::enregistreErreurs(int indiceErreur)
 
 std::string Evaluation::erreursEssaiNumero (int numEssai) const
 {
-    std::string essai {""} ;
+    std::string essai {} ;
     essai += "ESSAI NUMERO : " + std::to_string(numEssai) + '\n';
     for (int i=0; i < d_essais[numEssai].nombreErreurs(); i++)
     {
         essai += separateur(100,'-') ;
         essai += "Erreur N°"+ std::to_string(i+1) +":\n" ;
-        essai += d_questionnaire->intituleQuestionNumero(i) ;
+        essai += d_questionnaire->intituleQuestionNumero(i) + '\n' ;
         essai += "Reponse correcte : " +
-                     d_questionnaire->reponseQuestionNumero(i) ;
+                     d_questionnaire->reponseQuestionNumero(i) + '\n';
         essai += separateur(100,'-') ;
     }
     return essai ;
@@ -64,7 +64,7 @@ std::string Evaluation::erreursEssaiNumero (int numEssai) const
 
 std::string Evaluation::erreursCommisesEssais() const
 {
-    std::string erreursEssais {""} ;
+    std::string erreursEssais {} ;
     erreursEssais += "Voici vos erreurs commises sur le Questionnaire \n["
               + d_questionnaire->nomQuestionnaire() + "]\n" ;
     for (int i=0;i<d_essais.size();i++)
@@ -105,10 +105,10 @@ std::string Evaluation::lireReponseValide(int indiceQuestion, const std::string 
 
 std::string Evaluation::resultatEvaluation() const
 {
-    std::string res{""} ;
+    std::string res{} ;
     res += "Vous avez une score de "+ std::to_string(scoreDernierEssai())
               +" sur "+std::to_string(d_questionnaire->nombreDeQuestions()) + '\n' ;
-    res += messageSelonScore(100.0*scoreDernierEssai()/d_questionnaire->nombreDeQuestions()) ;
+    res += messageSelonScore(pourcentageReussite()) ;
 
     return res ;
 }

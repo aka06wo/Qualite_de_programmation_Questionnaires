@@ -25,22 +25,22 @@ std::string QuestionChoixMultiple::choixNumero(int i) const
 
 std::string QuestionChoixMultiple::intitule() const
 {
-    std::string question {d_intitule + '\n'} ;
+    std::string question {d_intitule} ;
     for (int i = 0; i < nombreDeChoix(); i++)
     {
-        question += std::to_string(i+1) + '-' + choixNumero(i) + '\n' ;
+        question += '\n' + std::to_string(i+1) + '-' + choixNumero(i) ;
     }
     return question ;
 }
 
 std::string QuestionChoixMultiple::instructionsQuestion() const
 {
-    return std::string {"Saisissez le numéro de la bonne reponse\n"} ;
+    return std::string {"Saisissez le numéro de la bonne reponse"} ;
 }
 
 std::string QuestionChoixMultiple::reponse() const
 {
-    return std::string(std::to_string(d_indiceReponse+1) + '-' + choixNumero(d_indiceReponse) + '\n') ;
+    return std::string(std::to_string(d_indiceReponse+1) + '-' + choixNumero(d_indiceReponse) ) ;
 }
 
 bool QuestionChoixMultiple::validiteEntreeUtilisateur(const std::string &reponse) const

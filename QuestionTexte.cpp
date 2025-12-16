@@ -14,16 +14,16 @@ using std::string;
 
 string QuestionTexte::intitule() const
 {
-    return string{d_intitule+'\n'};
+    return string{d_intitule};
 }
 
 string QuestionTexte::instructionsQuestion() const {
-     return string {"Saisissez la bonne reponse\n"} ;
+     return string {"Saisissez la bonne reponse"} ;
  }
 
 string QuestionTexte::reponse() const
 {
-     return string{d_reponseCorrecte+'\n'} ;
+     return string{d_reponseCorrecte} ;
  }
 
 bool QuestionTexte::validiteEntreeUtilisateur(const string &reponse) const {
@@ -31,7 +31,7 @@ bool QuestionTexte::validiteEntreeUtilisateur(const string &reponse) const {
         std::cout<<"Veuillez entrez une reponse\n" ;
         return false ;
     }
-     else
+    else
          return true ;
 }
 
