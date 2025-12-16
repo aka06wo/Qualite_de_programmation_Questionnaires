@@ -10,7 +10,7 @@ public :
     void execute() ;
 private :
     gestionnaireQuestionnaires  d_gestionnaireQuestion ;
-    gestionnaireEvaluations    d_gestionnairevaluation ;
+    gestionnaireEvaluations    d_gestionnaireEvaluation ;
     int MenuPrincipale() ;
     int menuChoixQuestionnaire(const std::vector<Questionnaire>& questionnaires) ;
     int menuQuestionnaire() ;

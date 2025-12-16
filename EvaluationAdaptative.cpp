@@ -22,8 +22,8 @@ void EvaluationAdaptative::PoseQuestionsDe(std::vector<int>& tableau)
         int indiceAlea=rand()%(tableau.size());
         int indQuestion=tableau[indiceAlea];
 
-        std::cout<<d_questionnaire->intituleQuestionNumero(indQuestion) ;
-        std::cout<<d_questionnaire->instructionsQuestionNumero(indQuestion) ;
+        std::cout<<d_questionnaire->intituleQuestionNumero(indQuestion) << '\n' ;
+        std::cout<<d_questionnaire->instructionsQuestionNumero(indQuestion) << '\n' ;
 
         getline(std::cin,reponseUtilisateur);
         reponseUtilisateur=lireReponseValide(indQuestion,reponseUtilisateur);
@@ -55,8 +55,8 @@ void EvaluationAdaptative::ReposerQuestionsFausses()
          std::cout << std::string(100,'=') << std::endl ;
         std::cout <<'\n';
 
-        std::cout<<d_questionnaire->intituleQuestionNumero(i) ;
-        std::cout<<d_questionnaire->instructionsQuestionNumero(i) ;
+        std::cout<<d_questionnaire->intituleQuestionNumero(i) << '\n';
+        std::cout<<d_questionnaire->instructionsQuestionNumero(i)<< '\n' ;
 
         getline(std::cin,reponseUtilisateur);
 
@@ -83,19 +83,19 @@ void EvaluationAdaptative::ReposerQuestionsFausses()
 void EvaluationAdaptative::lanceEvaluation()
 {
     augmenteEssai();
-    std::vector<int> d_IndQuestionsNonposees;
+    std::vector<int> d_IndQuestionsNonposees{};
     for (int i=0; i<d_questionnaire->nombreDeQuestions(); ++i)
         d_IndQuestionsNonposees.push_back(i);
 
     std::vector<int> d_questionsFaussees{};
 
-        PoseQuestionsDe(d_IndQuestionsNonposees);
+    PoseQuestionsDe(d_IndQuestionsNonposees);
 
-        if(!d_questionsFaussees.empty())
-        {
-            std::cout<< "Vous avez terminez de r�pondre Au Questionnaire";//je vais revoir comment mieux le dire
-            ReposerQuestionsFausses();
-        }
+    if(!d_questionsFaussees.empty())
+    {
+        std::cout<< "Vous avez terminez de r�pondre Au Questionnaire";//je vais revoir comment mieux le dire
+        ReposerQuestionsFausses();
+    }
 
     resultatEvaluation();
 }

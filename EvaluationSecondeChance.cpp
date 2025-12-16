@@ -21,8 +21,8 @@ void EvaluationSecondeChance::lanceEvaluation() {
         std::cout << separateur('-',100) ;
         std::cout << "Question N°" + std::to_string(i+1) + " sur "
                   + std::to_string(nbQuestions) + '\n' ;
-        std::cout << d_questionnaire->intituleQuestionNumero(i) ;
-        std::cout << d_questionnaire->instructionsQuestionNumero(i) ;
+        std::cout << d_questionnaire->intituleQuestionNumero(i) << '\n';
+        std::cout << d_questionnaire->instructionsQuestionNumero(i) << '\n' ;
         getline(std::cin,reponseUtilisateur);
         if (reponseUtilisateur == "*")
         {
@@ -43,7 +43,7 @@ void EvaluationSecondeChance::lanceEvaluation() {
                     enregistreErreurs(i) ;
                     std::cout << separateur('.',100) ;
                     std::cout << "[x] Toujours incorrect.\n" ;
-                    std::cout << "La bonne reponse est : "+ d_questionnaire->reponseQuestionNumero(i) ;
+                    std::cout << "La bonne reponse est : "+ d_questionnaire->reponseQuestionNumero(i) << '\n' ;
                     std::cout << separateur('.',100) ;
                 }
                 else
