@@ -2,6 +2,7 @@
 #define CODE_PROJET_QUESTIONNAIREJSON_H
 
 #include "json.hpp"
+#include <memory>
 
 class Questionnaire ;
 

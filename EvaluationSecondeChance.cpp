@@ -1,5 +1,4 @@
 #include "EvaluationSecondeChance.h"
-#include "certificat.h"
 #include <iostream>
 
 EvaluationSecondeChance::EvaluationSecondeChance(const Questionnaire &questionnaire)
@@ -17,16 +16,18 @@ void EvaluationSecondeChance::lanceEvaluation() {
 
     while (i<nbQuestions && quitter==false)
     {
-        std::cout << std::string(100,'=') << std::endl ;
+        std::cout << separateur('=',100) ;
+        std::cout <<"Entrez * pour quitter l'evaluation seconde chance\n" ;
+        std::cout << separateur('-',100) ;
         std::cout << "Question N°" + std::to_string(i+1) + " sur "
                   + std::to_string(nbQuestions) + '\n' ;
-        std::cout << d_questionnaire->intituleQuestionNumero(i) ;
-        std::cout << d_questionnaire->instructionsQuestionNumero(i) ;
+        std::cout << d_questionnaire->intituleQuestionNumero(i) << '\n';
+        std::cout << d_questionnaire->instructionsQuestionNumero(i) << '\n' ;
         getline(std::cin,reponseUtilisateur);
         if (reponseUtilisateur == "*")
         {
+            std::cout<< "Vous avez quittez l'evaluation Seconde Chance\n" ;
             quitter = true ;
-            resultatEvaluation() ;
         }
         else
         {
@@ -40,10 +41,10 @@ void EvaluationSecondeChance::lanceEvaluation() {
                 if ( ! d_questionnaire->verificationReponse(i,reponseUtilisateur))
                 {
                     enregistreErreurs(i) ;
-                    std::cout << std::string(100,'.') << std::endl ;
+                    std::cout << separateur('.',100) ;
                     std::cout << "[x] Toujours incorrect.\n" ;
-                    std::cout << "La bonne reponse est : "+ d_questionnaire->reponseQuestionNumero(i) ;
-                    std::cout << std::string(100,'.') << std::endl ;
+                    std::cout << "La bonne reponse est : "+ d_questionnaire->reponseQuestionNumero(i) << '\n' ;
+                    std::cout << separateur('.',100) ;
                 }
                 else
                 {
@@ -56,13 +57,12 @@ void EvaluationSecondeChance::lanceEvaluation() {
                 std::cout << "[v] Bonne reponse !\n" ;
                 augmenteScore() ;
             }
-
-            std::cout << std::string(100,'=') << std::endl ;
-            std::cout << "\n\n" ;
         }
+        std::cout << separateur('=',100) ;
+        std::cout << "\n\n" ;
 
-        resultatEvaluation() ;
+        i++ ;
     }
+
+    std::cout<<resultatEvaluation() ;
 }
-
-

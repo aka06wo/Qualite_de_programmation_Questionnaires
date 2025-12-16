@@ -19,56 +19,40 @@ int QuestionNumerique::limiteMaximum() const {
 }
 
 std::string QuestionNumerique::intitule() const {
-    return string{d_intitule+'\n'};
+    return string{d_intitule};
 }
 
 string QuestionNumerique::instructionsQuestion() const {
-    return string{"Saisissez la bonne reponse :\n"} ;
+    return string{"Saisissez la bonne reponse :"} ;
 }
 
 string QuestionNumerique::reponse() const {
-    return std::to_string(d_reponse+'\n');
+    return std::to_string(d_reponse);
 }
 
 
 bool QuestionNumerique::validiteEntreeUtilisateur(const string &reponse) const
 {
-    // Refaire avec les try cath
-
-
-    if (reponse.empty())
+     if (reponse.empty())
     {
-        cout<< "Veuillez donnez une réponse "<<'\n';
-        return false;
+         cout<< "Veuillez donnez une réponse "<<'\n';
+         return false;
     }
-    else
+   try
     {
-        int i = 0;
-        // si il a - ou + il faut qu'on renvoie false, revoir le code
-        // mamadou, j'ai egalement un warning
-        if (reponse[0] == '-' || reponse[0] == '+')
-        {
-            if (reponse.size() == 1)
-            {
-                cout << " Donnez une réponse valide! " <<'\n';
-                return false;
-            }
-            else
-                ++i;
-        }
-
-        for (int j{i}; j < reponse.size(); ++j)
-        {
-            if (!isdigit(reponse[j]))
-            {
-                cout<< "Votre réponse n'est pas valide, veuillez saisir un nombre\n";
-                return false;
-            }
-            else
-                return true;
-        }
+       int valeur = std::stoi(reponse);
+       return true ;
     }
-
+     catch (const std::invalid_argument&)
+     {
+         std::cout << "Ceci n'est pas un nombre,Veuillez saisir un nombre valide\n";
+         return false;
+     }
+     catch (const std::out_of_range&)
+     {
+         std::cout << "Nombre trop grand, veuillez saisir un nombre valide\n";
+         return false;
+     }
 }
 
 bool QuestionNumerique::verificationReponse(const string &reponse) const
