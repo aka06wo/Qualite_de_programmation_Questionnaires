@@ -22,6 +22,7 @@ class Questionnaire
     std::string reponseQuestionNumero(int i) const ;
     bool validiteEntreeUtilisateur(int i,const std::string &reponse) const ;
     bool verificationReponse(int i,const std::string &reponse) const ;
+    std::string typeQuestionNumero(int i) const ;
 
     private :
     std::string d_nom ;

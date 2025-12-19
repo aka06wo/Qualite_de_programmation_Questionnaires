@@ -8,90 +8,94 @@ using std::cin;
 using std::string;
 using std::endl ;
 
-void Menu::execute()
+Menu::Menu() : d_gestionnaireQuestionnaires{}, d_gestionnaireEvaluation{},d_gestionnaireApprentissage{}
 {
 }
 
-int Menu::MenuPrincipale()
+
+void Menu::execute()
 {
-    int choix {-1};
-    do
-    {
-        cout<<"Veuillez choisir un type de question :\n";
-        cout<<"(1) Questionnaire texte\n";
-        cout<<"(2) Questionnaire numerique\n";
-        cout<<"(3) Questionnaire à choix multiple\n";
-        cout<<"(0) Quitter le programme\n";
-        cout<<"Votre choix  est : ";
-        cin>>choix;
-    }
-    while (choix<0 || choix > 3);
-    return choix;
+    menuChoixQuestionnaire(d_gestionnaireQuestionnaires.nomsDesDifferentsQuestionnaires()) ;
 }
-int Menu::menuChoixQuestionnaire(const std::vector<Questionnaire>& questionnaires)
+
+
+void Menu::menuChoixQuestionnaire(const std::vector<string> &questionnaires)
 {
+    /*
+
     if (questionnaires.empty())
     {
         cout << "Aucun questionnaire disponible.\n";
-        return -1  ;
+        return ;
     }
         cout << " Liste des questionnaires .\n";
         for (int i = 0; i < questionnaires.size(); ++i)
         {
-            cout << i + 1 << ". " << questionnaires[i].nomQuestionnaire() << '\n';
+            cout << i + 1 << ". " << questionnaires[i] << '\n';
         }
         cout << endl ;
+
+    // cou t faire votre choix
     int choix;
     cin >> choix;
 
+    // tant que le choix n'est pas valide, cin
     if (choix < 1 || choix > questionnaires.size())
-        return -1;
 
-    return choix - 1; // pour gerer les indices ;
+    d_gestionnaireQuestionnaires.selectionneQuestionnaire(questionnaires[choix]) ;
+    Questionnaire monq ;
+    monq = d_gestionnaireQuestionnaires.questionnaireCourant() ;
+
+
+    // on prend le questionnaire depuis gestionnaireQuestionnaires c'est tout
+    // en ensuite on lance menuQuestionnaire
+    // on ne renvoie pas le choix
+    // menuQuestionnaire()
+     // pour gerer les indices ;
+
+     */
 }
- int Menu::menuQuestionnaire()
+
+
+ void Menu::menuQuestionnaire(const Questionnaire& questionnaire)
  {
+    /*
+     *cout
+     vous fait un affichage, vous recuperer le nom du questionnaire, et le nombre de questions
+
+
     int choix;
-    do {
+    do
+    {
         cout << " Menu Questionnaire =\n";
-        cout << "(1) Apprentissage\n";
-        cout << "(2) Évaluation\n";
-        cout << "(3) Statistiques\n";
-        cout << "(4) Certificat\n";
-        cout << "(5) Changer de questionnaire\n";
+        cout << "(1) Apprentissage Simple\n";
+        cout << "(2) Apprentissage par type de Questions (QCM, Numerique, Texte)\n";
+        cout << "(3) Évaluation Simple\n";
+        cout << "(4) Evaluation Seconde chance\n";
+        cout << "(5) Evaluation Adaptative\n";
+        cout << "(6) Certificat Simple\n";
+        cout << "(7) Certificat HTML\n";
+        cout << "(8) Changer de questionnaire\n";
         cout << "(0) Quitter\n";
         cout << "Votre choix : ";
         cin >> choix;
-    } while (choix < 0 || choix > 5);
-    return choix;
+        while (choix< 0 || choix > 8)
+        {
+            // affichage pour lui dire que c'est incorrect
+            cin>>choix;
+        }
+
+        switch (choix)
+        case 3 : d_gestionnaireEvaluation.commenceEvaluation(EVALUATION_TEST) ;
+        case 5 : d_gestionnaireEvaluation.commenceEvaluation(EVALUATION_ADAPTATIVE)
+        case 1 : d_gestionnaireApprentissage.commenceApprentissage(APPRENTISSAGE_SIMPLE)
+        // changer questionnaire on rappelle menu choix questionnaire
+
+        // quand on lance une evaluation on doit direct generer le certificat text
+
+    } while (choix != QUITTER);
+
+    // affichage pour dire qu'il a quitté le questionnaire
+    */
+
 }
-int Menu::menuApprentissage()
-{
-    int choix;
-    do {
-        cout << "Apprentissage \n";
-        cout << "(1) Apprentissage simple\n";
-        cout << "(2) Apprentissage par type\n";
-        cout << "(0) Retour\n";
-        cout << "Votre choix : ";
-        cin >> choix;
-    } while (choix < 0 || choix > 2);
-    return choix;
-}
-int Menu::menuEvaluation() {
-    int choix;
-    do {
-        cout << " Évaluation \n";
-        cout << "(1) Évaluation test\n";
-        cout << "(2) Évaluation seconde chance\n";
-        cout << "(3) Évaluation adaptative\n";
-        cout << "(0) Retour\n";
-        cout << "Votre choix : ";
-        cin >> choix;
-    } while (choix < 0 || choix > 3);
-    return choix;
-}
-
-
-
-

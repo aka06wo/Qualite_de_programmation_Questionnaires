@@ -9,6 +9,7 @@ public :
     certificat();
     virtual void genereCertificat(const std::string &nomQuestionnaire,
                 const std::string &descriptionQ, int score, int nbQuestions) const = 0;
+    virtual ~certificat() = default;
 private :
 
 };

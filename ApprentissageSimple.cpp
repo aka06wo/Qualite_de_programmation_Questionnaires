@@ -38,5 +38,4 @@ void ApprentissageSimple::executer()
 
         cout<<"FIN de l'apprentissage"<<endl;
     }
-
 }

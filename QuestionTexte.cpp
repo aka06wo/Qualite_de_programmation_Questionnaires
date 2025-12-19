@@ -69,3 +69,8 @@ nlohmann::json QuestionTexte::conversionJSON() const
          {"reponseCorrecte", reponse()}
      };
  }
+
+std::string QuestionTexte::typeQuestion() const
+ {
+     return std::string {"numerique"} ;
+ }

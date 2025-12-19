@@ -33,26 +33,34 @@ string QuestionNumerique::reponse() const {
 
 bool QuestionNumerique::validiteEntreeUtilisateur(const string &reponse) const
 {
-     if (reponse.empty())
+    if (reponse.empty())
     {
-         cout<< "Veuillez donnez une réponse "<<'\n';
-         return false;
+        cout<< "Veuillez donnez une réponse "<<'\n';
+        return false;
     }
-   try
+    for (size_t i = 0; i < reponse.length(); i++)
     {
-       int valeur = std::stoi(reponse);
-       return true ;
+        if (!isdigit(reponse[i]))
+        {
+            std::cout << "Saisie invalide : veuillez n'entrer que des chiffres." << std::endl;
+            return false;
+        }
     }
-     catch (const std::invalid_argument&)
-     {
-         std::cout << "Ceci n'est pas un nombre,Veuillez saisir un nombre valide\n";
-         return false;
-     }
-     catch (const std::out_of_range&)
-     {
-         std::cout << "Nombre trop grand, veuillez saisir un nombre valide\n";
-         return false;
-     }
+    try
+    {
+        std::stoi(reponse);
+        return true;
+    }
+    catch (const std::invalid_argument&)
+    {
+        std::cout << "Ceci n'est pas un nombre,Veuillez saisir un nombre valide\n";
+        return false;
+    }
+    catch (const std::out_of_range&)
+    {
+        std::cout << "Nombre trop grand, veuillez saisir un nombre valide\n";
+        return false;
+    }
 }
 
 bool QuestionNumerique::verificationReponse(const string &reponse) const
@@ -81,3 +89,9 @@ nlohmann::json QuestionNumerique::conversionJSON() const
         {"limiteMax",limiteMaximum()}
     };
 }
+
+std::string QuestionNumerique::typeQuestion() const
+{
+    return std::string {"numerique"} ;
+}
+

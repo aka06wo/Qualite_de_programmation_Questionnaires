@@ -3,20 +3,21 @@
 
 #include "Questionnaire.h"
 #include "Evaluation.h"
+#include "certificat.h"
 
 class gestionnaireEvaluations
 {
     public :
+    gestionnaireEvaluations() ;
     gestionnaireEvaluations(const Questionnaire &q) ;
-    bool lanceEvaluation (int evaluation) ;
+    void changeQuestionnaire(const Questionnaire &q) ;
+    void genereCertificat(int numCertificat,int evaluation) ;
+    void commenceEvaluation(int evaluation) ;
 
     private :
     const Questionnaire *d_questionnaire ;
-    void commenceEvaluation(int evaluation) ;
     std::vector<std::unique_ptr<Evaluation>> d_evaluations ;
-    static constexpr int EVALUATION_TEST = 0 ;
-    static constexpr int EVALUATION_SECONDE_CHANCE = 1 ;
-    static constexpr int EVALUATION_ADAPTATIVE = 2 ;
+    std::vector<std::unique_ptr<certificat>> d_certificats ;
 };
 
 

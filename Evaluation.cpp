@@ -105,12 +105,7 @@ std::string Evaluation::lireReponseValide(int indiceQuestion, const std::string 
 
 std::string Evaluation::resultatEvaluation() const
 {
-    std::string res{} ;
-    res += "Vous avez une score de "+ std::to_string(scoreDernierEssai())
-              +" sur "+std::to_string(d_questionnaire->nombreDeQuestions()) + '\n' ;
-    res += messageSelonScore(pourcentageReussite()) ;
-
-    return res ;
+    return std::string{messageSelonScore(pourcentageReussite())} ;
 }
 
 

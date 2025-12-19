@@ -7,7 +7,9 @@ EvaluationSecondeChance::EvaluationSecondeChance(const Questionnaire &questionna
 }
 
 
-void EvaluationSecondeChance::lanceEvaluation() {
+void EvaluationSecondeChance::lanceEvaluation()
+{
+    std::cout << "Lancement de l'evaluation Seconde Chance sur le questionnaire\n" ;
     augmenteEssai() ;
     std::string reponseUtilisateur ;
     int i=0 ;
