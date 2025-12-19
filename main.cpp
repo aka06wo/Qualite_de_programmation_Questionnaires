@@ -3,6 +3,10 @@
 #include "EvaluationSecondeChance.h"
 #include "EvaluationAdaptative.h"
 #include "certificat.h"
+#include "certificatHTML.h"
+#include "EvaluationTest.h"
+
+#include <fstream>
 
 
 void testSauvegardeFichier()
@@ -31,32 +35,36 @@ void evalAdaptative() {
     eval.lanceEvaluation();
 }
 
-/*
-void testCertificat ()
+void evalTest() {
+    QuestionnaireJSON fichier {"Questionnaire sur la programmation"} ;
+    Questionnaire monQuestionnaire {} ;
+    fichier.chargerDansQuestionnaire(monQuestionnaire) ;
+    EvaluationTest eval {monQuestionnaire} ;
+    eval.lanceEvaluation();
+}
+
+
+void testCertificatHTML ()
 {
-    certificat monCertificat("Mamadou", "Programmation C++", 85);
+    certificatHTML monCertificat{};
 
-    // ----- Test console -----
-    monCertificat.certificatText(std::cout);
-
-    // ----- Test HTML dans un fichier -----
     std::ofstream fichier("certificat.html");
     if (fichier.is_open())
     {
-        monCertificat.certificatHtml(fichier);
+        monCertificat.genereCertificat("Algorithmique","Evaluation EC2",19,20) ;
         fichier.close();
         std::cout << "\nFichier certificat.html créé avec succès !\n";
     } else {
         std::cout << "Erreur lors de la création du fichier.\n";
     }
 }
-*/
 
 int main()
 {
-    evalSecondeChance() ;
+    //evalSecondeChance() ;
     //evalAdaptative();
-    //testCertificat();
+    //evalTest() ;
+    testCertificatHTML();
 
     return 0;
 }

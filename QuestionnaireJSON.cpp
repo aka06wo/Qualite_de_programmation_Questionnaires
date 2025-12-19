@@ -180,3 +180,19 @@ void QuestionnaireJSON::sauvegarderQuestionnaire(const Questionnaire &questionna
         fichier_sauv.close();
     }
 }
+
+
+std::vector<std::string> QuestionnaireJSON::nomsDifferentsQuestionnaires() const
+{
+    std::vector<std::string> listeNoms{};
+    json FichierJSON;
+    if (!lireFichierJSON(FichierJSON, NomFichierQuestionnaire()))
+    {
+        return listeNoms;
+    }
+    for(const auto& questionnaireJSON: FichierJSON)
+    {
+        listeNoms.push_back(questionnaireJSON.at("nom"));
+    }
+    return listeNoms;
+}

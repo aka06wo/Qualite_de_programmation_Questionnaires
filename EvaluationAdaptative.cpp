@@ -1,101 +1,122 @@
-#include <iostream>
-
 #include "EvaluationAdaptative.h"
+#include <iostream>
+#include <ctime>
+#include <cstdlib>
 
-EvaluationAdaptative::EvaluationAdaptative(const Questionnaire &questionnaire) : Evaluation{questionnaire}
+EvaluationAdaptative::EvaluationAdaptative(const Questionnaire &questionnaire)
+    : Evaluation{questionnaire}, d_indicesErreursPremierPassage{} {}
+
+bool EvaluationAdaptative::traiterReponse(int indice, const std::string& reponse)
 {
-}
+    std::string reponsePropre = lireReponseValide(indice, reponse);
 
-/*
- Aisse il faut que tu reecrives (ameliore) cette methodes (lance evaluation)
- et il faut enregistrer les erreurs dans le tableau de base que si tu reposes les questions
-*/
-
-void EvaluationAdaptative::PoseQuestionsDe(std::vector<int>& tableau)
-{
-    std::srand(std::time(nullptr));
-    std::string reponseUtilisateur ;
-     while(!tableau.empty())
+    if (d_questionnaire->verificationReponse(indice, reponsePropre))
     {
-       std::cout<<separateur('=',100) ;
-
-        int indiceAlea=rand()%(tableau.size());
-        int indQuestion=tableau[indiceAlea];
-
-        std::cout<<d_questionnaire->intituleQuestionNumero(indQuestion) << '\n' ;
-        std::cout<<d_questionnaire->instructionsQuestionNumero(indQuestion) << '\n' ;
-
-        getline(std::cin,reponseUtilisateur);
-        reponseUtilisateur=lireReponseValide(indQuestion,reponseUtilisateur);
-
-        bool reponseCorrecte=d_questionnaire->verificationReponse(indQuestion,reponseUtilisateur);
-        if(reponseCorrecte)
-        {
-            std::cout<< "[v] Bonne reponse !"<<'\n';
-            augmenteScore();
-        }
-        else
-        {
-            std::cout<<"[x] Mauvaise reponse !"<< '\n';
-            enregistreErreurs(indQuestion) ;
-
-        }
-        tableau.erase(tableau.begin()+indiceAlea);
-         std::cout<< separateur('=',100) ;
+        std::cout << "[v] Bonne reponse !" << '\n';
+        augmenteScore();
+        return true ;
     }
-
-
+    else
+    {
+        std::cout << "[x] Mauvaise reponse..." << '\n';
+        return false;
+    }
 }
-void EvaluationAdaptative::ReposerQuestionsFausses()
+
+void EvaluationAdaptative::PremierPassage(std::vector<int>& tableau, bool &aQuitter)
 {
-    std::string reponseUtilisateur;
-    int i=d_questionnaire->nombreDeQuestions()-scoreDernierEssai();
-    while(i!=-1)
+    int taille = tableau.size();
+    d_indicesErreursPremierPassage.clear();
+    std::srand(std::time(nullptr));
+
+    while (!tableau.empty())
+    {
+        int indiceAlea = std::rand() % tableau.size();
+        int indQuestion = tableau[indiceAlea];
+
+        std::cout << separateur('=', 100);
+        std::cout <<"Entrez * pour quitter l'evaluation seconde chance\n" ;
+        std::cout << separateur('-',100) ;
+        std::cout << "Question N°" + std::to_string(indQuestion+1) + " sur "
+                  + std::to_string(taille) + '\n' ;
+        std::cout << d_questionnaire->intituleQuestionNumero(indQuestion)<<std::endl ;
+        std::cout << d_questionnaire->instructionsQuestionNumero(indQuestion)<<std::endl ;
+
+        std::string saisie;
+        std::cout<<"> " ;
+        std::getline(std::cin, saisie);
+
+        if (saisie == "*")
         {
-         std::cout << std::string(100,'=') << std::endl ;
-        std::cout <<'\n';
-
-        std::cout<<d_questionnaire->intituleQuestionNumero(i) << '\n';
-        std::cout<<d_questionnaire->instructionsQuestionNumero(i)<< '\n' ;
-
-        getline(std::cin,reponseUtilisateur);
-
-        reponseUtilisateur=lireReponseValide(i,reponseUtilisateur);
-
-        bool reponseCorrecte=d_questionnaire->verificationReponse(i,reponseUtilisateur);
-
-        if(reponseCorrecte)
-        {
-            std::cout<< "[v] Bonne reponse !"<<'\n';
-            augmenteScore();
-        }
-        else
-        {
-            std::cout<<"[x] Mauvaise reponse !"<< '\n';
-        }
-        std::cout << std::string(100,'=') << std::endl ;
-        std::cout <<'\n';
-        --i;
-
+            std::cout << "Vous avez quittez l'evaluation Seconde Chance\n" ;
+            aQuitter = true;
+            return;
         }
 
+        if (!traiterReponse(indQuestion, saisie))
+        {
+            d_indicesErreursPremierPassage.push_back(indQuestion);
+        }
+        tableau.erase(tableau.begin() + indiceAlea);
+    }
 }
+
+void EvaluationAdaptative::SecondPassage()
+{
+    if (d_indicesErreursPremierPassage.empty()) return;
+
+    std::cout << "\n--- PHASE DE RATTRAPAGE ---\n";
+
+    for (int indQuestion : d_indicesErreursPremierPassage)
+    {
+        std::cout << separateur('=', 100);
+        std::cout <<"Entrez * pour quitter l'evaluation seconde chance\n" ;
+        std::cout << separateur('-',100) ;
+        std::cout << "Question N°" + std::to_string(indQuestion+1) + " sur "
+                  + std::to_string(d_indicesErreursPremierPassage.size()) + '\n' ;
+        std::cout << d_questionnaire->intituleQuestionNumero(indQuestion)<<std::endl;
+        std::cout << d_questionnaire->instructionsQuestionNumero(indQuestion)<<std::endl;
+
+        std::string saisie;
+        std::cout<<"> " ;
+        std::getline(std::cin, saisie);
+
+        if (saisie == "*")
+        {
+            std::cout << "Vous avez quittez l'evaluation Seconde Chance\n" ;
+            for (int j = indQuestion; j < d_indicesErreursPremierPassage.size(); j++)
+            {
+                enregistreErreurs(j) ;
+            }
+            return;
+        }
+
+        if (!traiterReponse(indQuestion, saisie))
+        {
+            enregistreErreurs(indQuestion);
+        }
+    }
+}
+
 void EvaluationAdaptative::lanceEvaluation()
 {
+    std::cout << "Lancement de l'evaluation Adaptative sur le questionnaire\n" ;
     augmenteEssai();
-    std::vector<int> d_IndQuestionsNonposees{};
-    for (int i=0; i<d_questionnaire->nombreDeQuestions(); ++i)
-        d_IndQuestionsNonposees.push_back(i);
+    bool aQuitter = false ;
 
-    std::vector<int> d_questionsFaussees{};
-
-    PoseQuestionsDe(d_IndQuestionsNonposees);
-
-    if(!d_questionsFaussees.empty())
+    std::vector<int> questionsDisponibles;
+    questionsDisponibles.reserve(d_questionnaire->nombreDeQuestions()) ;
+    for (int i = 0; i < d_questionnaire->nombreDeQuestions(); ++i)
     {
-        std::cout<< "Vous avez terminez de r�pondre Au Questionnaire";//je vais revoir comment mieux le dire
-        ReposerQuestionsFausses();
+        questionsDisponibles.push_back(i);
     }
 
-    resultatEvaluation();
+    PremierPassage(questionsDisponibles,aQuitter);
+
+    if (!d_indicesErreursPremierPassage.empty() && !aQuitter)
+    {
+        SecondPassage();
+    }
+
+    std::cout << "\n" << resultatEvaluation() << '\n';
 }

@@ -67,6 +67,11 @@ bool Questionnaire::verificationReponse(int i,const std::string &reponse) const 
     return d_Questions[i]->verificationReponse(reponse) ;
 }
 
+std::string Questionnaire::typeQuestionNumero(int i) const
+{
+    return d_Questions[i]->typeQuestion() ;
+}
+
 json Questionnaire::conversionQuestionnaireJson() const {
     json resultat;
     resultat["description"] = descriptionQuestionnaire();

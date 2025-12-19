@@ -83,6 +83,11 @@ std::unique_ptr<Question> QuestionChoixMultiple::clone() const
     return std::make_unique<QuestionChoixMultiple>(*this) ;
 }
 
+std::string QuestionChoixMultiple::typeQuestion() const
+{
+    return std::string {"choixMultiples"} ;
+}
+
 nlohmann::json QuestionChoixMultiple::conversionJSON() const
 {
     return nlohmann::json {

@@ -2,20 +2,23 @@
 #define CODE_QUESTIONNAIRE_GESTIONNAIREQUESTIONNAIRES_H
 
 #include "Questionnaire.h"
+#include "QuestionnaireJSON.h"
 
 class gestionnaireQuestionnaires
 {
     public :
     gestionnaireQuestionnaires() ;
     gestionnaireQuestionnaires(const std::string &nomQuestionnaire) ;
-    Questionnaire renvoiQuestionnaireCourant() const;
+    void selectionneQuestionnaire(const std::string& nom);
+    Questionnaire questionnaireCourant() ;
     void changeQuestionnaire(const std::string &nomQ) ;
-    std::string nomsDesDifferentsQuestionnaires() const;
+    std::vector<std::string> nomsDesDifferentsQuestionnaires() const;
 
     private :
-    const std::string d_questionnaireCourant ;
-
+    std::string d_nomQuestionnaire ;
+    QuestionnaireJSON d_gestionnaireJSON;
 };
+
 
 
 #endif //CODE_QUESTIONNAIRE_GESTIONNAIREQUESTIONNAIRES_H

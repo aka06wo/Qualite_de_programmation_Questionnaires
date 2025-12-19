@@ -8,8 +8,9 @@ class Questionnaire ;
 
 using nlohmann::json ;
 
-class QuestionnaireJSON {
-public:
+class QuestionnaireJSON
+{
+     public:
     /**
      Constructeur par defaut de la classe QuestionnaireJSON
      */
@@ -65,8 +66,9 @@ public:
     void ajouterQuestionDepuisJSON(Questionnaire &questionnaire, const json &questionnaireJSON) ;
     void chargerDansQuestionnaire(Questionnaire &questionnaire) ;
     void sauvegarderQuestionnaire(const Questionnaire &questionnaire) const ;
+    std::vector<std::string> nomsDifferentsQuestionnaires() const ;
 
-private:
+    private:
     std::string d_nomQuestionnaire ;
     json d_monFichier ;
     static std::string NomFichierQuestionnaire() ;

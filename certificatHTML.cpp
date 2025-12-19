@@ -7,26 +7,110 @@ certificatHTML::certificatHTML() : certificat{}
 }
 
 void certificatHTML::genereCertificat(const std::string &nomQuestionnaire,
-                const std::string &descriptionQ, int score, int nbQuestions) const
+                                      const std::string &descriptionQ,
+                                      int score, int nbQuestions) const
 {
-    std::ofstream fichier("certificatHtml");
+    std::ofstream fichier("certificat.html");
 
-    fichier << "<!DOCTYPE html>\n";
-    fichier << "<html lang=\"fr\">\n";
-    fichier << "<head>\n";
-    fichier << "    <meta charset=\"UTF-8\">\n";
-    fichier << "    <title>Certificat de reussite</title>\n";
-    // os << "<style>\n"; // à ajouter après si besoin
-    fichier << "</head>\n";
-    fichier << "<body>\n";
-    fichier << "    <div class=\"certificat\">\n";
-    fichier << "        <h1>Certificat de reussite</h1>\n";
-    fichier << "            <p>Felicitations pour votre score de " + std::to_string(score) +
-                                "sur " + std::to_string(nbQuestions) + "sur le questionnaire ["+nomQuestionnaire +
-                                    "] qui portait sur : " + descriptionQ + "</p>";
-    fichier << "    </div>\n";
-    fichier << "</body>\n";
-    fichier << "</html>\n";
+    fichier << R"(<!DOCTYPE html>
+                    <html lang="fr">
+                    <head>
+                        <meta charset="UTF-8">
+                        <title>Certificat de Reussite</title>
+                        <style>
+                            body {
+                                font-family: 'Georgia', serif;
+                                background-color: #f4f4f4;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                height: 100vh;
+                                margin: 0;
+                            }
+
+                            .certificat {
+                                background-color: white;
+                                padding: 50px;
+                                width: 600px;
+                                border: 15px double #b8860b;
+                                border-radius: 4px;
+                                box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+                                text-align: center;
+                            }
+
+                            h1 {
+                                color: #b8860b;
+                                font-size: 42px;
+                                margin-top: 0;
+                                text-transform: uppercase;
+                                letter-spacing: 4px;
+                            }
+
+                            .divider {
+                                width: 80px;
+                                height: 2px;
+                                background-color: #b8860b;
+                                margin: 25px auto;
+                            }
+
+                            p {
+                                font-size: 18px;
+                                color: #333;
+                                line-height: 1.5;
+                                margin: 15px 0;
+                            }
+
+                            .nom-questionnaire {
+                                font-size: 26px;
+                                font-weight: bold;
+                                font-style: italic;
+                                color: #2c3e50;
+                                margin-bottom: 5px;
+                            }
+
+                            .description {
+                                font-style: italic;
+                                font-size: 16px;
+                                color: #7f8c8d;
+                                margin-bottom: 30px;
+                            }
+
+                            .score-label {
+                                display: block;
+                                font-size: 25px;
+                                text-transform: uppercase;
+                                color: #95a5a6;
+                                margin-bottom: 5px;
+                            }
+
+                            .score-valeur {
+                                font-size: 36px;
+                                font-weight: bold;
+                                color: #27ae60;
+                            }
+                        </style>
+                    </head>
+                    <body>
+
+                        <div class="certificat">
+                            <h1>Certificat</h1>
+                            <div class="divider"></div>
+
+                            <p>Felicitations pour avoir complete :</p>
+                            <div class="nom-questionnaire">)"
+                        << nomQuestionnaire << R"(</div>
+                            <div class="description">)"
+                        << descriptionQ << R"(</div>
+
+                            <div class="score-container">
+                                <span class="score-label">Resultat Final</span>
+                                <span class="score-valeur">)"
+                        << score << " / " << nbQuestions << R"(</span>
+                            </div>
+                        </div>
+
+                    </body>
+                    </html>)";
 
     fichier.close();
 }

@@ -3,20 +3,28 @@
 
 #include "gestionnaireQuestionnaires.h"
 #include "gestionnaireEvaluations.h"
+#include "gestionnaireApprentissage.h"
 
 class Menu
 {
-public :
+    public :
+    Menu() ;
     void execute() ;
-private :
-    gestionnaireQuestionnaires  d_gestionnaireQuestion ;
-    gestionnaireEvaluations    d_gestionnaireEvaluation ;
-    int MenuPrincipale() ;
-    int menuChoixQuestionnaire(const std::vector<Questionnaire>& questionnaires) ;
-    int menuQuestionnaire() ;
-    int menuApprentissage() ;
-    int menuEvaluation();
 
+    private :
+    gestionnaireApprentissage d_gestionnaireApprentissage ;
+    gestionnaireQuestionnaires  d_gestionnaireQuestionnaires ;
+    gestionnaireEvaluations    d_gestionnaireEvaluation ;
+    void menuChoixQuestionnaire(const std::vector<std::string> &questionnaires) ;
+    void menuQuestionnaire(const Questionnaire& questionnaire) ;
+    // MENU Questionnaire
+    static constexpr int APPRENTISSAGE_SIMPLE = 0 ;
+    static constexpr int APPRENTISSAGE_TYPE = 1 ;
+    static constexpr int EVALUATION_TEST = 0 ;
+    static constexpr int EVALUATION_SECONDE_CHANCE = 1 ;
+    static constexpr int EVALUATION_ADAPTATIVE = 2 ;
+    static constexpr int CERTIFICATE_TEXT = 1 ;
+    static constexpr int CERTIFICATE_HTML = 2 ;
 };
 
 

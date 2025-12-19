@@ -17,7 +17,7 @@ class QuestionNumerique : public Question
     bool verificationReponse(const std::string &reponse) const override ;
     std::unique_ptr<Question> clone() const override ;
     nlohmann::json conversionJSON () const override ;
-
+    std::string typeQuestion() const override ;
 
     private:
     int d_reponse;

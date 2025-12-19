@@ -17,6 +17,7 @@ public :
     virtual bool verificationReponse(const std::string &reponse) const = 0 ;
     virtual std::unique_ptr<Question> clone() const=0 ;
     virtual nlohmann::json conversionJSON () const = 0;
+    virtual std::string typeQuestion() const = 0 ;
 
     protected :
     std::string d_intitule ;
