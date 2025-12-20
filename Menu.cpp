@@ -57,7 +57,7 @@ void Menu::menuChoixQuestionnaire(const std::vector<string> &questionnaires)
     // une version en tenant compte des commentaires
 
 
-    if (questionnaires.empty())
+    /**if (questionnaires.empty()) (ibra)
     {
         cout << "Aucun questionnaire disponible.\n";
         return;
@@ -130,8 +130,8 @@ void Menu::menuChoixQuestionnaire(const std::vector<string> &questionnaires)
 
     // affichage pour dire qu'il a quitté le questionnaire
     */
-    // On informe les gestionnaires du questionnaire courant  car les gestionnaires ne savent pas automatiquement quel questionnaire l’utilisateur a choisi.
-    d_gestionnaireEvaluation.changeQuestionnaire(questionnaire);
+    // (ibra) On informe les gestionnaires du questionnaire courant  car les gestionnaires ne savent pas automatiquement quel questionnaire l’utilisateur a choisi.
+   /** d_gestionnaireEvaluation.changeQuestionnaire(questionnaire);
     d_gestionnaireApprentissage.selectionneQuestionnaire(questionnaire);
 
     int choix = -1;
@@ -206,3 +206,4 @@ void Menu::menuChoixQuestionnaire(const std::vector<string> &questionnaires)
 
 
 }
+**/
