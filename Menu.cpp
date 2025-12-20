@@ -57,7 +57,7 @@ void Menu::menuChoixQuestionnaire(const std::vector<string> &questionnaires)
     // une version en tenant compte des commentaires
 
 
-    /**if (questionnaires.empty()) (ibra)
+    /** (ibra) if (questionnaires.empty()) (ibra)
     {
         cout << "Aucun questionnaire disponible.\n";
         return;
