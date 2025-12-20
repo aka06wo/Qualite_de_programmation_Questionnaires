@@ -114,7 +114,7 @@ void Menu::menuChoixQuestionnaire(const std::vector<string> &questionnaires)
         cin >> choix;
         while (choix< 0 || choix > 8)
         {
-            // affichage pour lui dire que c'est incorrect
+            cout << "veuillez entrer un numéro valide "
             cin>>choix;
         }
 
