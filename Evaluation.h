@@ -23,6 +23,7 @@ class Evaluation
     void changerQuestionnaire(const Questionnaire &nouveauQuestionnaire);
     double pourcentageReussite() const;
     std::string resultatEvaluation() const ;
+    void affichageQuestionNumero (int i, int nbQuestions) const ;
     virtual void lanceEvaluation() = 0 ;
 
     protected:

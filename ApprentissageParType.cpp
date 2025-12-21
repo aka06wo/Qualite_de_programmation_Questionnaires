@@ -13,7 +13,7 @@ ApprentissageParType::ApprentissageParType(const Questionnaire& questionnaire):A
 
 }
 
-void ApprentissageParType::executer()
+void ApprentissageParType::lanceApprentissage()
 {
     cout<<"---DEBUT DU MODE ENPRRENTISSAGE PAR TYPE DU QUESTIONNAIRE---("<<d_questionnaire->nomQuestionnaire()<<")---"<<endl;
     cout<<"Questionnaire portant sur: "<<d_questionnaire->nomQuestionnaire()<<endl;
@@ -36,7 +36,7 @@ void ApprentissageParType::executer()
                 cout<<"Question: "<<d_questionnaire->intituleQuestionNumero(i)<<endl;
                 cout<<"Appuyer sur ENTREE pour voir la REPONSE"<<endl;
                 cin.get();
-                cout<<"Réponse: "<<d_questionnaire->reponseQuestionNumero(i)<<endl;
+                cout<<"Reponse: "<<d_questionnaire->reponseQuestionNumero(i)<<endl;
                 cout<<endl;
                 std::cout<<std::string(100,'-') ;
                 cout<<"Appuyer sur ENTRER pour passer a la question suivante..."<<endl;

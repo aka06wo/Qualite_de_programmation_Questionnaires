@@ -6,6 +6,7 @@
 EvaluationAdaptative::EvaluationAdaptative(const Questionnaire &questionnaire)
     : Evaluation{questionnaire}, d_indicesErreursPremierPassage{} {}
 
+
 bool EvaluationAdaptative::traiterReponse(int indice, const std::string& reponse)
 {
     std::string reponsePropre = lireReponseValide(indice, reponse);
@@ -34,21 +35,18 @@ void EvaluationAdaptative::PremierPassage(std::vector<int>& tableau, bool &aQuit
         int indiceAlea = std::rand() % tableau.size();
         int indQuestion = tableau[indiceAlea];
 
-        std::cout << separateur('=', 100);
-        std::cout <<"Entrez * pour quitter l'evaluation seconde chance\n" ;
-        std::cout << separateur('-',100) ;
-        std::cout << "Question N°" + std::to_string(indQuestion+1) + " sur "
-                  + std::to_string(taille) + '\n' ;
-        std::cout << d_questionnaire->intituleQuestionNumero(indQuestion)<<std::endl ;
-        std::cout << d_questionnaire->instructionsQuestionNumero(indQuestion)<<std::endl ;
+        affichageQuestionNumero(indQuestion + 1, taille) ;
 
         std::string saisie;
-        std::cout<<"> " ;
         std::getline(std::cin, saisie);
 
         if (saisie == "*")
         {
             std::cout << "Vous avez quittez l'evaluation Seconde Chance\n" ;
+            for (int j = indQuestion; j < d_indicesErreursPremierPassage.size(); j++)
+            {
+                enregistreErreurs(j) ;
+            }
             aQuitter = true;
             return;
         }
@@ -69,16 +67,9 @@ void EvaluationAdaptative::SecondPassage()
 
     for (int indQuestion : d_indicesErreursPremierPassage)
     {
-        std::cout << separateur('=', 100);
-        std::cout <<"Entrez * pour quitter l'evaluation seconde chance\n" ;
-        std::cout << separateur('-',100) ;
-        std::cout << "Question N°" + std::to_string(indQuestion+1) + " sur "
-                  + std::to_string(d_indicesErreursPremierPassage.size()) + '\n' ;
-        std::cout << d_questionnaire->intituleQuestionNumero(indQuestion)<<std::endl;
-        std::cout << d_questionnaire->instructionsQuestionNumero(indQuestion)<<std::endl;
+        affichageQuestionNumero(indQuestion, d_indicesErreursPremierPassage.size()) ;
 
         std::string saisie;
-        std::cout<<"> " ;
         std::getline(std::cin, saisie);
 
         if (saisie == "*")

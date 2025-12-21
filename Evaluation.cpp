@@ -136,3 +136,16 @@ std::string Evaluation::messageSelonScore(double pourcentage)
     return message;
 }
 
+
+void Evaluation::affichageQuestionNumero (int i, int nbQuestions) const
+{
+    std::cout << separateur('=',100) ;
+    std::cout <<"Entrez * pour quitter l'evaluation seconde chance\n" ;
+    std::cout << separateur('-',100) ;
+    std::cout << "Question N°" + std::to_string(i+1) + " sur "
+              + std::to_string(nbQuestions) + '\n' ;
+    std::cout << d_questionnaire->intituleQuestionNumero(i) << '\n';
+    std::cout << d_questionnaire->instructionsQuestionNumero(i) << '\n' ;
+    std::cout << "> " ;
+}
+

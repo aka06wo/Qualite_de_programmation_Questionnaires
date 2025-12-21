@@ -8,7 +8,7 @@ using std::cin;
 using std::string;
 using std::endl ;
 
-Menu::Menu() : d_gestionnaireQuestionnaires{}, d_gestionnaireEvaluation{},d_gestionnaireApprentissage{}
+Menu::Menu() : d_questionnaire{}, d_gestionnaireQuestionnaires{}, d_gestionnaireActivites{d_questionnaire}
 {
 }
 

@@ -7,8 +7,9 @@ class Apprentissage
 {
     public:
     Apprentissage(const Questionnaire& questionnaire);
+    void changerQuestionnaire(const Questionnaire& questionnaire);
     virtual ~Apprentissage()=default;
-    virtual void executer()=0;
+    virtual void lanceApprentissage()=0;
 
 protected:
     const Questionnaire *d_questionnaire;

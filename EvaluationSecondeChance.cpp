@@ -18,13 +18,8 @@ void EvaluationSecondeChance::lanceEvaluation()
 
     while (i<nbQuestions && quitter==false)
     {
-        std::cout << separateur('=',100) ;
-        std::cout <<"Entrez * pour quitter l'evaluation seconde chance\n" ;
-        std::cout << separateur('-',100) ;
-        std::cout << "Question N°" + std::to_string(i+1) + " sur "
-                  + std::to_string(nbQuestions) + '\n' ;
-        std::cout << d_questionnaire->intituleQuestionNumero(i) << '\n';
-        std::cout << d_questionnaire->instructionsQuestionNumero(i) << '\n' ;
+        affichageQuestionNumero(i,nbQuestions);
+
         getline(std::cin,reponseUtilisateur);
         if (reponseUtilisateur == "*")
         {

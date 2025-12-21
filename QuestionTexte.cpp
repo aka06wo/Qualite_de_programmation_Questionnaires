@@ -72,5 +72,5 @@ nlohmann::json QuestionTexte::conversionJSON() const
 
 std::string QuestionTexte::typeQuestion() const
  {
-     return std::string {"numerique"} ;
+     return std::string {"texte"} ;
  }

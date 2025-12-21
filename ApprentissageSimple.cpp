@@ -11,7 +11,7 @@ ApprentissageSimple::ApprentissageSimple(const Questionnaire& questionnaire):
 {
 }
 
-void ApprentissageSimple::executer()
+void ApprentissageSimple::lanceApprentissage()
 {
     cout<<"Apprentissage Simple"<<endl;
     cout<<"Questionnaire portant sur: "<<d_questionnaire->nomQuestionnaire()<<endl;

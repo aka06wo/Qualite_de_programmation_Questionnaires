@@ -8,7 +8,7 @@ class ApprentissageSimple : public Apprentissage
 {
     public :
     ApprentissageSimple(const Questionnaire& questionnaire) ;
-    void executer() override ;
+    void lanceApprentissage() override ;
 };
 
 

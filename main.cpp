@@ -61,10 +61,10 @@ void testCertificatHTML ()
 
 int main()
 {
-    //evalSecondeChance() ;
+    evalSecondeChance() ;
     //evalAdaptative();
     //evalTest() ;
-    testCertificatHTML();
+    //testCertificatHTML();
 
     return 0;
 }
