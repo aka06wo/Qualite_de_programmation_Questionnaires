@@ -166,7 +166,7 @@ void Menu::menuChoixQuestionnaire(const std::vector<string> &questionnaires)
                 break;
 
             case 2:
-                d_gestionnaireApprentissage.commenceApprentissage(APPRENTISSAGE_PAR_TYPE);
+                d_gestionnaireApprentissage.commenceApprentissage(APPRENTISSAGE_TYPE);
                 break;
 
             case 3:
