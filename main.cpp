@@ -5,6 +5,10 @@
 #include "certificat.h"
 #include "certificatHTML.h"
 #include "EvaluationTest.h"
+#include "gestionnaireApprentissage.h"
+#include "gestionnaireEvaluations.h"
+#include "gestionnaireQuestionnaires.h"
+#include "Menu.h"
 
 #include <fstream>
 
@@ -58,13 +62,22 @@ void testCertificatHTML ()
         std::cout << "Erreur lors de la création du fichier.\n";
     }
 }
+void testMenu()
+{
+
+    Menu menu;
+    menu.execute();
+}
 
 int main()
 {
     //evalSecondeChance() ;
     //evalAdaptative();
     //evalTest() ;
-    testCertificatHTML();
+    //testCertificatHTML();
+    // pour m'assurer que la compilation marche
+   // testSauvegardeFichier();
+    testMenu() ;
 
     return 0;
 }
