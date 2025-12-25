@@ -1,4 +1,5 @@
 #include "EvaluationSecondeChance.h"
+#include "styleAffichage.h"
 #include <iostream>
 
 EvaluationSecondeChance::EvaluationSecondeChance(const Questionnaire &questionnaire)
@@ -9,62 +10,60 @@ EvaluationSecondeChance::EvaluationSecondeChance(const Questionnaire &questionna
 
 void EvaluationSecondeChance::lanceEvaluation()
 {
-    std::cout << "Lancement de l'evaluation Seconde Chance sur le questionnaire\n" ;
-    augmenteEssai() ;
-    std::string reponseUtilisateur ;
-    int i=0 ;
-    int nbQuestions = d_questionnaire->nombreDeQuestions() ;
-    bool quitter = false ;
+    styleAffichage::affichageEnteteActivites("EVALUATION SECONDE CHANCE") ;
 
-    while (i<nbQuestions && quitter==false)
+    augmenteEssai();
+    std::string reponseUtilisateur;
+    int i = 0;
+    int nbQuestions = nombreDeQuestions();
+    bool quitter = false;
+
+    std::cin.ignore();
+
+    while (i < nbQuestions && !quitter)
     {
-        std::cout << separateur('=',100) ;
-        std::cout <<"Entrez * pour quitter l'evaluation seconde chance\n" ;
-        std::cout << separateur('-',100) ;
-        std::cout << "Question N°" + std::to_string(i+1) + " sur "
-                  + std::to_string(nbQuestions) + '\n' ;
-        std::cout << d_questionnaire->intituleQuestionNumero(i) << '\n';
-        std::cout << d_questionnaire->instructionsQuestionNumero(i) << '\n' ;
-        getline(std::cin,reponseUtilisateur);
+        styleAffichage::affichageEnteteQuestion("EVALUATION SECONDE CHANCE", i, nbQuestions);
+        styleAffichage::ecritEnBleu("  (Tapez '*' pour quitter l'evaluation seconde chance)") ;
+
+        affichageQuestionNumero(i, nbQuestions);
+        std::getline(std::cin, reponseUtilisateur);
+
         if (reponseUtilisateur == "*")
         {
-            std::cout<< "Vous avez quittez l'evaluation Seconde Chance\n" ;
-            quitter = true ;
+            std::cout << "\n [!] Vous avez quitté l'évaluation." << std::endl;
+            quitter = true;
         }
-        else
-        {
-            reponseUtilisateur = lireReponseValide(i,reponseUtilisateur) ;
-            if ( ! d_questionnaire->verificationReponse(i,reponseUtilisateur))
-            {
-                std::cout << "[x] Incorrect, mais tu as droit à une seconde chance. \n" ;
-                std::cout << "> " ;
-                getline(std::cin,reponseUtilisateur);
-                reponseUtilisateur = lireReponseValide(i,reponseUtilisateur) ;
-                if ( ! d_questionnaire->verificationReponse(i,reponseUtilisateur))
-                {
-                    enregistreErreurs(i) ;
-                    std::cout << separateur('.',100) ;
-                    std::cout << "[x] Toujours incorrect.\n" ;
-                    std::cout << "La bonne reponse est : "+ d_questionnaire->reponseQuestionNumero(i) << '\n' ;
-                    std::cout << separateur('.',100) ;
-                }
-                else
-                {
-                    std::cout << "[v] Bonne reponse !\n" ;
-                    augmenteScore() ;
-                }
-            }
-            else
-            {
-                std::cout << "[v] Bonne reponse !\n" ;
-                augmenteScore() ;
-            }
-        }
-        std::cout << separateur('=',100) ;
-        std::cout << "\n\n" ;
+        else {
+            reponseUtilisateur = lireReponseValide(i, reponseUtilisateur);
 
-        i++ ;
+            if (!reponseJuste(i, reponseUtilisateur))
+            {
+                styleAffichage::ecritEnRouge("\n[X] INCORRECT... Mais vous avez droit à une seconde chance !\n") ;
+                std::cout << "   > ";
+
+                std::getline(std::cin, reponseUtilisateur);
+                reponseUtilisateur = lireReponseValide(i, reponseUtilisateur);
+
+                if (!reponseJuste(i, reponseUtilisateur)) {
+                    enregistreErreurs(i);
+                    styleAffichage::ecritEnRouge("\n [X] TOUJOURS INCORRECT.\n") ;
+                    std::cout << "     La bonne réponse est : " << reponseNumero(i) << std::endl;
+                } else
+                    {
+                        styleAffichage::ecritEnVert("\n [V] BONNE RÉPONSE !\n") ;
+                        augmenteScore();
+                    }
+            }
+            else {
+                styleAffichage::ecritEnVert("\n [V] BONNE RÉPONSE !\n") ;
+                augmenteScore();
+            }
+        }
+        styleAffichage::affichagePiedDePageQuestion() ;
+        i++;
     }
 
-    std::cout<<resultatEvaluation() ;
+    styleAffichage::affichagePiedDePageActivites("EVALUATION SECONDE CHANCE") ;
+
+    if (!quitter) std::cout << resultatEvaluation();
 }

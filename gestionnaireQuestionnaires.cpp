@@ -1,7 +1,5 @@
 #include "gestionnaireQuestionnaires.h"
 
-#include "gestionnaireEvaluations.h"
-
 gestionnaireQuestionnaires::gestionnaireQuestionnaires() : d_nomQuestionnaire{}, d_gestionnaireJSON{}
 {
 

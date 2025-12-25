@@ -1,46 +1,52 @@
 #include "EvaluationTest.h"
+#include "styleAffichage.h"
 #include <iostream>
 
 EvaluationTest::EvaluationTest(const Questionnaire &questionnaire)
     : Evaluation{questionnaire}
 {}
 
+
 void EvaluationTest::lanceEvaluation()
 {
-    std::cout << "Lancement de l'evaluation Test sur le questionnaire\n" ;
+    styleAffichage::affichageEnteteActivites("EVALUATION TEST") ;
+
     augmenteEssai() ;
-    int nbQuestions = d_questionnaire->nombreDeQuestions();
+    int nbQuestions = nombreDeQuestions();
     std::string reponseDeUtilisateur ;
+    std::cin.ignore();
 
     for (int i = 0; i < nbQuestions; ++i)
     {
-        std::cout << separateur('=',100) ;
-        std::cout <<"Entrez * pour quitter l'evaluation test\n" ;
-        std::cout << separateur('-',100) ;
-        std::cout << "Question N°" + std::to_string(i+1) + " sur "
-                  + std::to_string(nbQuestions) + '\n' ;
-        std::cout<<d_questionnaire->intituleQuestionNumero(i) <<'\n';
-        std::cout<<d_questionnaire->instructionsQuestionNumero(i) << '\n';
-        std::cout<<"> " ;
+        styleAffichage::affichageEnteteQuestion("EVALUATION TEST", i, nbQuestions) ;
+        styleAffichage::ecritEnBleu("  (Tapez '*' pour quitter l'evaluation seconde chance)") ;
+        affichageQuestionNumero(i, nbQuestions) ;
+
         getline(std::cin,reponseDeUtilisateur);
+
         if (reponseDeUtilisateur == "*")
         {
-            std::cout<< "Vous avez quittez l'evaluation Test\n" ;
+            std::cout << "\n [!] Vous avez quitté l'évaluation Test." << std::endl;
             break;
         }
-        reponseDeUtilisateur  = lireReponseValide(i,reponseDeUtilisateur) ;
-        bool estJuste = d_questionnaire->verificationReponse(i, reponseDeUtilisateur) ;
+
+        reponseDeUtilisateur = lireReponseValide(i, reponseDeUtilisateur) ;
+        bool estJuste = reponseJuste(i, reponseDeUtilisateur) ;
+
         if (estJuste)
         {
-            std::cout << "[v] Bonne reponse !\n" ;
+            styleAffichage::ecritEnVert("\n [V] BONNE RÉPONSE !\n") ;
             augmenteScore() ;
         }
         else {
-            std::cout << "[x] Mauvaise reponse..." << '\n';
+            styleAffichage::ecritEnRouge("\n [X] MAUVAISE RÉPONSE...\n") ;
             enregistreErreurs(i) ;
         }
-        std::cout << separateur('=',100) ;
-        std::cout<<"\n\n" ;
+
+        styleAffichage::affichagePiedDePageQuestion() ;
     }
-    std::cout<<resultatEvaluation();
+
+    styleAffichage::affichagePiedDePageActivites("EVALUATION TEST") ;
+
+    std::cout << resultatEvaluation();
 }

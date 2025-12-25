@@ -9,7 +9,6 @@ class EvaluationSecondeChance : public Evaluation
     EvaluationSecondeChance(const Questionnaire &questionnaire);
     void lanceEvaluation() override;
 
-
     private:
 };
 

@@ -1,6 +1,7 @@
 #include "QuestionTexte.h"
 #include <memory>
 #include <iostream>
+#include "styleAffichage.h"
 #include <cctype> //Pour la fonction tolower
 
 using std::cout;
@@ -27,8 +28,9 @@ string QuestionTexte::reponse() const
  }
 
 bool QuestionTexte::validiteEntreeUtilisateur(const string &reponse) const {
-    if (reponse.empty()) {
-        std::cout<<"Veuillez entrez une reponse\n" ;
+    if (reponse.empty())
+    {
+        styleAffichage::ecritEnRouge("Veuillez entrez une reponse\n") ;
         return false ;
     }
     else
@@ -72,5 +74,5 @@ nlohmann::json QuestionTexte::conversionJSON() const
 
 std::string QuestionTexte::typeQuestion() const
  {
-     return std::string {"numerique"} ;
+     return std::string {"texte"} ;
  }

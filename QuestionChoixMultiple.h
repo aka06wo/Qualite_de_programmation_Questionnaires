@@ -8,11 +8,31 @@
 class QuestionChoixMultiple : public Question
 {
     public:
+    /**
+     Le constructeur de Question choix multiple
+     * @param question l'intitulé de la question
+     * @param reponsesPossibles Un tableau de string qui contient les réponses possibles
+     * @param numReponse Le numero de la bonne réponse
+     */
     QuestionChoixMultiple(const std::string &question,
-                const std::vector<std::string> &reponsesPossibles, int numReponse);
+                          const std::vector<std::string> &reponsesPossibles, int numReponse);
+
+    /**
+     @return le nombre de choix pour la question
+     */
     int nombreDeChoix() const ;
+
+    /**
+    @return l'indice de la bonne réponse (NumReponse - 1)
+     */
     int indiceReponse() const ;
+
+    /**
+     * @param i l'indice de la reponse
+     * @return Le réponse numero i
+     */
     std::string choixNumero(int i) const ;
+
     std::string intitule() const override ;
     std::string instructionsQuestion() const override;
     std::string reponse() const override ;

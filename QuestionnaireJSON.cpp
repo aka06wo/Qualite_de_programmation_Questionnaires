@@ -1,10 +1,14 @@
-#include <fstream>
 #include "QuestionnaireJSON.h"
 #include "Questionnaire.h"
 #include "QuestionNumerique.h"
 #include "QuestionTexte.h"
 #include "QuestionChoixMultiple.h"
+
+#include <memory>
+#include <fstream>
 #include <iostream>
+
+using nlohmann::json ;
 
 
 std::string QuestionnaireJSON::NomFichierQuestionnaire()
@@ -97,25 +101,25 @@ json QuestionnaireJSON::extraireQuestions(const json &questionnaireJSON)
     }
 }
 
-void QuestionnaireJSON::ajouterQuestionDepuisJSON(Questionnaire &questionnaire, const json &questionnaireJSON)
+void QuestionnaireJSON::ajouterQuestionDepuisJSON(Questionnaire &questionnaire, const json &questionJSON)
 {
     try {
-        std::string type = questionnaireJSON.at("type");
+        std::string type = questionJSON.at("type");
 
         if (type == "choixMultiples")
         {
             questionnaire.ajouterQuestion(std::make_unique<QuestionChoixMultiple>(
-                questionnaireJSON.at("question"), questionnaireJSON.at("reponsesPossibles"),
-                questionnaireJSON.at("numReponseCorrecte")));
+                questionJSON.at("question"), questionJSON.at("reponsesPossibles"),
+                questionJSON.at("numReponseCorrecte")));
         } else if (type == "numerique")
         {
             questionnaire.ajouterQuestion(std::make_unique<QuestionNumerique>(
-                questionnaireJSON.at("question"), questionnaireJSON.at("reponseCorrecte"),
-                questionnaireJSON.at("limiteMax"), questionnaireJSON.at("limiteMin")));
+                questionJSON.at("question"), questionJSON.at("reponseCorrecte"),
+                questionJSON.at("limiteMax"), questionJSON.at("limiteMin")));
         } else if (type == "texte")
         {
             questionnaire.ajouterQuestion(std::make_unique<QuestionTexte>(
-                questionnaireJSON.at("question"), questionnaireJSON.at("reponseCorrecte")));
+                questionJSON.at("question"), questionJSON.at("reponseCorrecte")));
         }
         // else  std::cerr << "Type de question inconnu → question ignorée." << std::endl;
     } catch (const json::out_of_range &) {

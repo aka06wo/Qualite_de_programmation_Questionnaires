@@ -1,0 +1,58 @@
+[
+  {
+    "nom": "Questionnaire sur la programmation",
+    "description": "Culture génerale sur la programmation",
+    "questions": [
+      {
+        "type": "choixMultiples",
+        "question": "Quels langages de programmation est le mieux connu entre ceux là",
+        "reponsesPossibles": [
+          "Python",
+          "Java",
+          "C++"
+        ],
+        "numReponseCorrecte": 1
+      },
+      {
+        "type": "numerique",
+        "question": "Combien de langages de programmation vous devez maitriser pour etre bon dans votre domaine",
+        "reponseCorrecte": 5,
+        "limiteMin": 3,
+        "limiteMax": 8
+      },
+      {
+        "type": "texte",
+        "question": "Qui a concu le langage python",
+        "reponseCorrecte": "Guido Van Rossum"
+      }
+    ]
+  },
+  {
+    "nom": "Questionnaire sur le football",
+    "description": "Culture génerale sur le football",
+    "questions": [
+      {
+        "type": "choixMultiples",
+        "question": "Combien de Coupes du Monde est-ce que Cristiano Ronaldo a remporté ?",
+        "reponsesPossibles": [
+          "0 coupe du monde",
+          "2 coupes du monde",
+          "4 coupes du monde"
+        ],
+        "numReponseCorrecte": 1
+      },
+      {
+        "type": "numerique",
+        "question": "Combien de minutes y a-t-il dans un match de football ?",
+        "reponseCorrecte": 90,
+        "limiteMin": 80,
+        "limiteMax": 100
+      },
+      {
+        "type": "texte",
+        "question": "Qui a remporté le dernier Euro ?",
+        "reponseCorrecte": "Espagne"
+      }
+    ]
+  }
+]

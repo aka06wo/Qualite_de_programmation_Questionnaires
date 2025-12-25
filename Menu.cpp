@@ -1,137 +1,104 @@
 #include "Menu.h"
-#include "Questionnaire.h"
-#include "Evaluation.h"
 #include <iostream>
+
+#include "styleAffichage.h"
 
 using std::cout;
 using std::cin;
+using std::endl;
 using std::string;
-using std::endl ;
 
-Menu::Menu() : d_gestionnaireQuestionnaires{}, d_gestionnaireEvaluation{},d_gestionnaireApprentissage{}
-{
-}
-
+Menu::Menu() : d_gestionnaireQuestionnaires{}, d_gestionnaireActivite{}
+{}
 
 void Menu::execute()
 {
-    menuChoixQuestionnaire(d_gestionnaireQuestionnaires.nomsDesDifferentsQuestionnaires()) ;
+    menuChoixQuestionnaire(d_gestionnaireQuestionnaires.nomsDesDifferentsQuestionnaires());
 }
-
 
 void Menu::menuChoixQuestionnaire(const std::vector<string> &questionnaires)
 {
-
-
-
     if (questionnaires.empty())
     {
-        cout << "Aucun questionnaire disponible.\n";
+        cout << "\n[!] Aucun questionnaire disponible dans la base de donnees.\n";
         return;
     }
 
-    cout << "Liste des questionnaires disponibles :\n";
-    for (size_t i = 0; i < questionnaires.size(); ++i)
-    {
-        cout << i + 1 << ". " << questionnaires[i] << '\n';
-    }
-
     int choix = -1;
-    do
-    {
-        cout << "Votre choix : ";
-        cin >> choix;
-    }
-    while (choix < 1 || choix > questionnaires.size());
+    do {
+        cout <<'\n' ;
+        cout << string(100,'=') << "\n";
+        styleAffichage::ecritEnBleuCielGras("                           PLATEFORME DE QUESTIONNAIRES\n") ;
+        cout << string(100,'=') << "\n";
 
-    const std::string &nomChoisi = questionnaires[choix - 1];
-    d_gestionnaireQuestionnaires.selectionneQuestionnaire(nomChoisi);
+        cout << "\n  LISTE DES QUESTIONNAIRES DISPONIBLES :\n\n" ;
+
+        for (int i = 0; i < (int)questionnaires.size(); ++i)
+        {
+            cout << "    [" << i + 1 << "] " << questionnaires[i] << "\n";
+        }
+
+        cout << "\n    [0] Quitter le programme \n\n" ;
+
+        styleAffichage::ecritEnBleu(" > Votre choix : ") ;
+
+        cin >> choix;
+
+    } while (choix < 0 || choix > questionnaires.size());
+
+    if (choix == 0) return;
+
+    const std::string &nomQuestionnaire = questionnaires[choix - 1];
+    d_gestionnaireQuestionnaires.selectionneQuestionnaire(nomQuestionnaire);
 
     Questionnaire questionnaire = d_gestionnaireQuestionnaires.questionnaireCourant();
+    d_gestionnaireActivite.selectionneQuestionnaire(questionnaire);
 
-    cout << "\nQuestionnaire sélectionné : "
-         << questionnaire.nomQuestionnaire() << '\n';
-    cout << "Nombre de questions : "
-         << questionnaire.nombreDeQuestions() << '\n';
+    cout << "\n[OK] Chargement de : " << questionnaire.nomQuestionnaire() << "...\n" ;
 
+    menuQuestionnaire(questionnaire);
 }
 
-
- void Menu::menuQuestionnaire(const Questionnaire& questionnaire)
- {
-
-    // (ibra) On informe les gestionnaires du questionnaire courant  car les gestionnaires
-    //ne savent pas automatiquement quel questionnaire l’utilisateur a choisi.
-    d_gestionnaireEvaluation.changeQuestionnaire(questionnaire);
-    d_gestionnaireApprentissage.selectionneQuestionnaire(questionnaire);
-
+void Menu::menuQuestionnaire(const Questionnaire& questionnaire)
+{
     int choix = -1;
 
     do {
-        cout << "\n====================================\n";
-        cout << "Questionnaire : " << questionnaire.nomQuestionnaire() << '\n';
-        cout << "Nombre de questions : " << questionnaire.nombreDeQuestions() << '\n';
-        cout << "====================================\n";
+        cout << "\n\n" ;
+        cout << "══════════════════════════════════════════════════════════════════════════\n" ;
+        cout << "     ACTIF : " ;
+        styleAffichage::ecritEnBleuCiel(questionnaire.nomQuestionnaire());
+        cout << '\n';
 
-        cout << "(1) Apprentissage simple\n";
-        cout << "(2) Apprentissage par type\n";
-        cout << "(3) Evaluation test\n";
-        cout << "(4) Evaluation seconde chance\n";
-        cout << "(5) Evaluation adaptative\n";
-        cout << "(6) Certificat texte\n";
-        cout << "(7) Certificat HTML\n";
-        cout << "(8) Changer de questionnaire\n";
-        cout << "(0) Quitter\n";
-        cout << "Votre choix : ";
+        cout << "     CONTENANT : " << questionnaire.nombreDeQuestions() << " questions \n" ;
+        cout << "══════════════════════════════════════════════════════════════════════════\n" ;
+
+        styleAffichage::ecritEnGras("  --- MODES APPRENTISSAGE ---\n") ;
+        cout << "  (1) Apprentissage Simple \n" ;
+        cout << "  (2) Apprentissage Par type (QCM, Numerique, Texte) \n";
+
+        styleAffichage::ecritEnGras("\n  --- MODES ÉVALUATION ---\n") ;
+        cout << "  (3) Evaluation Simple \n" ;
+        cout << "  (4) Evaluation Seconde Chance \n" ;
+        cout << "  (5) Evaluation Adaptative \n" ;
+
+        styleAffichage::ecritEnGras("\n  --- OPTIONS --- \n") ;
+        cout << "  (6) Changer de questionnaire \n" ;
+        cout << "  (0) Quitter \n\n";
+
+        styleAffichage::ecritEnBleu(" > Votre choix : ") ;
         cin >> choix;
 
-        while (choix < 0 || choix > 8) {
-            cout << "Choix invalide, recommencez : ";
-            cin >> choix;
+        switch (choix)
+        {
+            case 1: d_gestionnaireActivite.lanceApprentissage(Apprentissage_TYPE::APPRENTISSAGE_SIMPLE); break;
+            case 2: d_gestionnaireActivite.lanceApprentissage(Apprentissage_TYPE::APPRENTISSAGE_TYPE); break;
+            case 3: d_gestionnaireActivite.lanceEvaluation(Evaluation_TYPE::EVALUATION_TEST); break;
+            case 4: d_gestionnaireActivite.lanceEvaluation(Evaluation_TYPE::EVALUATION_SECONDE_CHANCE); break;
+            case 5: d_gestionnaireActivite.lanceEvaluation(Evaluation_TYPE::EVALUATION_ADAPTATIVE); break;
+            case 6: menuChoixQuestionnaire(d_gestionnaireQuestionnaires.nomsDesDifferentsQuestionnaires()) ; break ;
+            case 0: return ;
         }
 
-        switch (choix) {
-
-            case 1:
-                d_gestionnaireApprentissage.commenceApprentissage(APPRENTISSAGE_SIMPLE);
-                break;
-
-            case 2:
-                d_gestionnaireApprentissage.commenceApprentissage(APPRENTISSAGE_TYPE);
-                break;
-
-            case 3:
-                d_gestionnaireEvaluation.commenceEvaluation(EVALUATION_TEST);
-                d_gestionnaireEvaluation.genereCertificat(0, EVALUATION_TEST);
-                break;
-
-            case 4:
-                d_gestionnaireEvaluation.commenceEvaluation(EVALUATION_SECONDE_CHANCE);
-                d_gestionnaireEvaluation.genereCertificat(0, EVALUATION_SECONDE_CHANCE);
-                break;
-
-            case 5:
-                d_gestionnaireEvaluation.commenceEvaluation(EVALUATION_ADAPTATIVE);
-                d_gestionnaireEvaluation.genereCertificat(0, EVALUATION_ADAPTATIVE);
-                break;
-
-            case 6:
-                d_gestionnaireEvaluation.genereCertificat(0, EVALUATION_TEST);
-                break;
-
-            case 7:
-                d_gestionnaireEvaluation.genereCertificat(1, EVALUATION_TEST);
-                break;
-
-            case 8:
-                cout << "Retour au menu principal...\n";
-                return;
-
-            case 0:
-                cout << "Fin du programme.\n";
-                 break;
-        }
-
-    } while (choix != 8);
+    } while (choix != 0);
 }
-

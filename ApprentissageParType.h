@@ -7,7 +7,7 @@ class ApprentissageParType : public Apprentissage
 {
     public:
     ApprentissageParType(const Questionnaire& questionnaire);
-    void executer() override;
+    void lanceApprentissage() override;
     private:
 };
 

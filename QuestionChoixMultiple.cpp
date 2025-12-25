@@ -1,4 +1,5 @@
 #include "QuestionChoixMultiple.h"
+#include "styleAffichage.h"
 #include <iostream>
 
 
@@ -28,7 +29,7 @@ std::string QuestionChoixMultiple::intitule() const
     std::string question {d_intitule} ;
     for (int i = 0; i < nombreDeChoix(); i++)
     {
-        question += '\n' + std::to_string(i+1) + '-' + choixNumero(i) ;
+        question += "\n       " + std::to_string(i+1) + "- " + choixNumero(i) ;
     }
     return question ;
 }
@@ -40,14 +41,14 @@ std::string QuestionChoixMultiple::instructionsQuestion() const
 
 std::string QuestionChoixMultiple::reponse() const
 {
-    return std::string(std::to_string(d_indiceReponse+1) + '-' + choixNumero(d_indiceReponse) ) ;
+    return std::string(std::to_string(d_indiceReponse+1) + "- " + choixNumero(d_indiceReponse) ) ;
 }
 
 bool QuestionChoixMultiple::validiteEntreeUtilisateur(const std::string &reponse) const
 {
     if (reponse.empty())
     {
-        std::cout << "Veuillez entrer le numero de la bonne reponse\n";
+        styleAffichage::ecritEnRouge("Veuillez entrer le numero de la bonne reponse\n") ;
         return false;
     }
     try
@@ -55,7 +56,7 @@ bool QuestionChoixMultiple::validiteEntreeUtilisateur(const std::string &reponse
         int valeur = std::stoi(reponse);
         if (valeur <= 0 || valeur > d_reponsesPossibles.size())
         {
-            std::cout << "Numero de réponse hors plage, veuillez entrez un numéro valide\n";
+            styleAffichage::ecritEnRouge("Numero de réponse hors plage, veuillez entrez un numéro valide\n") ;
             return false;
         }
         else
@@ -63,12 +64,12 @@ bool QuestionChoixMultiple::validiteEntreeUtilisateur(const std::string &reponse
     }
     catch (const std::invalid_argument&)
     {
-        std::cout << "Veuillez saisir un numero valide\n";
+        styleAffichage::ecritEnRouge("Veuillez saisir un numero valide\n") ;
         return false;
     }
     catch (const std::out_of_range&)
     {
-        std::cout << "Nombre trop grand, veuillez saisir un numéro valide\n";
+        styleAffichage::ecritEnRouge("Nombre trop grand, veuillez saisir un numéro valide\n") ;
         return false;
     }
 }

@@ -1,4 +1,5 @@
 #include "QuestionNumerique.h"
+#include "styleAffichage.h"
 #include <iostream>
 
 using std::cout;
@@ -35,32 +36,34 @@ bool QuestionNumerique::validiteEntreeUtilisateur(const string &reponse) const
 {
     if (reponse.empty())
     {
-        cout<< "Veuillez donnez une réponse "<<'\n';
+        styleAffichage::ecritEnRouge("Veuillez donnez une réponse \n") ;
         return false;
     }
-    for (size_t i = 0; i < reponse.length(); i++)
+    else if (reponse.length() > 9)
     {
-        if (!isdigit(reponse[i]))
-        {
-            std::cout << "Saisie invalide : veuillez n'entrer que des chiffres." << std::endl;
-            return false;
-        }
-    }
-    try
-    {
-        std::stoi(reponse);
-        return true;
-    }
-    catch (const std::invalid_argument&)
-    {
-        std::cout << "Ceci n'est pas un nombre,Veuillez saisir un nombre valide\n";
+        styleAffichage::ecritEnRouge("  [!] Erreur : Nombre trop long ou vide.\n");
         return false;
     }
-    catch (const std::out_of_range&)
+
+    int i=0;
+    if(reponse[i]=='+' || reponse[i]=='-')
     {
-        std::cout << "Nombre trop grand, veuillez saisir un nombre valide\n";
+        if (reponse.length()==1)
+            return false ;
+        else
+            ++i;
+    }
+
+    while(i< reponse.length() && isdigit(reponse[i]) )
+    {
+        ++i;
+    }
+    if(i != reponse.length())
+    {
+        styleAffichage::ecritEnRouge("Saisie invalide : veuillez n'entrer que des chiffres.\n") ;
         return false;
     }
+    return true;
 }
 
 bool QuestionNumerique::verificationReponse(const string &reponse) const

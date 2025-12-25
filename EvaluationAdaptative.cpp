@@ -3,22 +3,28 @@
 #include <ctime>
 #include <cstdlib>
 
+#include "styleAffichage.h"
+
 EvaluationAdaptative::EvaluationAdaptative(const Questionnaire &questionnaire)
-    : Evaluation{questionnaire}, d_indicesErreursPremierPassage{} {}
+    : Evaluation{questionnaire}, d_indicesErreursPremierPassage{}
+{
+
+}
+
 
 bool EvaluationAdaptative::traiterReponse(int indice, const std::string& reponse)
 {
     std::string reponsePropre = lireReponseValide(indice, reponse);
 
-    if (d_questionnaire->verificationReponse(indice, reponsePropre))
+    if (reponseJuste(indice, reponsePropre))
     {
-        std::cout << "[v] Bonne reponse !" << '\n';
+        styleAffichage::ecritEnVert("[v] Bonne reponse !\n") ;
         augmenteScore();
         return true ;
     }
     else
     {
-        std::cout << "[x] Mauvaise reponse..." << '\n';
+        styleAffichage::ecritEnRouge("[x] Mauvaise reponse...\n") ;
         return false;
     }
 }
@@ -29,26 +35,27 @@ void EvaluationAdaptative::PremierPassage(std::vector<int>& tableau, bool &aQuit
     d_indicesErreursPremierPassage.clear();
     std::srand(std::time(nullptr));
 
+    int i = -1 ;
+
     while (!tableau.empty())
     {
         int indiceAlea = std::rand() % tableau.size();
         int indQuestion = tableau[indiceAlea];
 
-        std::cout << separateur('=', 100);
-        std::cout <<"Entrez * pour quitter l'evaluation seconde chance\n" ;
-        std::cout << separateur('-',100) ;
-        std::cout << "Question N°" + std::to_string(indQuestion+1) + " sur "
-                  + std::to_string(taille) + '\n' ;
-        std::cout << d_questionnaire->intituleQuestionNumero(indQuestion)<<std::endl ;
-        std::cout << d_questionnaire->instructionsQuestionNumero(indQuestion)<<std::endl ;
+        styleAffichage::affichageEnteteQuestion("EVALUATION ADAPTATIVE", ++i, taille);
+        styleAffichage::ecritEnBleu("  (Tapez '*' pour quitter l'Evaluation Adaptativr)") ;
+        affichageQuestionNumero(indQuestion, taille) ;
 
         std::string saisie;
-        std::cout<<"> " ;
         std::getline(std::cin, saisie);
 
         if (saisie == "*")
         {
             std::cout << "Vous avez quittez l'evaluation Seconde Chance\n" ;
+            for (int j = indQuestion; j < d_indicesErreursPremierPassage.size(); j++)
+            {
+                enregistreErreurs(j) ;
+            }
             aQuitter = true;
             return;
         }
@@ -58,33 +65,33 @@ void EvaluationAdaptative::PremierPassage(std::vector<int>& tableau, bool &aQuit
             d_indicesErreursPremierPassage.push_back(indQuestion);
         }
         tableau.erase(tableau.begin() + indiceAlea);
+
+        styleAffichage::affichagePiedDePageQuestion() ;
     }
 }
 
 void EvaluationAdaptative::SecondPassage()
 {
     if (d_indicesErreursPremierPassage.empty()) return;
+    int taille = d_indicesErreursPremierPassage.size() ;
 
-    std::cout << "\n--- PHASE DE RATTRAPAGE ---\n";
+    styleAffichage::ecritEnGras("\n--- PHASE DE RATTRAPAGE ---\n") ;
+
+    int i = -1 ;
 
     for (int indQuestion : d_indicesErreursPremierPassage)
     {
-        std::cout << separateur('=', 100);
-        std::cout <<"Entrez * pour quitter l'evaluation seconde chance\n" ;
-        std::cout << separateur('-',100) ;
-        std::cout << "Question N°" + std::to_string(indQuestion+1) + " sur "
-                  + std::to_string(d_indicesErreursPremierPassage.size()) + '\n' ;
-        std::cout << d_questionnaire->intituleQuestionNumero(indQuestion)<<std::endl;
-        std::cout << d_questionnaire->instructionsQuestionNumero(indQuestion)<<std::endl;
+        styleAffichage::affichageEnteteQuestion("EVALUATION ADAPTATIVE", ++i, taille);
+        styleAffichage::ecritEnBleu("  (Tapez '*' pour quitter l'Evaluation Adaptative)") ;
+        affichageQuestionNumero(indQuestion, taille) ;
 
         std::string saisie;
-        std::cout<<"> " ;
         std::getline(std::cin, saisie);
 
         if (saisie == "*")
         {
             std::cout << "Vous avez quittez l'evaluation Seconde Chance\n" ;
-            for (int j = indQuestion; j < d_indicesErreursPremierPassage.size(); j++)
+            for (int j = indQuestion; j < taille; j++)
             {
                 enregistreErreurs(j) ;
             }
@@ -95,18 +102,23 @@ void EvaluationAdaptative::SecondPassage()
         {
             enregistreErreurs(indQuestion);
         }
+
+        styleAffichage::affichagePiedDePageQuestion() ;
     }
 }
 
 void EvaluationAdaptative::lanceEvaluation()
 {
-    std::cout << "Lancement de l'evaluation Adaptative sur le questionnaire\n" ;
+    std::cin.ignore() ;
+
+    styleAffichage::affichageEnteteActivites("EVALUATION ADAPTATIVE") ;
+
     augmenteEssai();
     bool aQuitter = false ;
 
     std::vector<int> questionsDisponibles;
-    questionsDisponibles.reserve(d_questionnaire->nombreDeQuestions()) ;
-    for (int i = 0; i < d_questionnaire->nombreDeQuestions(); ++i)
+    questionsDisponibles.reserve(nombreDeQuestions()) ;
+    for (int i = 0; i < nombreDeQuestions(); ++i)
     {
         questionsDisponibles.push_back(i);
     }
@@ -117,6 +129,8 @@ void EvaluationAdaptative::lanceEvaluation()
     {
         SecondPassage();
     }
+
+    styleAffichage::affichageEnteteActivites("EVALUATION ADAPTATIVE") ;
 
     std::cout << "\n" << resultatEvaluation() << '\n';
 }

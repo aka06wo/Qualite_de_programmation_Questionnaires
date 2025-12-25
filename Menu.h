@@ -2,29 +2,22 @@
 #define CODE_QUESTIONNAIRE_MENU_H
 
 #include "gestionnaireQuestionnaires.h"
-#include "gestionnaireEvaluations.h"
-#include "gestionnaireApprentissage.h"
+#include "GestionnaireActivites.h"
 
-class Menu
-{
-    public :
-    Menu() ;
-    void execute() ;
+class Menu {
+public:
+    Menu();
+    /** Lance la boucle principale de l'application */
+    void execute();
 
-    private :
-    gestionnaireApprentissage d_gestionnaireApprentissage ;
-    gestionnaireQuestionnaires  d_gestionnaireQuestionnaires ;
-    gestionnaireEvaluations    d_gestionnaireEvaluation ;
-    void menuChoixQuestionnaire(const std::vector<std::string> &questionnaires) ;
-    void menuQuestionnaire(const Questionnaire& questionnaire) ;
-    // MENU Questionnaire
-    static constexpr int APPRENTISSAGE_SIMPLE = 0 ;
-    static constexpr int APPRENTISSAGE_TYPE = 1 ;
-    static constexpr int EVALUATION_TEST = 0 ;
-    static constexpr int EVALUATION_SECONDE_CHANCE = 1 ;
-    static constexpr int EVALUATION_ADAPTATIVE = 2 ;
-    static constexpr int CERTIFICATE_TEXT = 1 ;
-    static constexpr int CERTIFICATE_HTML = 2 ;
+private:
+    gestionnaireQuestionnaires d_gestionnaireQuestionnaires;
+    GestionnaireActivites d_gestionnaireActivite;
+
+    /** Menu de selection du fichier JSON */
+    void menuChoixQuestionnaire(const std::vector<std::string> &questionnaires);
+    /** Menu des activites pour un questionnaire precis */
+    void menuQuestionnaire(const Questionnaire& q);
 };
 
 

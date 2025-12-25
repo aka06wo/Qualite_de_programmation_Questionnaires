@@ -5,7 +5,8 @@
 #include <string>
 #include <iostream>
 
-class QuestionTexte:public Question {
+class QuestionTexte: public Question
+{
     public:
     QuestionTexte(const std::string &intitule, const std::string &reponse);
     std::string intitule() const override ;

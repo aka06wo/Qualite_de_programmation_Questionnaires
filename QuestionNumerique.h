@@ -7,9 +7,27 @@
 class QuestionNumerique : public Question
 {
     public:
-    QuestionNumerique(const std::string& intitule,int reponse,int limitemax,int limitemin);
+    /**
+     Constructeur de la classe QuestionNumerique
+     @param intitule L'enonce de la question
+     @param reponse La valeur entiere attendue comme reponse correcte
+     @param limitemax La valeur maximale autorisee pour la saisie utilisateur
+     @param limitemin La valeur minimale autorisee pour la saisie utilisateur
+     */
+    QuestionNumerique(const std::string& intitule, int reponse, int limitemax, int limitemin);
+
+    /**
+     Renvoie la borne inferieure de validite pour cette question
+     @return La limite minimum autorisee (entier)
+     */
     int limiteMinimum() const ;
+
+    /**
+     Renvoie la borne superieure de validite pour cette question
+     @return La limite maximum autorisee (entier)
+     */
     int limiteMaximum() const ;
+
     std::string intitule() const override ;
     std::string instructionsQuestion() const override;
     std::string reponse() const override ;

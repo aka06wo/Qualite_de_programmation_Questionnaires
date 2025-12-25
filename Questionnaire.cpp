@@ -72,6 +72,16 @@ std::string Questionnaire::typeQuestionNumero(int i) const
     return d_Questions[i]->typeQuestion() ;
 }
 
+std::set<std::string> Questionnaire::nomsDifferentsTypesQuestions() const
+{
+    std::set<std::string> nomsDifferents ;
+    for (int i=0 ; i< nombreDeQuestions() ; i++)
+    {
+        nomsDifferents.insert(typeQuestionNumero(i)) ;
+    }
+    return nomsDifferents ;
+}
+
 json Questionnaire::conversionQuestionnaireJson() const {
     json resultat;
     resultat["description"] = descriptionQuestionnaire();

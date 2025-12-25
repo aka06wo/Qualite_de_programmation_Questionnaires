@@ -1,5 +1,5 @@
 #include "ApprentissageSimple.h"
-
+#include "styleAffichage.h"
 #include <iostream>
 
 using std::cout;
@@ -11,31 +11,56 @@ ApprentissageSimple::ApprentissageSimple(const Questionnaire& questionnaire):
 {
 }
 
-void ApprentissageSimple::executer()
+void ApprentissageSimple::lanceApprentissage()
 {
-    cout<<"Apprentissage Simple"<<endl;
-    cout<<"Questionnaire portant sur: "<<d_questionnaire->nomQuestionnaire()<<endl;
-    int nbQuestions=d_questionnaire->nombreDeQuestions();
-    if(nbQuestions==0)
+    styleAffichage::affichageEnteteActivites("APPRENTISSAGE SIMPLE") ;
+
+    std::cout << "\n  Questionnaire : " << d_questionnaire->nomQuestionnaire() << std::endl;
+
+    int nbQuestions = d_questionnaire->nombreDeQuestions();
+
+    cin.ignore();
+
+    if(nbQuestions == 0)
     {
-        cout<<"Le questionnaire est vide."<<endl;
-        return;
+        styleAffichage::ecritEnRouge("\n  [!] Le questionnaire est vide. Fin de l'apprentissage.") ;
+        std::cout << std::string(70,'=') << std::endl;
     }
     else
     {
-        for(int i=0;i<nbQuestions - 1;++i)
+        for(int i = 0; i < nbQuestions - 1; ++i)
         {
-            cout<<"[Question "<<i+1<<"/"<<nbQuestions<<"]"<<endl;
-            std::cout<<d_questionnaire->intituleQuestionNumero(i) ;
-            std::cout<<d_questionnaire->reponseQuestionNumero(i) ;
-            cout<<"Appuyer sur ENTRER pour passer a la question suivante..."<<endl;
+            styleAffichage::affichageEnteteQuestion("APPRENTISSAGE SIMPLE",i,nbQuestions) ;
+
+            std::cout << "\n [QUESTION] :" << std::endl;
+            std::cout << "   " << d_questionnaire->intituleQuestionNumero(i) << std::endl;
+
+            std::cout << "\n [REPONSE] :" << std::endl;
+            std::cout << "   -> " << d_questionnaire->reponseQuestionNumero(i) << std::endl;
+
+            styleAffichage::affichagePiedDePageQuestion() ;
+
+            std::cout << std::string(70,'.') << std::endl;
+            styleAffichage::ecritEnBleu("> Appuyez sur ENTRER pour passer a la question suivante\n") ;
+            std::cout << std::string(70,'.') << std::endl;
+
             cin.get();
         }
-        int dernierElement = nbQuestions - 1;
-        cout<<"[Question "<<dernierElement+1<<"/"<<nbQuestions<<"]"<<endl;
-        std::cout<<d_questionnaire->intituleQuestionNumero(dernierElement) ;
-        std::cout<<d_questionnaire->reponseQuestionNumero(dernierElement) ;
 
-        cout<<"FIN de l'apprentissage"<<endl;
+
+        int dernierElement = nbQuestions - 1;
+
+        styleAffichage::affichageEnteteQuestion("APPRENTISSAGE SIMPLE",dernierElement,nbQuestions) ;
+
+        std::cout << "\n [QUESTION] :" << std::endl;
+        std::cout << "   " << d_questionnaire->intituleQuestionNumero(dernierElement) << std::endl;
+
+        std::cout << "\n [RÉPONSE] :" << std::endl;
+        std::cout << "   -> " << d_questionnaire->reponseQuestionNumero(dernierElement) << std::endl;
+
+        styleAffichage::affichagePiedDePageQuestion() ;
+
+
+        styleAffichage::affichagePiedDePageActivites("APPRENTISSAGE SIMPLE") ;
     }
 }

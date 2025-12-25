@@ -1,6 +1,8 @@
 #include "Evaluation.h"
 #include <iostream>
 
+#include "styleAffichage.h"
+
 
 std::string Evaluation::separateur(const char &c, int k)
 {
@@ -11,6 +13,20 @@ std::string Evaluation::separateur(const char &c, int k)
 Evaluation::Evaluation(const Questionnaire &questionnaire) :
         d_questionnaire{&questionnaire}, d_essais{}
 {
+}
+
+int Evaluation::nombreDeQuestions() const
+{
+    return d_questionnaire->nombreDeQuestions() ;
+}
+bool Evaluation::reponseJuste (int i, const std::string &rep) const
+{
+    return d_questionnaire->verificationReponse(i,rep) ;
+}
+
+std::string Evaluation::reponseNumero (int i) const
+{
+    return d_questionnaire->reponseQuestionNumero(i) ;
 }
 
 void Evaluation::augmenteEssai()
@@ -36,6 +52,11 @@ essai Evaluation::dernierEssai() const
     }
 }
 
+int Evaluation::scoreDernierEssai() const
+{
+    return dernierEssai().score() ;
+}
+
 void Evaluation::augmenteScore()
 {
     d_essais[nombreEssais()-1].augmenteScore() ;
@@ -46,43 +67,50 @@ void Evaluation::enregistreErreurs(int indiceErreur)
     d_essais[nombreEssais()-1].saisieErreurs(indiceErreur) ;
 }
 
-std::string Evaluation::erreursEssaiNumero (int numEssai) const
+void Evaluation::afficherErreursEssaiNum(int numEssai) const
 {
-    std::string essai {} ;
-    essai += "ESSAI NUMERO : " + std::to_string(numEssai) + '\n';
-    for (int i=0; i < d_essais[numEssai].nombreErreurs(); i++)
+    int nbErreurs = d_essais[numEssai].nombreErreurs();
+    if (nbErreurs == 0) return;
+
+    styleAffichage::ecritEnGras("\n--- ESSAI N°" + std::to_string(numEssai + 1) + " ---\n");
+
+    for (int i = 0; i < nbErreurs; i++)
     {
-        essai += separateur(100,'-') ;
-        essai += "Erreur N°"+ std::to_string(i+1) +":\n" ;
-        essai += d_questionnaire->intituleQuestionNumero(i) + '\n' ;
-        essai += "Reponse correcte : " +
-                     d_questionnaire->reponseQuestionNumero(i) + '\n';
-        essai += separateur(100,'-') ;
+        int idx = d_essais[numEssai].erreurNumero(i);
+
+        styleAffichage::ecritEnBleuCiel("  " + std::to_string(i + 1) + ". ");
+        std::cout << d_questionnaire->intituleQuestionNumero(idx) << "\n";
+
+        styleAffichage::ecritEnVert("     -> Correction : ");
+        std::cout << "         "<<d_questionnaire->reponseQuestionNumero(idx) << "\n\n";
     }
-    return essai ;
 }
 
-std::string Evaluation::erreursCommisesEssais() const
+void Evaluation::erreursCommisesEssais() const
 {
-    std::string erreursEssais {} ;
-    erreursEssais += "Voici vos erreurs commises sur le Questionnaire \n["
-              + d_questionnaire->nomQuestionnaire() + "]\n" ;
-    for (int i=0;i<d_essais.size();i++)
+    std::cout<<"\n============================================================\n";
+    styleAffichage::ecritEnBleuCielGras("              RECAPITULATIF GLOBAL DES ERREURS             \n");
+    std::cout<<"============================================================\n";
+
+    if (d_essais.empty())
     {
-        erreursEssais += erreursEssaiNumero(i) ;
+        styleAffichage::ecritEnRouge("  [!] Aucun essai n'a ete enregistre pour le moment.\n");
     }
-    return erreursEssais ;
+    else
+    {
+        for (int i = 0; i < (int)d_essais.size(); ++i)
+        {
+            afficherErreursEssaiNum(i);
+        }
+    }
+
+    std::cout<<"\n____________________________________________________________\n\n";
 }
 
 void Evaluation::changerQuestionnaire(const Questionnaire &nouveauQuestionnaire)
 {
     d_questionnaire = &nouveauQuestionnaire;
     d_essais.clear();
-}
-
-int Evaluation::scoreDernierEssai() const
-{
-    return dernierEssai().score() ;
 }
 
 double Evaluation::pourcentageReussite() const
@@ -96,7 +124,7 @@ std::string Evaluation::lireReponseValide(int indiceQuestion, const std::string 
     std::string reponseValide = reponse;
     while (!d_questionnaire->validiteEntreeUtilisateur(indiceQuestion, reponseValide))
     {
-        std::cout<<"> " ;
+        std::cout<<"  > " ;
         getline(std::cin,reponseValide);
     }
     return reponseValide;
@@ -134,5 +162,16 @@ std::string Evaluation::messageSelonScore(double pourcentage)
     }
 
     return message;
+}
+
+
+void Evaluation::affichageQuestionNumero(int i, int nbQuestions) const
+{
+    std::cout << "\n [QUESTION] :" << std::endl;
+    std::cout << "   " << d_questionnaire->intituleQuestionNumero(i) << std::endl;
+    styleAffichage::ecritEnBleu("   " + d_questionnaire->instructionsQuestionNumero(i) + '\n') ;
+
+    std::cout << "\n [VOTRE RÉPONSE] :\n" ;
+    std::cout << "   > ";
 }
 
